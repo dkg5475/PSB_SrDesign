@@ -3,9 +3,9 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,D
 2,PA01,,Available,,,,,Yes,NORMAL
 3,PA02,,DAC_VOUT,Analog,High Impedance,n/a,,,NORMAL
 4,PA03,,ADC0_AIN1/VREFP,Analog,High Impedance,n/a,,,NORMAL
-5,PA04,,Available,,,,,Yes,NORMAL
-6,PA05,,Available,,,,,Yes,NORMAL
-7,PA06,,Available,,,,,Yes,NORMAL
+5,PA04,,SDADC_VREFP,Analog,High Impedance,n/a,,,NORMAL
+6,PA05,,ADC0_AIN5,Analog,High Impedance,n/a,,,NORMAL
+7,PA06,,ADC0_AIN6,Analog,High Impedance,n/a,,,NORMAL
 8,PA07,,Available,,,,,Yes,NORMAL
 11,PA08,,SERCOM0_PAD0,Digital,High Impedance,n/a,No,No,NORMAL
 12,PA09,,SERCOM0_PAD1,Digital,High Impedance,n/a,No,No,NORMAL
@@ -13,9 +13,9 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,D
 14,PA11,,Available,,,,,Yes,NORMAL
 15,PA14,,Available,,,,,Yes,NORMAL
 16,PA15,,Available,,,,,Yes,NORMAL
-17,PA16,,Available,,,,,Yes,NORMAL
-18,PA17,,Available,,,,,Yes,NORMAL
-19,PA18,,Available,,,,,Yes,NORMAL
+17,PA16,,SERCOM3_PAD0,Digital,High Impedance,n/a,No,No,NORMAL
+18,PA17,,SERCOM3_PAD1,Digital,High Impedance,n/a,No,No,NORMAL
+19,PA18,,SERCOM3_PAD2,Digital,High Impedance,n/a,No,No,NORMAL
 20,PA19,,Available,,,,,Yes,NORMAL
 21,PA22,,Available,,,,,Yes,NORMAL
 22,PA23,,Available,,,,,Yes,NORMAL

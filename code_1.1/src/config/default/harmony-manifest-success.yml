@@ -4,11 +4,11 @@
 
 
 project: code_1.1
-creation_date: 2025-01-19T17:19:53.241-05:00[America/New_York]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-01-30T21:18:43.216-05:00[America/New_York]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mcc_mode: IDE            # [IDE|Standalone|Headless]
-mcc_version: v5.5.0
-mcc_core_version: v5.7.0
+mcc_version: v5.5.1
+mcc_core_version: v5.7.1
 mplabx_version: v6.20        # if MPLAB X plugin only
 harmony_version: v1.5.4
 compiler: XC32 4.45
