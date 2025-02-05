@@ -27,6 +27,10 @@
 #include <stdlib.h>                     // Defines EXIT_FAILURE
 #include "definitions.h"                // SYS function prototypes
 
+#define ADC_VREF                (2.0f)
+#define DAC_COUNT_INCREMENT     (31U)  // equivalent to 0.1V(0.1 / (3.3 / ((2^10) - 1))) 
+#define DAC_COUNT_MAX           (1023U)
+
 
 // *****************************************************************************
 // *****************************************************************************
