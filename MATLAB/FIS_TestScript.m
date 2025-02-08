@@ -1,49 +1,72 @@
-%% Load the Type-2 Sugeno FIS
+%% Load FIS
+% /home/dan/Documents/MATLAB/ add this when using Ubuntu
 fis = readfis("OCXO_Type2_Sugeno_1.fis");
 
-%% Define Test Input Ranges
-numSamples = 50;
-TempDeviationRange = linspace(90, 105, numSamples); % Extended temp range
-TempSlopeRange = linspace(-0.5, 0.5, numSamples); % °C per second
+%% Define Test Inputs
+% Define a range of temperature readings and slopes to test
+TempReadings = linspace(-40, 120, 50); % From -40°C to 120°C
+TempSlopes = linspace(-1, 1, 10); % From -1°C/s to 1°C/s
 
-%% Meshgrid for 3D Evaluation
-[TDev, TSlope] = meshgrid(TempDeviationRange, TempSlopeRange);
-FIS_Output = zeros(size(TDev));
+%% Evaluate the FIS
+PowerAdjustResults = zeros(length(TempReadings), length(TempSlopes));
 
-%% Evaluate FIS for Each Input Combination
-for i = 1:numel(TDev)
-    inputVals = [TDev(i), TSlope(i)];
-    FIS_Output(i) = evalfis(fis, inputVals);
+for i = 1:length(TempReadings)
+    for j = 1:length(TempSlopes)
+        inputValues = [TempReadings(i), TempSlopes(j)];
+        PowerAdjustResults(i, j) = evalfis(fis, inputValues);
+    end
 end
 
-%% Plot the FIS Response
-figure;
-surf(TDev, TSlope, FIS_Output);
-xlabel("Temperature Deviation (°C)");
-ylabel("Temperature Slope (°C/s)");
-zlabel("Power Adjustment");
-title("FIS Response for OCXO Temperature Control");
-colorbar;
+%% Plot Results
 
-%% Test Specific Scenarios
-TestCases = [
-    92, -0.3;  % Cold and cooling fast
-    92, 0;     % Cold but stable
-    96, 0;     % Optimal and stable
-    100, 0.3;  % Hot and heating up
-    103, 0.5   % Too hot and increasing temp
+figure;
+surf(TempSlopes, TempReadings, PowerAdjustResults);
+xlabel("Temperature Slope (°C/s)");
+ylabel("Temperature Reading (°C)");
+zlabel("Power Adjustment (V)");
+title("Fuzzy Inference System Output for OCXO Control");
+colorbar;
+grid on;
+
+%% Single Test Cases (for debugging)
+disp("Testing specific input cases:");
+testCases = [
+    -40, -1;   % Extreme cold, rapidly decreasing
+    -40, 0;    % Extreme cold, stable
+    -40, 1;    % Extreme cold, increasing
+    
+    -20, -0.5; % Very cold, cooling
+    -20, 0.5;  % Very cold, warming
+    
+    10, -0.5;  % Cold, cooling
+    10, 0.5;   % Cold, warming
+    
+    40, -0.2;  % Cold, slight cooling
+    40, 0.2;   % Cold, slight warming
+    
+    60, -0.1;  % Approaching optimal, cooling
+    60, 0.1;   % Approaching optimal, warming
+    
+    85, -0.05; % Near-optimal, slight cooling
+    85, 0.05;  % Near-optimal, slight warming
+    
+    97, -0.1;  % Ideal temp, slight cooling
+    97, 0;     % Ideal temp, stable
+    97, 0.1;   % Ideal temp, slight warming
+    
+    105, -0.5; % Slightly hot, cooling
+    105, 0.5;  % Slightly hot, warming
+    
+    115, -0.2; % Very hot, cooling
+    115, 0.2;  % Very hot, warming
+    
+    120, -1;   % Extreme hot, rapidly cooling
+    120, 0;    % Extreme hot, stable
+    120, 1;    % Extreme hot, rapidly increasing
 ];
 
-numTests = size(TestCases, 1);
-TestResults = zeros(numTests, 1);
-
-for i = 1:numTests
-    TestResults(i) = evalfis(fis, TestCases(i, :));
-end
-
-%% Display Test Results
-fprintf("\nOCXO Controller Simulation Results:\n");
-for i = 1:numTests
-    fprintf("TempDeviation: %.1f°C, TempSlope: %.2f°C/s -> PowerAdjust: %.2f\n", ...
-        TestCases(i, 1), TestCases(i, 2), TestResults(i));
+for i = 1:size(testCases, 1)
+    result = evalfis(fis, testCases(i, :));
+    fprintf("Temp: %.2f°C, Slope: %.2f°C/s -> Power Adjust: %.2fV\n", ...
+            testCases(i, 1), testCases(i, 2), result);
 end

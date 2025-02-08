@@ -23,9 +23,9 @@ MF3='Hot':'gauss2mf',[2.5 105 2.5 120]
 Name='TempSlope'
 Range=[-1 1]
 NumMFs=3
-MF1='Decreasing':'gauss2mf',[0.1 -1 0.1 -0.35]
-MF2='Stable':'gauss2mf',[0.1 -0.03 0.1 0.03]
-MF3='Increasing':'gauss2mf',[0.1 0.35 0.1 1]
+MF1='Decreasing':'gauss2mf',[0.2 -1 0.2 -0.35]
+MF2='Stable':'gauss2mf',[0.2 -0.03 0.2 0.03]
+MF3='Increasing':'gauss2mf',[0.2 0.35 0.2 1]
 
 [Output1]
 Name='PowerAdjust'

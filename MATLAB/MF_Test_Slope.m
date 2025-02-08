@@ -1,8 +1,8 @@
 x = -1:0.01:1; % Slope range
 
-yDec = gauss2mf(x, [0.1, -1, 0.1, -0.35]);
-yStable = gauss2mf(x, [0.1, -0.03, 0.1, 0.03]);
-yInc = gauss2mf(x, [0.1, 0.35, 0.1, 1]);
+yDec = gauss2mf(x, [0.2, -1, 0.2, -0.35]);
+yStable = gauss2mf(x, [0.2, -0.03, 0.2, 0.03]);
+yInc = gauss2mf(x, [0.2, 0.35, 0.2, 1]);
 
 % Plot Membership Functions
 figure; hold on;

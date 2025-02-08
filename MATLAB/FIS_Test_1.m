@@ -21,11 +21,9 @@ fis = addMF(fis, "TempReadings", "gauss2mf", [2.5, hotLower, 2.5, hotUpper], "Na
 fis = addInput(fis, [-1 1], "Name", "TempSlope"); % °C per second
 
 % Type-2 Gaussian MFs for Temperature Slope
-fis = addMF(fis, "TempSlope", "gauss2mf", [0.1, -1, 0.1, -0.35], "Name", "Decreasing");
-fis = addMF(fis, "TempSlope", "gauss2mf", [0.1, -0.03, 0.1, 0.03], "Name", "Stable");
-fis = addMF(fis, "TempSlope", "gauss2mf", [0.1, 0.35, 0.1, 1], "Name", "Increasing");
-
-
+fis = addMF(fis, "TempSlope", "gauss2mf", [0.2, -1, 0.2, -0.35], "Name", "Decreasing");
+fis = addMF(fis, "TempSlope", "gauss2mf", [0.2, -0.03, 0.2, 0.03], "Name", "Stable");
+fis = addMF(fis, "TempSlope", "gauss2mf", [0.2, 0.35, 0.2, 1], "Name", "Increasing");
 
 %% Add Output: Power Adjustment (Heater Control)
 
@@ -72,4 +70,5 @@ plotfis(fis);
 title("Type-2 Sugeno FIS for OCXO Temperature Control");
 
 %% Save FIS
-writeFIS(fis, "/home/dan/Documents/MATLAB/OCXO_Type2_Sugeno_1.fis"); 
+writeFIS(fis, "OCXO_Type2_Sugeno_1.fis"); 
+% /home/dan/Documents/MATLAB/ add this when using Ubuntu
