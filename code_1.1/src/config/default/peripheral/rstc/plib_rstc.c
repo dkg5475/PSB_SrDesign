@@ -1,18 +1,24 @@
 /*******************************************************************************
- System Interrupts File
+  Reset Controller(RSTC) PLIB
 
-  Company:
+  Company
     Microchip Technology Inc.
 
-  File Name:
-    interrupt.h
+  File Name
+    plib_rstc.c
 
-  Summary:
-    Interrupt vectors mapping
+  Summary
+    RSTC PLIB Implementation File.
 
-  Description:
-    This file contains declarations of device vectors used by Harmony 3
- *******************************************************************************/
+  Description
+    This file defines the interface to the RSTC peripheral library.
+    This library provides access to and control of the associated
+    Reset Controller.
+
+  Remarks:
+    None.
+
+*******************************************************************************/
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
@@ -36,39 +42,26 @@
 * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- *******************************************************************************/
+*******************************************************************************/
 // DOM-IGNORE-END
-
-#ifndef INTERRUPTS_H
-#define INTERRUPTS_H
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-#include <stdint.h>
+/* This section lists the other files that are included in this file.
+*/
 
-
+#include "plib_rstc.h"
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Handler Routines
+// Section: RSTC Implementation
 // *****************************************************************************
 // *****************************************************************************
+RSTC_RESET_CAUSE RSTC_ResetCauseGet( void )
+{
+    return ( RSTC_RESET_CAUSE ) RSTC_REGS->RSTC_RCAUSE;
+}
 
-void Reset_Handler (void);
-void NMI_InterruptHandler (void);
-void HardFault_Handler (void);
-void PAC_InterruptHandler (void);
-void SUPC_InterruptHandler (void);
-void WDT_InterruptHandler (void);
-void RTC_InterruptHandler (void);
-void NVMCTRL_InterruptHandler (void);
-void SERCOM0_USART_InterruptHandler (void);
-void SERCOM3_SPI_InterruptHandler (void);
-void TC3_TimerInterruptHandler (void);
-
-
-
-#endif // INTERRUPTS_H

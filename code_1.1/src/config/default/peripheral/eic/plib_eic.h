@@ -97,11 +97,113 @@
 */
 
 
+    /* External Interrupt Controller Pin 0 */
+#define    EIC_PIN_0   (0U)
+
+    /* External Interrupt Controller Pin 1 */
+#define    EIC_PIN_1   (1U)
+
+    /* External Interrupt Controller Pin 2 */
+#define    EIC_PIN_2   (2U)
+
+    /* External Interrupt Controller Pin 3 */
+#define    EIC_PIN_3   (3U)
+
+    /* External Interrupt Controller Pin 4 */
+#define    EIC_PIN_4   (4U)
+
+    /* External Interrupt Controller Pin 5 */
+#define    EIC_PIN_5   (5U)
+
+    /* External Interrupt Controller Pin 6 */
+#define    EIC_PIN_6   (6U)
+
+    /* External Interrupt Controller Pin 7 */
+#define    EIC_PIN_7   (7U)
+
+    /* External Interrupt Controller Pin 8 */
+#define    EIC_PIN_8   (8U)
+
+    /* External Interrupt Controller Pin 9 */
+#define    EIC_PIN_9   (9U)
+
+    /* External Interrupt Controller Pin 10 */
+#define    EIC_PIN_10   (10U)
+
+    /* External Interrupt Controller Pin 11 */
+#define    EIC_PIN_11   (11U)
+
+    /* External Interrupt Controller Pin 12 */
+#define    EIC_PIN_12   (12U)
+
+    /* External Interrupt Controller Pin 13 */
+#define    EIC_PIN_13   (13U)
+
+    /* External Interrupt Controller Pin 14 */
+#define    EIC_PIN_14   (14U)
+
+    /* External Interrupt Controller Pin 15 */
+#define    EIC_PIN_15   (15U)
+
 #define    EIC_PIN_MAX  (16U)
 
 typedef uint16_t EIC_PIN;
 
 
+// *****************************************************************************
+/* EIC NMI Interrupt Pin Callback Function Pointer Type
+
+  Summary:
+    Defines the data type and function signature of the EIC peripheral NMI
+    callback function.
+
+  Description:
+    This data type defines the function signature of the EIC peripheral NMI
+    callback function. The EIC peripheral will call back the client's function
+    with this signature when an interrupt condition has been sensed on the NMI
+    pin.
+
+  Function:
+    void (*EIC_NMI_CALLBACK)(uintptr_t context )
+
+  Precondition:
+    EIC_Initialize must have been called for the given EIC
+    peripheral instance and EIC_NMICallbackRegister must have been
+    called to set the function to be called.
+
+  Parameters:
+    context - Allows the caller to provide a context value (usually a pointer
+    to the callers context for multi-instance clients).
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+
+    void EIC_NMICallback (uintptr_t context)
+    {
+        This means an interrupt condition has been sensed on the NMI Pin.
+    }
+
+    EIC_NMICallbackRegister(EIC_NMICallback, 0);
+    </code>
+
+  Remarks:
+    None.
+*/
+
+typedef void (*EIC_NMI_CALLBACK) (uintptr_t context);
+
+typedef struct
+{
+    /* NMI Callback Handler */
+    EIC_NMI_CALLBACK callback;
+
+    /* NMI Client context */
+    uintptr_t       context;
+
+} EIC_NMI_CALLBACK_OBJ;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -175,6 +277,43 @@ void EIC_Initialize (void);
   Remarks:
     None.
 */
+
+// *****************************************************************************
+/* Function:
+    void EIC_NMICallbackRegister (EIC_NMI_CALLBACK callback, uintptr_t context);
+
+  Summary:
+    Registers the function to be called when an interrupt condition has been
+    sensed on the NMI pin.
+
+  Description
+    This function registers the callback function to be called when an interrupt
+    condition has been sensed on the NMI pin.
+
+  Precondition:
+    EIC_Initialize() must have been called first for the associated
+    instance.
+
+  Parameters:
+    callback - callback function pointer. Setting this to NULL will disable the
+    callback feature.
+
+    context - Allows the caller to provide a context value
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+     Refer to the description of the EIC_NMI_CALLBACK data type for details on
+     API usage.
+    </code>
+
+  Remarks:
+    None.
+*/
+
+void EIC_NMICallbackRegister(EIC_NMI_CALLBACK callback, uintptr_t context);
 
 
 #ifdef __cplusplus // Provide C++ Compatibility

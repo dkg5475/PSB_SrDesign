@@ -82,20 +82,21 @@ void SDADC_Initialize( void )
     }
 
     /* Set prescaler, over sampling ratio and skip count */
-    SDADC_REGS->SDADC_CTRLB = (uint16_t)(SDADC_CTRLB_PRESCALER_DIV2 | SDADC_CTRLB_OSR_OSR64 | SDADC_CTRLB_SKPCNT(2UL));
+    SDADC_REGS->SDADC_CTRLB = (uint16_t)(SDADC_CTRLB_PRESCALER_DIV2 | SDADC_CTRLB_OSR_OSR1024 | SDADC_CTRLB_SKPCNT(2UL));
 
     /* Configure reference voltage */
-    SDADC_REGS->SDADC_REFCTRL = (uint8_t)(SDADC_REFCTRL_REFSEL_INTREF | SDADC_REFCTRL_ONREFBUF_Msk);
+    SDADC_REGS->SDADC_REFCTRL = (uint8_t)SDADC_REFCTRL_REFSEL_AREFB;
 
-    SDADC_REGS->SDADC_CTRLC = (uint8_t)SDADC_CTRLC_FREERUN_Msk;
-    /* Configure positive and negative input pins */
-    SDADC_REGS->SDADC_INPUTCTRL = (uint8_t)SDADC_INPUTCTRL_MUXSEL_AIN0;
+    SDADC_REGS->SDADC_SEQCTRL = SDADC_SEQCTRL_SEQEN(1UL << 0U) | SDADC_SEQCTRL_SEQEN(1UL << 1U) | SDADC_SEQCTRL_SEQEN(1UL << 2U);
 
     /* Clear all interrupts */
     SDADC_REGS->SDADC_INTFLAG = (uint8_t)SDADC_INTFLAG_Msk;
 
 
+    SDADC_REGS->SDADC_EVCTRL = (uint8_t)(SDADC_EVCTRL_RESRDYEO_Msk);
 
+   /* Configure Run in standby, On demand property */
+    SDADC_REGS->SDADC_CTRLA |= (uint8_t)(SDADC_CTRLA_RUNSTDBY_Msk | SDADC_CTRLA_ONDEMAND_Msk);
 
     /* Enable SDADC */
     SDADC_REGS->SDADC_CTRLA |= (uint8_t)SDADC_CTRLA_ENABLE_Msk;
@@ -124,6 +125,17 @@ void SDADC_Disable( void )
     }
 }
 
+ 
+void SDADC_ConversionStart( void )
+{
+    /* Start conversion */
+    SDADC_REGS->SDADC_SWTRIG = (uint8_t)SDADC_SWTRIG_START_Msk;
+
+    while((SDADC_REGS->SDADC_SYNCBUSY & SDADC_SYNCBUSY_SWTRIG_Msk) == SDADC_SYNCBUSY_SWTRIG_Msk)
+    {
+        /* Synchronization between SWTRIG start with the clock domain */
+    }
+}
 
 int16_t SDADC_ConversionResultGet( void )
 {
@@ -132,6 +144,15 @@ int16_t SDADC_ConversionResultGet( void )
     return ((int16_t)result);
 }
 
+bool SDADC_ConversionSequenceIsFinished(void)
+{
+    bool seq_status = false;
+    if ((SDADC_REGS->SDADC_SEQSTATUS & SDADC_SEQSTATUS_SEQBUSY_Msk) != SDADC_SEQSTATUS_SEQBUSY_Msk)
+    {
+        seq_status = true;
+    }
+    return seq_status;
+}
 
 
 

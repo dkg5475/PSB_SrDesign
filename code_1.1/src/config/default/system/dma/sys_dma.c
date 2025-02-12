@@ -1,18 +1,22 @@
 /*******************************************************************************
- System Interrupts File
+  DMA System Service Library Implementation Source File
 
-  Company:
+  Company
     Microchip Technology Inc.
 
-  File Name:
-    interrupt.h
+  File Name
+    sys_dma.c
 
-  Summary:
-    Interrupt vectors mapping
+  Summary
+    DMA system service library interface implementation.
 
-  Description:
-    This file contains declarations of device vectors used by Harmony 3
- *******************************************************************************/
+  Description
+    This file implements the interface to the DMA system service library.
+
+  Remarks:
+    DMA controller initialize will be done from within the MCC.
+
+*******************************************************************************/
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
@@ -36,39 +40,40 @@
 * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- *******************************************************************************/
+*******************************************************************************/
 // DOM-IGNORE-END
-
-#ifndef INTERRUPTS_H
-#define INTERRUPTS_H
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-#include <stdint.h>
+#include "system/dma/sys_dma.h"
 
+//******************************************************************************
+/* Function:
+    void SYS_DMA_AddressingModeSetup(SYS_DMA_CHANNEL channel, SYS_DMA_SOURCE_ADDRESSING_MODE sourceAddrMode, SYS_DMA_DESTINATION_ADDRESSING_MODE destAddrMode);
 
+  Summary:
+    Setup addressing mode of selected DMA channel.
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: Handler Routines
-// *****************************************************************************
-// *****************************************************************************
+  Remarks:
+    Check sys_dma.h for more info.
+*/
+void SYS_DMA_AddressingModeSetup(SYS_DMA_CHANNEL channel, SYS_DMA_SOURCE_ADDRESSING_MODE sourceAddrMode, SYS_DMA_DESTINATION_ADDRESSING_MODE destAddrMode)
+{
+}
 
-void Reset_Handler (void);
-void NMI_InterruptHandler (void);
-void HardFault_Handler (void);
-void PAC_InterruptHandler (void);
-void SUPC_InterruptHandler (void);
-void WDT_InterruptHandler (void);
-void RTC_InterruptHandler (void);
-void NVMCTRL_InterruptHandler (void);
-void SERCOM0_USART_InterruptHandler (void);
-void SERCOM3_SPI_InterruptHandler (void);
-void TC3_TimerInterruptHandler (void);
+//******************************************************************************
+/* Function:
+    void SYS_DMA_DataWidthSetup(SYS_DMA_CHANNEL channel, SYS_DMA_WIDTH dataWidth);
 
+  Summary:
+    Setup data width of selected DMA channel.
 
-
-#endif // INTERRUPTS_H
+  Remarks:
+    Check sys_dma.h for more info.
+*/
+void SYS_DMA_DataWidthSetup(SYS_DMA_CHANNEL channel, SYS_DMA_WIDTH dataWidth)
+{
+}

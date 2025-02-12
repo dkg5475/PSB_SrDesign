@@ -1,20 +1,21 @@
 /*******************************************************************************
- System Interrupts File
+  Device Service Unit (DSU) PLIB
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    interrupt.h
+    plib_dsu.c
 
   Summary:
-    Interrupt vectors mapping
+    DSU PLIB Implementation File
 
   Description:
-    This file contains declarations of device vectors used by Harmony 3
- *******************************************************************************/
+    This file contains the implementation of the DSU Peripheral Library. This is
+    generated file.
 
-// DOM-IGNORE-BEGIN
+*******************************************************************************/
+
 /*******************************************************************************
 * Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
 *
@@ -36,39 +37,54 @@
 * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- *******************************************************************************/
-// DOM-IGNORE-END
+*******************************************************************************/
 
-#ifndef INTERRUPTS_H
-#define INTERRUPTS_H
-
-// *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-#include <stdint.h>
+/* This section lists the other files that are included in this file.*/
 
-
+#include "plib_dsu.h"
+#include "device.h"
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Handler Routines
+// Section: DSU CRC Implementation
 // *****************************************************************************
 // *****************************************************************************
 
-void Reset_Handler (void);
-void NMI_InterruptHandler (void);
-void HardFault_Handler (void);
-void PAC_InterruptHandler (void);
-void SUPC_InterruptHandler (void);
-void WDT_InterruptHandler (void);
-void RTC_InterruptHandler (void);
-void NVMCTRL_InterruptHandler (void);
-void SERCOM0_USART_InterruptHandler (void);
-void SERCOM3_SPI_InterruptHandler (void);
-void TC3_TimerInterruptHandler (void);
+bool DSU_CRCCalculate (uint32_t startAddress, size_t length, uint32_t crcSeed, uint32_t * crc)
+{
+    bool statusValue = false;
 
+    if( (0U != length) && (NULL != crc) )
+    {
+        DSU_REGS->DSU_ADDR = startAddress;
 
+        DSU_REGS->DSU_LENGTH = (uint32_t)length;
 
-#endif // INTERRUPTS_H
+        /* Initial CRC Value  */
+        DSU_REGS->DSU_DATA = crcSeed;
+
+        /* Clear Status Register */
+        DSU_REGS->DSU_STATUSA = (uint8_t)DSU_REGS->DSU_STATUSA;
+
+        DSU_REGS->DSU_CTRL = (uint8_t)DSU_CTRL_CRC_Msk;
+
+        while((DSU_REGS->DSU_STATUSA & DSU_STATUSA_DONE_Msk) == 0U)
+        {
+            /* Wait for the DSU Operation to Complete */
+        }
+
+        if((DSU_REGS->DSU_STATUSA & DSU_STATUSA_BERR_Msk) == 0U)
+        {
+            /* Reading the resultant crc value from the DATA register */
+            *crc = (uint32_t) DSU_REGS->DSU_DATA;
+
+            statusValue = true;
+        }
+    }
+
+    return statusValue;
+}

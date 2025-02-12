@@ -1,17 +1,17 @@
 /*******************************************************************************
-  SDADC PLIB
+  Real Time Counter (RTC) PLIB
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    plib_sdadc.h
+    plib_rtc.h
 
   Summary:
-    SDADC PLIB Header file
+    RTC PLIB Header file
 
   Description:
-    This file defines the interface to the SDADC peripheral library. This
+    This file defines the interface to the RTC peripheral library. This
     library provides access to and control of the associated peripheral
     instance.
 
@@ -41,64 +41,72 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef PLIB_SDADC_H
-#define PLIB_SDADC_H
+#ifndef PLIB_RTC_H
+#define PLIB_RTC_H
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: Included Files
-// *****************************************************************************
-// *****************************************************************************
-/* This section lists the other files that are included in this file.
-*/
-
-#include "plib_sdadc_common.h"
+#include "device.h"
+#include <stddef.h>
+#include <stdbool.h>
+#include <stdint.h>
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus // Provide C++ Compatibility
 extern "C" {
 #endif
 // DOM-IGNORE-END
-
-
 // *****************************************************************************
 // *****************************************************************************
-// Section: Global data
+// Section:Preprocessor macros
 // *****************************************************************************
 // *****************************************************************************
 // *****************************************************************************
 
+/* Frequency of Counter Clock for RTC */
+#define RTC_COUNTER_CLOCK_FREQUENCY        (1024U / (1UL << (0x1U - 1U)))
+
+#define RTC_TIMER32_INT_MASK_PER0  RTC_MODE0_INTENSET_PER0_Msk
+#define RTC_TIMER32_INT_MASK_PER1  RTC_MODE0_INTENSET_PER1_Msk
+#define RTC_TIMER32_INT_MASK_PER2  RTC_MODE0_INTENSET_PER2_Msk
+#define RTC_TIMER32_INT_MASK_PER3  RTC_MODE0_INTENSET_PER3_Msk
+#define RTC_TIMER32_INT_MASK_PER4  RTC_MODE0_INTENSET_PER4_Msk
+#define RTC_TIMER32_INT_MASK_PER5  RTC_MODE0_INTENSET_PER5_Msk
+#define RTC_TIMER32_INT_MASK_PER6  RTC_MODE0_INTENSET_PER6_Msk
+#define RTC_TIMER32_INT_MASK_PER7  RTC_MODE0_INTENSET_PER7_Msk
+#define RTC_TIMER32_INT_MASK_CMP0  RTC_MODE0_INTENSET_CMP0_Msk
+#define RTC_TIMER32_INT_MASK_OVF  RTC_MODE0_INTENSET_OVF_Msk
+#define RTC_TIMER32_INT_MASK_INVALID 0xFFFFFFFFU
+// *****************************************************************************
+// *****************************************************************************
+// Section: Data Types
+// *****************************************************************************
+// *****************************************************************************
 // *****************************************************************************
 
+typedef uint32_t RTC_TIMER32_INT_MASK;
+typedef void (*RTC_TIMER32_CALLBACK)( RTC_TIMER32_INT_MASK intCause, uintptr_t context );
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: Interface Routines
-// *****************************************************************************
-// *****************************************************************************
-/* The following functions make up the methods (set of possible operations) of
-    this interface.
-*/
+typedef struct
+{
+    /* Timer 32Bit */
+    RTC_TIMER32_CALLBACK timer32BitCallback;
+    RTC_TIMER32_INT_MASK timer32intCause;
+    uintptr_t context;
+} RTC_OBJECT;
 
-// *****************************************************************************
-
-void SDADC_Initialize( void );
-
-void SDADC_Enable( void );
-
-void SDADC_Disable( void );
-
- 
-void SDADC_ConversionStart( void );
-
-int16_t SDADC_ConversionResultGet( void );
-
-bool SDADC_ConversionSequenceIsFinished(void);
-
-
-bool SDADC_ConversionResultIsReady (void );
-
-
+void RTC_Initialize(void);
+void RTC_FrequencyCorrect ( int8_t correction );
+void RTC_Timer32CountSyncEnable ( void );
+void RTC_Timer32CountSyncDisable ( void );
+void RTC_Timer32Start ( void );
+void RTC_Timer32Stop ( void );
+void RTC_Timer32CounterSet ( uint32_t count );
+uint32_t RTC_Timer32CounterGet ( void );
+uint32_t RTC_Timer32FrequencyGet ( void );
+void RTC_Timer32CompareSet ( uint32_t compareValue );
+uint32_t RTC_Timer32PeriodGet ( void );
+void RTC_Timer32InterruptEnable( RTC_TIMER32_INT_MASK interruptMask );
+void RTC_Timer32InterruptDisable( RTC_TIMER32_INT_MASK interruptMask );
+void RTC_Timer32CallbackRegister ( RTC_TIMER32_CALLBACK callback, uintptr_t context );
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -106,4 +114,4 @@ bool SDADC_ConversionResultIsReady (void );
 #endif
 // DOM-IGNORE-END
 
-#endif /* PLIB_SDADC_H */
+#endif /* PLIB_RTC_H */

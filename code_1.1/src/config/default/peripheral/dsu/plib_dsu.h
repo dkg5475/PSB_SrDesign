@@ -1,20 +1,22 @@
 /*******************************************************************************
- System Interrupts File
+  Device Service Unit (DSU) PLIB
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    interrupt.h
+    plib_dsu.h
 
   Summary:
-    Interrupt vectors mapping
+    DSU PLIB Header File
 
   Description:
-    This file contains declarations of device vectors used by Harmony 3
- *******************************************************************************/
+    This file defines the interface to the DSU peripheral library.
+    This library provides access to and control of the associated
+    peripheral instance.
 
-// DOM-IGNORE-BEGIN
+*******************************************************************************/
+
 /*******************************************************************************
 * Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
 *
@@ -36,39 +38,32 @@
 * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- *******************************************************************************/
-// DOM-IGNORE-END
+*******************************************************************************/
 
-#ifndef INTERRUPTS_H
-#define INTERRUPTS_H
+// DOM-IGNORE-BEGIN
+#ifndef PLIB_DSU_H
+#define PLIB_DSU_H
 
-// *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
+/* This section lists the other files that are included in this file.*/
+
 #include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
 
+#ifdef __cplusplus // Provide C++ Compatibility
+extern "C" {
+#endif
 
+// DOM-IGNORE-END
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: Handler Routines
-// *****************************************************************************
-// *****************************************************************************
+bool DSU_CRCCalculate (uint32_t startAddress, size_t length, uint32_t crcSeed, uint32_t * crc);
 
-void Reset_Handler (void);
-void NMI_InterruptHandler (void);
-void HardFault_Handler (void);
-void PAC_InterruptHandler (void);
-void SUPC_InterruptHandler (void);
-void WDT_InterruptHandler (void);
-void RTC_InterruptHandler (void);
-void NVMCTRL_InterruptHandler (void);
-void SERCOM0_USART_InterruptHandler (void);
-void SERCOM3_SPI_InterruptHandler (void);
-void TC3_TimerInterruptHandler (void);
+#ifdef __cplusplus // Provide C++ Compatibility
+}
+#endif
 
-
-
-#endif // INTERRUPTS_H
+#endif /* PLIB_DSU_H */

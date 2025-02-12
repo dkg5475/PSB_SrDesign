@@ -7,13 +7,6 @@
       <logicalFolder name="config" displayName="config" projectFiles="true">
         <logicalFolder name="default" displayName="default" projectFiles="true">
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
-            <logicalFolder name="spi_flash" displayName="spi_flash" projectFiles="true">
-              <logicalFolder name="at25df" displayName="at25df" projectFiles="true">
-                <itemPath>../src/config/default/driver/spi_flash/at25df/src/drv_at25df_local.h</itemPath>
-                <itemPath>../src/config/default/driver/spi_flash/at25df/drv_at25df.h</itemPath>
-                <itemPath>../src/config/default/driver/spi_flash/at25df/drv_at25df_definitions.h</itemPath>
-              </logicalFolder>
-            </logicalFolder>
             <itemPath>../src/config/default/driver/driver.h</itemPath>
             <itemPath>../src/config/default/driver/driver_common.h</itemPath>
           </logicalFolder>
@@ -26,11 +19,6 @@
               <itemPath>../src/config/default/library/emulated_eeprom/emulated_eeprom_local.h</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="osal" displayName="osal" projectFiles="true">
-            <itemPath>../src/config/default/osal/osal.h</itemPath>
-            <itemPath>../src/config/default/osal/osal_impl_basic.h</itemPath>
-            <itemPath>../src/config/default/osal/osal_definitions.h</itemPath>
-          </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
             <logicalFolder name="clock" displayName="clock" projectFiles="true">
               <itemPath>../src/config/default/peripheral/clock/plib_clock.h</itemPath>
@@ -40,6 +28,9 @@
             </logicalFolder>
             <logicalFolder name="divas" displayName="divas" projectFiles="true">
               <itemPath>../src/config/default/peripheral/divas/plib_divas.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="dsu" displayName="dsu" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/dsu/plib_dsu.h</itemPath>
             </logicalFolder>
             <logicalFolder name="eic" displayName="eic" projectFiles="true">
               <itemPath>../src/config/default/peripheral/eic/plib_eic.h</itemPath>
@@ -66,9 +57,32 @@
             <logicalFolder name="ram" displayName="ram" projectFiles="true">
               <itemPath>../src/config/default/peripheral/ram/plib_ram.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="rstc" displayName="rstc" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/rstc/plib_rstc.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="rtc" displayName="rtc" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/rtc/plib_rtc.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="sdadc" displayName="sdadc" projectFiles="true">
               <itemPath>../src/config/default/peripheral/sdadc/plib_sdadc_common.h</itemPath>
               <itemPath>../src/config/default/peripheral/sdadc/plib_sdadc.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="sercom" displayName="sercom" projectFiles="true">
+              <logicalFolder name="spi_master" displayName="spi_master" projectFiles="true">
+                <itemPath>../src/config/default/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h</itemPath>
+                <itemPath>../src/config/default/peripheral/sercom/spi_master/plib_sercom3_spi_master.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="usart" displayName="usart" projectFiles="true">
+                <itemPath>../src/config/default/peripheral/sercom/usart/plib_sercom0_usart.h</itemPath>
+                <itemPath>../src/config/default/peripheral/sercom/usart/plib_sercom_usart_common.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="supc" displayName="supc" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/supc/plib_supc.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="tc" displayName="tc" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/tc/plib_tc_common.h</itemPath>
+              <itemPath>../src/config/default/peripheral/tc/plib_tc3.h</itemPath>
             </logicalFolder>
             <logicalFolder name="wdt" displayName="wdt" projectFiles="true">
               <itemPath>../src/config/default/peripheral/wdt/plib_wdt.h</itemPath>
@@ -81,14 +95,16 @@
             <logicalFolder name="console" displayName="console" projectFiles="true">
               <itemPath>../src/config/default/system/console/src/sys_console_uart_definitions.h</itemPath>
               <itemPath>../src/config/default/system/console/src/sys_console_local.h</itemPath>
-              <itemPath>../src/config/default/system/console/src/sys_console_usb_cdc_definitions.h</itemPath>
               <itemPath>../src/config/default/system/console/sys_console.h</itemPath>
-              <itemPath>../src/config/default/system/console/src/sys_console_usb_cdc.h</itemPath>
               <itemPath>../src/config/default/system/console/src/sys_console_uart.h</itemPath>
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
               <itemPath>../src/config/default/system/debug/src/sys_debug_local.h</itemPath>
               <itemPath>../src/config/default/system/debug/sys_debug.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="dma" displayName="dma" projectFiles="true">
+              <itemPath>../src/config/default/system/dma/sys_dma_mapping.h</itemPath>
+              <itemPath>../src/config/default/system/dma/sys_dma.h</itemPath>
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
               <itemPath>../src/config/default/system/int/sys_int_mapping.h</itemPath>
@@ -96,6 +112,7 @@
             </logicalFolder>
             <logicalFolder name="ports" displayName="ports" projectFiles="true">
               <itemPath>../src/config/default/system/ports/sys_ports_mapping.h</itemPath>
+              <itemPath>../src/config/default/system/ports/sys_ports.h</itemPath>
             </logicalFolder>
             <logicalFolder name="reset" displayName="reset" projectFiles="true">
               <itemPath>../src/config/default/system/reset/sys_reset.h</itemPath>
@@ -112,6 +129,7 @@
           <itemPath>../src/config/default/device_cache.h</itemPath>
           <itemPath>../src/config/default/user.h</itemPath>
           <itemPath>../src/config/default/sys_tasks.h</itemPath>
+          <itemPath>../src/config/default/configuration.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="packs" displayName="packs" projectFiles="true">
@@ -245,13 +263,6 @@
                    projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
         <logicalFolder name="default" displayName="default" projectFiles="true">
-          <logicalFolder name="driver" displayName="driver" projectFiles="true">
-            <logicalFolder name="spi_flash" displayName="spi_flash" projectFiles="true">
-              <logicalFolder name="at25df" displayName="at25df" projectFiles="true">
-                <itemPath>../src/config/default/driver/spi_flash/at25df/src/drv_at25df.c</itemPath>
-              </logicalFolder>
-            </logicalFolder>
-          </logicalFolder>
           <logicalFolder name="library" displayName="library" projectFiles="true">
             <logicalFolder name="emulated_eeprom"
                            displayName="emulated_eeprom"
@@ -268,6 +279,9 @@
             </logicalFolder>
             <logicalFolder name="divas" displayName="divas" projectFiles="true">
               <itemPath>../src/config/default/peripheral/divas/plib_divas.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="dsu" displayName="dsu" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/dsu/plib_dsu.c</itemPath>
             </logicalFolder>
             <logicalFolder name="eic" displayName="eic" projectFiles="true">
               <itemPath>../src/config/default/peripheral/eic/plib_eic.c</itemPath>
@@ -293,8 +307,28 @@
             <logicalFolder name="ram" displayName="ram" projectFiles="true">
               <itemPath>../src/config/default/peripheral/ram/plib_ram.c</itemPath>
             </logicalFolder>
+            <logicalFolder name="rstc" displayName="rstc" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/rstc/plib_rstc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="rtc" displayName="rtc" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/rtc/plib_rtc_timer.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="sdadc" displayName="sdadc" projectFiles="true">
               <itemPath>../src/config/default/peripheral/sdadc/plib_sdadc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="sercom" displayName="sercom" projectFiles="true">
+              <logicalFolder name="spi_master" displayName="spi_master" projectFiles="true">
+                <itemPath>../src/config/default/peripheral/sercom/spi_master/plib_sercom3_spi_master.c</itemPath>
+              </logicalFolder>
+              <logicalFolder name="usart" displayName="usart" projectFiles="true">
+                <itemPath>../src/config/default/peripheral/sercom/usart/plib_sercom0_usart.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="supc" displayName="supc" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/supc/plib_supc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="tc" displayName="tc" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/tc/plib_tc3.c</itemPath>
             </logicalFolder>
             <logicalFolder name="wdt" displayName="wdt" projectFiles="true">
               <itemPath>../src/config/default/peripheral/wdt/plib_wdt.c</itemPath>
@@ -309,11 +343,13 @@
             </logicalFolder>
             <logicalFolder name="console" displayName="console" projectFiles="true">
               <itemPath>../src/config/default/system/console/src/sys_console.c</itemPath>
-              <itemPath>../src/config/default/system/console/src/sys_console_usb_cdc.c</itemPath>
               <itemPath>../src/config/default/system/console/src/sys_console_uart.c</itemPath>
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
               <itemPath>../src/config/default/system/debug/src/sys_debug.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="dma" displayName="dma" projectFiles="true">
+              <itemPath>../src/config/default/system/dma/sys_dma.c</itemPath>
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
               <itemPath>../src/config/default/system/int/src/sys_int.c</itemPath>
@@ -327,6 +363,7 @@
           <itemPath>../src/config/default/initialization.c</itemPath>
           <itemPath>../src/config/default/libc_syscalls.c</itemPath>
           <itemPath>../src/config/default/interrupts.c</itemPath>
+          <itemPath>../src/config/default/tasks.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <itemPath>../src/config/default/pin_configurations.csv</itemPath>

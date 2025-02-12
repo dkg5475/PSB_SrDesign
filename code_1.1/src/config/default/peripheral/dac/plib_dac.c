@@ -60,12 +60,12 @@
 void DAC_Initialize(void)
 {
     /* Set Reference Voltage */
-    DAC_REGS->DAC_CTRLB = (uint8_t)(DAC_CTRLB_REFSEL(0UL) | DAC_CTRLB_EOEN_Msk );
+    DAC_REGS->DAC_CTRLB = (uint8_t)(DAC_CTRLB_REFSEL(2UL) | DAC_CTRLB_VPD_Msk | DAC_CTRLB_DITHER_Msk | DAC_CTRLB_EOEN_Msk );
 
-    DAC_REGS->DAC_EVCTRL = 0U;
+    DAC_REGS->DAC_EVCTRL = 3U;
     
     /* Enable DAC */
-    DAC_REGS->DAC_CTRLA =(uint8_t)(DAC_CTRLA_ENABLE_Msk);	
+    DAC_REGS->DAC_CTRLA =(uint8_t)(DAC_CTRLA_ENABLE_Msk | DAC_CTRLA_RUNSTDBY_Msk);	
     while((DAC_REGS->DAC_SYNCBUSY & DAC_SYNCBUSY_ENABLE_Msk) == DAC_SYNCBUSY_ENABLE_Msk)
     {
         /* Wait for Synchronization after Enabling DAC */

@@ -53,11 +53,12 @@ uint16_t sdadc_count; // for storing SDADC count
 /* Initial value of DAC count which is midpoint = 1.65 V*/
 uint16_t dac_count = 0x200;
 
-float input_voltage; // for storing the voltage conversion
-float currentTemp; // for storing the temperature conversion
-float prevTemp; // for storing the previous temp value
-float currentSlope; // for storing the slope value
-S
+// 
+double input_voltage; 
+double currentTemp; 
+double prevTemp; 
+double currentSlope; 
+
 
 void switch_handler(uintptr_t context )
 {
@@ -75,8 +76,8 @@ int main ( void )
 {
     /* Initialize all modules */
     SYS_Initialize ( NULL );
-    SYSTICK_TimerStart();
-    EIC_CallbackRegister(EIC_PIN_3, switch_handler, (uintptr_t) NULL);
+    //SYSTICK_TimerStart();
+    // EIC_CallbackRegister(EIC_PIN_3, switch_handler, (uintptr_t) NULL);
     DAC_DataWrite(dac_count);
 
     while ( true )

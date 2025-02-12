@@ -63,6 +63,9 @@
 // *****************************************************************************
 
 
+/* EIC NMI Callback object */
+volatile static EIC_NMI_CALLBACK_OBJ eicNMICallbackObject;
+
 
 void EIC_Initialize (void)
 {
@@ -78,6 +81,7 @@ void EIC_Initialize (void)
     /* EIC is by default clocked by GCLK */
 
     /* NMI Control register */
+    EIC_REGS->EIC_NMICTRL = (uint8_t)(EIC_NMICTRL_NMIASYNCH(0UL) | EIC_NMICTRL_NMISENSE_BOTH | EIC_NMICTRL_NMIFILTEN_Msk);
 
     /* Interrupt sense type and filter control for EXTINT channels 0 to 7*/
     EIC_REGS->EIC_CONFIG[0] =  EIC_CONFIG_SENSE0_NONE  |
@@ -110,5 +114,28 @@ void EIC_Initialize (void)
     while((EIC_REGS->EIC_SYNCBUSY & EIC_SYNCBUSY_ENABLE_Msk) == EIC_SYNCBUSY_ENABLE_Msk)
     {
         /* Wait for sync */
+    }
+}
+void EIC_NMICallbackRegister(EIC_NMI_CALLBACK callback, uintptr_t context)
+{
+    eicNMICallbackObject.callback = callback;
+
+    eicNMICallbackObject.context  = context;
+}
+
+void __attribute__((used)) NMI_InterruptHandler(void)
+{
+    /* Find the triggered, run associated callback handlers */
+    if ((EIC_REGS->EIC_NMIFLAG & EIC_NMIFLAG_NMI_Msk) == EIC_NMIFLAG_NMI_Msk)
+    {
+        /* Clear flag */
+        EIC_REGS->EIC_NMIFLAG = EIC_NMIFLAG_NMI_Msk;
+
+        /* Find any associated callback entries in the callback table */
+        if (eicNMICallbackObject.callback != NULL)
+        {
+            uintptr_t context = eicNMICallbackObject.context;
+            eicNMICallbackObject.callback(context);
+        }
     }
 }
