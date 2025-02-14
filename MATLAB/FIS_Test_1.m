@@ -55,7 +55,9 @@ ruleList = [
     "If TempReadings is Cold and TempSlope is Decreasing then PowerAdjust is VeryLargeIncrease"
     "If TempReadings is Cold and TempSlope is Stable then PowerAdjust is LargeIncrease"
     "If TempReadings is Cold and TempSlope is Increasing then PowerAdjust is SmallIncrease"
+
     "If TempReadings is Optimal then PowerAdjust is NoChange"
+    
     "If TempReadings is Hot and TempSlope is Decreasing then PowerAdjust is NoChange"
     "If TempReadings is Hot and TempSlope is Stable then PowerAdjust is SmallDecrease"
     "If TempReadings is Hot and TempSlope is Increasing then PowerAdjust is LargeDecrease"
