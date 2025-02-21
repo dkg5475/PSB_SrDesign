@@ -74,8 +74,8 @@ void SYS_Tasks ( void )
 {
     /* Maintain system services */
     
-SYS_CMD_Tasks();
 
+SYS_CMD_Tasks();
 
 
 

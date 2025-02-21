@@ -60,6 +60,7 @@
 void Reset_Handler (void);
 void NMI_InterruptHandler (void);
 void HardFault_Handler (void);
+void SysTick_Handler (void);
 void PAC_InterruptHandler (void);
 void SUPC_InterruptHandler (void);
 void WDT_InterruptHandler (void);

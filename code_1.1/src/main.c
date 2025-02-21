@@ -28,9 +28,10 @@
 #include "definitions.h"                // SYS function prototypes
 
 
-#define SDADC_VREF                      (3.3f)
-#define DAC_COUNT_INCREMENT             (31U)  // equivalent to 0.1V(0.1 / (3.3 / ((2^10) - 1)))
-#define DAC_COUNT_MAX                   (1023U) // 0 to 1023 (10 bit DAC))
+#define SDADC_VREF                      (2.0f)
+#define DAC_COUNT_INCREMENT             (132U)  // equivalent to 0.1V increment
+// (0.1 / (2.0 / ((2^16) - 1)))
+#define DAC_COUNT_MAX                   (65535U) // 0 to 1023 (10 bit DAC))
 #define SDADC_RESULT_SIGNED_BIT_MSK     (~(0x01 << 15)) // bit mask for conversion
 
 /*
@@ -53,11 +54,14 @@ uint16_t sdadc_count; // for storing SDADC count
 /* Initial value of DAC count which is midpoint = 1.65 V*/
 uint16_t dac_count = 0x200;
 
-// 
-double input_voltage; 
-double currentTemp; 
-double prevTemp; 
-double currentSlope; 
+// order of struct members isn't relevant here since all are double
+typedef struct {
+    double input_voltage; 
+    double currentTemp; 
+    double prevTemp; 
+    double currentSlope; 
+}fuzzyInputs;
+
 
 
 void switch_handler(uintptr_t context )
@@ -76,8 +80,8 @@ int main ( void )
 {
     /* Initialize all modules */
     SYS_Initialize ( NULL );
-    //SYSTICK_TimerStart();
-    // EIC_CallbackRegister(EIC_PIN_3, switch_handler, (uintptr_t) NULL);
+    SYSTICK_TimerStart();
+    EIC_CallbackRegister(EIC_PIN_3, switch_handler, (uintptr_t) NULL);
     DAC_DataWrite(dac_count);
 
     while ( true )

@@ -106,23 +106,25 @@ SYSTEM_OBJECTS sysObj;
 // Section: System Initialization
 // *****************************************************************************
 // *****************************************************************************
+// <editor-fold defaultstate="collapsed" desc="SYS_TIME Initialization Data">
 
-static const SYS_CMD_INIT sysCmdInit =
-{
-    .moduleInit = {0},
-    .consoleCmdIOParam = (uint8_t) SYS_CMD_SINGLE_CHARACTER_READ_CONSOLE_IO_PARAM,
-	.consoleIndex = ,
+static const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
+    .timerCallbackSet = (SYS_TIME_PLIB_CALLBACK_REGISTER)SYSTICK_TimerCallbackSet,
+    .timerStart = (SYS_TIME_PLIB_START)SYSTICK_TimerStart,
+    .timerStop = (SYS_TIME_PLIB_STOP)SYSTICK_TimerStop,
+    .timerFrequencyGet = (SYS_TIME_PLIB_FREQUENCY_GET)SYSTICK_TimerFrequencyGet,
+    .timerInterruptRestore = (SYS_TIME_PLIB_INTERRUPT_RESTORE)SYSTICK_TimerInterruptRestore,
+    .timerInterruptDisable = (SYS_TIME_PLIB_INTERRUPT_DISABLE)SYSTICK_TimerInterruptDisable,
+    .timerPeriodSet = (SYS_TIME_PLIB_PERIOD_SET)SYSTICK_TimerPeriodSet,
 };
 
-
-static const SYS_DEBUG_INIT debugInit =
+static const SYS_TIME_INIT sysTimeInitData =
 {
-    .moduleInit = {0},
-    .errorLevel = SYS_DEBUG_GLOBAL_ERROR_LEVEL,
-    .consoleIndex = 0,
+    .timePlib = &sysTimePlibAPI,
+    .hwTimerIntNum = SysTick_IRQn,
 };
 
-
+// </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="SYS_CONSOLE Instance 0 Initialization Data">
 
 
@@ -151,6 +153,23 @@ static const SYS_CONSOLE_INIT sysConsole0Init =
 
 
 // </editor-fold>
+
+
+static const SYS_CMD_INIT sysCmdInit =
+{
+    .moduleInit = {0},
+    .consoleCmdIOParam = (uint8_t) SYS_CMD_SINGLE_CHARACTER_READ_CONSOLE_IO_PARAM,
+	.consoleIndex = 0,
+};
+
+
+static const SYS_DEBUG_INIT debugInit =
+{
+    .moduleInit = {0},
+    .errorLevel = SYS_DEBUG_GLOBAL_ERROR_LEVEL,
+    .consoleIndex = 0,
+};
+
 
 
 
@@ -191,28 +210,29 @@ void SYS_Initialize ( void* data )
 
 
 
-    SERCOM3_SPI_Initialize();
-
     NVMCTRL_Initialize( );
 
-    SERCOM0_USART_Initialize();
-
-    EVSYS_Initialize();
-
-    PAC_Initialize();
-
     SUPC_Initialize();
-
-    EIC_Initialize();
 
     RTC_Initialize();
 
     TC3_TimerInitialize();
 
-    DAC_Initialize();
-
     SDADC_Initialize();
 
+
+    SERCOM3_SPI_Initialize();
+
+    SERCOM0_USART_Initialize();
+
+    EVSYS_Initialize();
+
+	SYSTICK_TimerInitialize();
+    PAC_Initialize();
+
+    EIC_Initialize();
+
+    DAC_Initialize();
 
 
     /* MISRAC 2012 deviation block start */
@@ -223,6 +243,16 @@ void SYS_Initialize ( void* data )
     /* Initialize EMULATED_EEPROM0 Library Instance */
     sysObj.libEMULATED_EEPROM0 = EMU_EEPROM_Initialize(EMULATED_EEPROM0, (SYS_MODULE_INIT *)NULL);
 
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
+    H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
+        
+    sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
+    
+    /* MISRAC 2012 deviation block end */
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
+     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
+        sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
+   /* MISRAC 2012 deviation block end */
     sysObj.sysCommand = (uint32_t) SYS_CMD_Initialize((SYS_MODULE_INIT*)&sysCmdInit);
 
     /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
@@ -231,10 +261,6 @@ void SYS_Initialize ( void* data )
     sysObj.sysDebug = SYS_DEBUG_Initialize(SYS_DEBUG_INDEX_0, (SYS_MODULE_INIT*)&debugInit);
 
     /* MISRAC 2012 deviation block end */
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
-     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
-        sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
-   /* MISRAC 2012 deviation block end */
 
 
     /* MISRAC 2012 deviation block end */
