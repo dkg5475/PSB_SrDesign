@@ -1,6 +1,8 @@
-%% Load FIS
-% /home/dan/Documents/MATLAB/ add this when using Ubuntu
-fis = readfis("OCXO_Type2_Sugeno_1.fis");
+%% Set Desired Setpoint Temperature
+T_set = 96;  % Modify this value as needed
+
+%% Generate FIS Using Function
+fis = FIS_Test_1(T_set);
 
 %% Define Test Inputs
 % Define a range of temperature readings and slopes to test
@@ -18,13 +20,12 @@ for i = 1:length(TempReadings)
 end
 
 %% Plot Results
-
 figure;
 surf(TempSlopes, TempReadings, PowerAdjustResults);
 xlabel("Temperature Slope (°C/s)");
 ylabel("Temperature Reading (°C)");
 zlabel("Power Adjustment (V)");
-title("Fuzzy Inference System Output for OCXO Control");
+title(sprintf("Fuzzy Inference System Output for OCXO Control (T_{set} = %.2f°C)", T_set));
 colorbar;
 grid on;
 
