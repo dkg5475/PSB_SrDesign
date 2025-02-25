@@ -31,7 +31,7 @@
 #define SDADC_VREF                      (2.0f)
 #define DAC_COUNT_INCREMENT             (132U)  // equivalent to 0.1V increment
 // (0.1 / (2.0 / ((2^16) - 1)))
-#define DAC_COUNT_MAX                   (65535U) // 0 to 1023 (10 bit DAC))
+#define DAC_COUNT_MAX                   (65535U) // 0 to 65535 (16 bit DAC))
 #define SDADC_RESULT_SIGNED_BIT_MSK     (~(0x01 << 15)) // bit mask for conversion
 
 /*
@@ -51,16 +51,15 @@
 // *****************************************************************************
 
 uint16_t sdadc_count; // for storing SDADC count
-/* Initial value of DAC count which is midpoint = 1.65 V*/
 uint16_t dac_count = 0x200;
 
 // order of struct members isn't relevant here since all are double
-typedef struct {
-    double input_voltage; 
-    double currentTemp; 
-    double prevTemp; 
+typedef struct { 
+    double tempPoints[512];
     double currentSlope; 
 }fuzzyInputs;
+
+double input_voltage;
 
 
 
@@ -86,8 +85,22 @@ int main ( void )
 
     while ( true )
     {
-        /* Maintain state machines of all polled MPLAB Harmony modules. */
-        SYS_Tasks ( );
+        /* Start SDADC conversion */
+        SDADC_ConversionStart();
+
+        /* Wait till SDADC conversion result is available */
+        while(!SDADC_ConversionResultIsReady())
+        {
+
+        };
+
+        /* Read the SDADC result */
+        sdadc_count = SDADC_ConversionResultGet();
+        input_voltage = (float)(sdadc_count & SDADC_RESULT_SIGNED_BIT_MSK) * SDADC_VREF / 32767;
+
+        printf("SDADC Count = 0x%03x, SDADC Input Voltage = %d.%02d V \r", sdadc_count, (int)input_voltage, (int)((input_voltage - (int)input_voltage)*100.0));
+
+        SYSTICK_DelayMs(500);
 	
     }
 
