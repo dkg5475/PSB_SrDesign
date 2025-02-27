@@ -34,6 +34,9 @@
 #define DAC_COUNT_MAX                   (65535U) // 0 to 65535 (16 bit DAC))
 #define SDADC_RESULT_SIGNED_BIT_MSK     (~(0x01 << 15)) // bit mask for conversion
 
+#define SUPPLY_VOLTAGE                  (3.0f) # supply voltage
+#define R18                             (4990f) # R18 value in Ohms
+
 /*
  For the SAM C20/C21 microcontrollers, the Sigma-Delta ADC (SDADC) result register contains a 
  * 16-bit signed result, where:
@@ -43,7 +46,11 @@
  This macro is used to mask out the sign bit and extract only the magnitude of the ADC result.
  */
 
-void readSensor (void); // for reading and storing conversion results
+void readSensor            (void); // read sdadc samples
+void calcSlope             (void); // calculate slope based off of timer duration
+void fuzzifyInputs         (double tempReading, double slope); // fuzzification module
+void defuzzify             (double fuzzOut); // defuzzification module
+void send_16_bit_dac_output(unsigned int dac_data); // for sending data to external DAC
 
 
 // *****************************************************************************
@@ -52,14 +59,17 @@ void readSensor (void); // for reading and storing conversion results
 // *****************************************************************************
 // *****************************************************************************
 
-// variables that will be fuzzified
-typedef struct { 
-    double tempPoints[64];
-    double slope; 
-}fuzzyInputs;
+// input variables
+double tempPoints[64];
+double tempSlope; 
 
-float input_voltage;
+
+double sdadc_voltage;
+double thermR; // thermistor resistance 
+
+
 int16_t sdadc_count; // for storing SDADC count
+
 
 
 int main ( void )
@@ -81,13 +91,16 @@ void readSensor (void) {
     /* Start ADC Conversion*/
         SDADC_ConversionStart();
         
-        for (int i = 0; i < sizeof(fuzzyInputs->tempPoints); i++) {
+        for (int i = 0; i < sizeof(tempPoints); i++) {
             while(!SDADC_ConversionResultIsReady()) {
                 // wait for result
             } 
             
             sdadc_count = (int16_t)SDADC_ConversionResultGet();
-            input_voltage = (float)sdadc_count * SDADC_VREF / 32767;
+            sdadc_voltage = (double)sdadc_count * SDADC_VREF / 32767;
+            
+            
+            
             
         
         }
