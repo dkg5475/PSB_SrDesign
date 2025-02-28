@@ -159,7 +159,7 @@ static const SYS_CMD_INIT sysCmdInit =
 {
     .moduleInit = {0},
     .consoleCmdIOParam = (uint8_t) SYS_CMD_SINGLE_CHARACTER_READ_CONSOLE_IO_PARAM,
-	.consoleIndex = 0,
+	.consoleIndex = ,
 };
 
 
@@ -223,9 +223,9 @@ void SYS_Initialize ( void* data )
 
     SERCOM3_SPI_Initialize();
 
-    SERCOM0_USART_Initialize();
-
     EVSYS_Initialize();
+
+    SERCOM0_USART_Initialize();
 
 	SYSTICK_TimerInitialize();
     PAC_Initialize();

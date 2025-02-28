@@ -64,8 +64,8 @@
 #include "osal/osal.h"
 #include "system/debug/sys_debug.h"
 #include "peripheral/sercom/spi_master/plib_sercom3_spi_master.h"
-#include "peripheral/sercom/usart/plib_sercom0_usart.h"
 #include "peripheral/evsys/plib_evsys.h"
+#include "peripheral/sercom/usart/plib_sercom0_usart.h"
 #include "system/command/sys_command.h"
 #include "peripheral/port/plib_port.h"
 #include "peripheral/clock/plib_clock.h"
@@ -76,11 +76,11 @@
 #include "peripheral/pac/plib_pac.h"
 #include "peripheral/eic/plib_eic.h"
 #include "peripheral/rstc/plib_rstc.h"
-#include "peripheral/dac/plib_dac.h"
 #include "peripheral/dsu/plib_dsu.h"
-#include "library/emulated_eeprom/emulated_eeprom.h"
+#include "peripheral/dac/plib_dac.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
+#include "library/emulated_eeprom/emulated_eeprom.h"
 #include "app.h"
 
 
