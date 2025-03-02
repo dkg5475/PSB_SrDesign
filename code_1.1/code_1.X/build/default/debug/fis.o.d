@@ -1,5 +1,4 @@
-build/default/debug/_ext/1360937237/main.o: ../src/main.c \
- ../src/config/default/definitions.h \
+build/default/debug/fis.o: fis.c ../src/config/default/definitions.h \
  ../src/config/default/peripheral/nvmctrl/plib_nvmctrl.h \
  ../src/config/default/device.h \
  ../src/packs/ATSAMC21E18A_DFP/samc21e18a.h \
@@ -140,7 +139,7 @@ build/default/debug/_ext/1360937237/main.o: ../src/main.c \
  ../src/config/default/system/console/src/sys_console_uart_definitions.h \
  ../src/config/default/library/emulated_eeprom/emulated_eeprom.h \
  ../src/config/default/library/emulated_eeprom/emulated_eeprom_definitions.h \
- ../src/app.h
+ ../src/app.h convert.h q31_math.h fis.h
 
 ../src/config/default/definitions.h:
 
@@ -429,3 +428,9 @@ build/default/debug/_ext/1360937237/main.o: ../src/main.c \
 ../src/config/default/library/emulated_eeprom/emulated_eeprom_definitions.h:
 
 ../src/app.h:
+
+convert.h:
+
+q31_math.h:
+
+fis.h:

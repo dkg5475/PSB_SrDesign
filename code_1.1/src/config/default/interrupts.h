@@ -69,6 +69,7 @@ void NVMCTRL_InterruptHandler (void);
 void SERCOM0_USART_InterruptHandler (void);
 void SERCOM3_SPI_InterruptHandler (void);
 void TC3_TimerInterruptHandler (void);
+void SDADC_InterruptHandler (void);
 
 
 

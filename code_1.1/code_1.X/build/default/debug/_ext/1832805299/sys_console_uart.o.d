@@ -126,9 +126,9 @@ build/default/debug/_ext/1832805299/sys_console_uart.o: \
  ../src/config/default/system/debug/sys_debug.h \
  ../src/config/default/peripheral/sercom/spi_master/plib_sercom3_spi_master.h \
  ../src/config/default/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h \
+ ../src/config/default/peripheral/evsys/plib_evsys.h \
  ../src/config/default/peripheral/sercom/usart/plib_sercom0_usart.h \
  ../src/config/default/peripheral/sercom/usart/plib_sercom_usart_common.h \
- ../src/config/default/peripheral/evsys/plib_evsys.h \
  ../src/config/default/system/command/sys_command.h \
  ../src/config/default/peripheral/port/plib_port.h \
  ../src/config/default/peripheral/clock/plib_clock.h \
@@ -141,10 +141,10 @@ build/default/debug/_ext/1832805299/sys_console_uart.o: \
  ../src/config/default/peripheral/rstc/plib_rstc.h \
  ../src/config/default/peripheral/dac/plib_dac.h \
  ../src/config/default/peripheral/dsu/plib_dsu.h \
- ../src/config/default/library/emulated_eeprom/emulated_eeprom.h \
- ../src/config/default/library/emulated_eeprom/emulated_eeprom_definitions.h \
  ../src/config/default/system/console/sys_console.h \
  ../src/config/default/system/console/src/sys_console_uart_definitions.h \
+ ../src/config/default/library/emulated_eeprom/emulated_eeprom.h \
+ ../src/config/default/library/emulated_eeprom/emulated_eeprom_definitions.h \
  ../src/app.h
 
 ../src/config/default/system/console/sys_console.h:
@@ -403,11 +403,11 @@ build/default/debug/_ext/1832805299/sys_console_uart.o: \
 
 ../src/config/default/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h:
 
+../src/config/default/peripheral/evsys/plib_evsys.h:
+
 ../src/config/default/peripheral/sercom/usart/plib_sercom0_usart.h:
 
 ../src/config/default/peripheral/sercom/usart/plib_sercom_usart_common.h:
-
-../src/config/default/peripheral/evsys/plib_evsys.h:
 
 ../src/config/default/system/command/sys_command.h:
 
@@ -433,12 +433,12 @@ build/default/debug/_ext/1832805299/sys_console_uart.o: \
 
 ../src/config/default/peripheral/dsu/plib_dsu.h:
 
-../src/config/default/library/emulated_eeprom/emulated_eeprom.h:
-
-../src/config/default/library/emulated_eeprom/emulated_eeprom_definitions.h:
-
 ../src/config/default/system/console/sys_console.h:
 
 ../src/config/default/system/console/src/sys_console_uart_definitions.h:
+
+../src/config/default/library/emulated_eeprom/emulated_eeprom.h:
+
+../src/config/default/library/emulated_eeprom/emulated_eeprom_definitions.h:
 
 ../src/app.h:

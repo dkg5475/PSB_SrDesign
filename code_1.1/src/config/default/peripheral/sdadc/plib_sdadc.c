@@ -64,6 +64,7 @@
 // *****************************************************************************
 // *****************************************************************************
 
+volatile static SDADC_CALLBACK_OBJECT SDADC_CallbackObj;
 // *****************************************************************************
 // *****************************************************************************
 // Section: SDADC Implementation
@@ -92,6 +93,9 @@ void SDADC_Initialize( void )
     /* Clear all interrupts */
     SDADC_REGS->SDADC_INTFLAG = (uint8_t)SDADC_INTFLAG_Msk;
 
+    /* Enable interrupt */
+    SDADC_REGS->SDADC_INTENSET = (uint8_t)(SDADC_INTENSET_RESRDY_Msk);
+    SDADC_CallbackObj.callback = NULL;
 
     SDADC_REGS->SDADC_EVCTRL = (uint8_t)(SDADC_EVCTRL_RESRDYEO_Msk);
 
@@ -155,15 +159,27 @@ bool SDADC_ConversionSequenceIsFinished(void)
 }
 
 
-
-bool SDADC_ConversionResultIsReady( void )
+void SDADC_CallbackRegister( SDADC_CALLBACK callback, uintptr_t context )
 {
-    bool status;
-    status = (((SDADC_REGS->SDADC_INTFLAG & SDADC_INTFLAG_RESRDY_Msk) >> SDADC_INTFLAG_RESRDY_Pos) != 0U);
-    if (status)
-    {
-        SDADC_REGS->SDADC_INTFLAG = (uint8_t)SDADC_INTFLAG_RESRDY_Msk;
-    }
-    return status;
+    SDADC_CallbackObj.callback = callback;
+
+    SDADC_CallbackObj.context = context;
 }
+
+
+void __attribute__((used)) SDADC_InterruptHandler( void )
+{
+    SDADC_STATUS status;
+    status = SDADC_REGS->SDADC_INTFLAG;
+    /* Clear interrupt flags */
+    SDADC_REGS->SDADC_INTFLAG = (uint8_t)SDADC_INTFLAG_Msk;
+
+    if (SDADC_CallbackObj.callback != NULL)
+    {
+        uintptr_t context = SDADC_CallbackObj.context;
+        SDADC_CallbackObj.callback(status, context);
+    }
+
+}
+
 

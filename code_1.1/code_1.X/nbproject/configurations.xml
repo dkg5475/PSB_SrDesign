@@ -256,6 +256,10 @@
       </logicalFolder>
       <itemPath>../src/app.h</itemPath>
       <itemPath>duration.h</itemPath>
+      <itemPath>sensor.h</itemPath>
+      <itemPath>convert.h</itemPath>
+      <itemPath>q31_math.h</itemPath>
+      <itemPath>fis.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -390,6 +394,10 @@
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/app.c</itemPath>
       <itemPath>duration.c</itemPath>
+      <itemPath>sensor.c</itemPath>
+      <itemPath>convert.c</itemPath>
+      <itemPath>fis.c</itemPath>
+      <itemPath>q31_math.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
@@ -468,26 +476,6 @@
       <C32-AR>
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
-      <C32-AS>
-        <property key="assembler-symbols" value=""/>
-        <property key="enable-symbols" value="true"/>
-        <property key="exclude-floating-point-library" value="false"/>
-        <property key="expand-macros" value="false"/>
-        <property key="extra-include-directories-for-assembler" value=""/>
-        <property key="extra-include-directories-for-preprocessor" value=""/>
-        <property key="false-conditionals" value="false"/>
-        <property key="generate-16-bit-code" value="false"/>
-        <property key="generate-micro-compressed-code" value="false"/>
-        <property key="keep-locals" value="false"/>
-        <property key="list-assembly" value="false"/>
-        <property key="list-source" value="false"/>
-        <property key="list-symbols" value="false"/>
-        <property key="oXC32asm-list-to-file" value="false"/>
-        <property key="omit-debug-dirs" value="false"/>
-        <property key="omit-forms" value="false"/>
-        <property key="preprocessor-macros" value=""/>
-        <property key="warning-level" value=""/>
-      </C32-AS>
       <C32-CO>
         <property key="coverage-enable" value=""/>
         <property key="stack-guidance" value="false"/>

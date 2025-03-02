@@ -96,7 +96,7 @@ int16_t SDADC_ConversionResultGet( void );
 bool SDADC_ConversionSequenceIsFinished(void);
 
 
-bool SDADC_ConversionResultIsReady (void );
+void SDADC_CallbackRegister(SDADC_CALLBACK callback, uintptr_t context);
 
 
 

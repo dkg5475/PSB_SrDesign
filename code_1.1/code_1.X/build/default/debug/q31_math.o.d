@@ -1,4 +1,4 @@
-build/default/debug/_ext/1360937237/main.o: ../src/main.c \
+build/default/debug/q31_math.o: q31_math.c \
  ../src/config/default/definitions.h \
  ../src/config/default/peripheral/nvmctrl/plib_nvmctrl.h \
  ../src/config/default/device.h \
@@ -140,7 +140,7 @@ build/default/debug/_ext/1360937237/main.o: ../src/main.c \
  ../src/config/default/system/console/src/sys_console_uart_definitions.h \
  ../src/config/default/library/emulated_eeprom/emulated_eeprom.h \
  ../src/config/default/library/emulated_eeprom/emulated_eeprom_definitions.h \
- ../src/app.h
+ ../src/app.h q31_math.h
 
 ../src/config/default/definitions.h:
 
@@ -429,3 +429,5 @@ build/default/debug/_ext/1360937237/main.o: ../src/main.c \
 ../src/config/default/library/emulated_eeprom/emulated_eeprom_definitions.h:
 
 ../src/app.h:
+
+q31_math.h:

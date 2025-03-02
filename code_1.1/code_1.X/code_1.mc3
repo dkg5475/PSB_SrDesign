@@ -9360,7 +9360,7 @@
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; x=&quot;140&quot; y=&quot;391&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;cmsis&quot; x=&quot;660&quot; y=&quot;19&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;core&quot; x=&quot;559&quot; y=&quot;19&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;core&quot; x=&quot;558&quot; y=&quot;19&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;dac&quot; x=&quot;17&quot; y=&quot;292&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;dfp&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;divas&quot; x=&quot;183&quot; y=&quot;85&quot;/&gt;
@@ -9372,7 +9372,7 @@
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;ram&quot; x=&quot;191&quot; y=&quot;281&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;rstc&quot; x=&quot;650&quot; y=&quot;160&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;rtc&quot; x=&quot;54&quot; y=&quot;501&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;sdadc&quot; x=&quot;219&quot; y=&quot;196&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;sdadc&quot; x=&quot;360&quot; y=&quot;183&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;sercom0&quot; x=&quot;399&quot; y=&quot;393&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;sercom3&quot; x=&quot;416&quot; y=&quot;543&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;stdio&quot; x=&quot;429&quot; y=&quot;272&quot;/&gt;
@@ -9381,7 +9381,7 @@
         &lt;ElementPosition dnOrder=&quot;20&quot; id=&quot;sys_console&quot; x=&quot;551&quot; y=&quot;243&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;21&quot; id=&quot;sys_debug&quot; x=&quot;716&quot; y=&quot;337&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;22&quot; id=&quot;sys_time&quot; x=&quot;210&quot; y=&quot;499&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;23&quot; id=&quot;tc3&quot; x=&quot;650&quot; y=&quot;60&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;23&quot; id=&quot;tc3&quot; x=&quot;650&quot; y=&quot;59&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
   &lt;/UserData&gt;
@@ -10301,6 +10301,39 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_23_0_HANDLER_LOCK"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_23_0_HANDLER_LOCK&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_29_0_ENABLE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_29_0_ENABLE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_29_0_HANDLER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_29_0_HANDLER&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;SDADC_InterruptHandler&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_29_0_HANDLER_LOCK"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_29_0_HANDLER_LOCK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
@@ -13348,6 +13381,50 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;SDADC_CLOCK_FREQUENCY&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;48000000&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="SDADC_INTERRUPT_ENABLE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;SDADC_INTERRUPT_ENABLE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;sdadc&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="SDADC_INTERRUPT_ENABLE_UPDATE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;SDADC_INTERRUPT_ENABLE_UPDATE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="SDADC_INTERRUPT_HANDLER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;SDADC_INTERRUPT_HANDLER&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;sdadc&quot; value=&quot;SDADC_InterruptHandler&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="SDADC_INTERRUPT_HANDLER_LOCK"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;SDADC_INTERRUPT_HANDLER_LOCK&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;sdadc&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -17309,7 +17386,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sdadc" name="SDADC_INTENSET_RESRDY"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sdadc&gt;
   &lt;sdadc dnOrder=&quot;0&quot; id=&quot;SDADC_INTENSET_RESRDY&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/sdadc&gt;
 &lt;/sdadc&gt;
 </value>
@@ -21261,7 +21340,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tc3&gt;
   &lt;tc3 dnOrder=&quot;0&quot; id=&quot;TC_CTRLA_PRESCALER&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;5&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;4&quot;/&gt;
     &lt;/Values&gt;
   &lt;/tc3&gt;
 &lt;/tc3&gt;
@@ -21271,7 +21350,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="tc3" name="TC_CTRLA_PRESCYNC"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tc3&gt;
   &lt;tc3 dnOrder=&quot;0&quot; id=&quot;TC_CTRLA_PRESCYNC&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/tc3&gt;
 &lt;/tc3&gt;
 </value>
@@ -21290,7 +21371,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tc3&gt;
   &lt;tc3 dnOrder=&quot;0&quot; id=&quot;TC_FREQUENCY&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tc3&quot; value=&quot;750000&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tc3&quot; value=&quot;3000000&quot;/&gt;
     &lt;/Values&gt;
   &lt;/tc3&gt;
 &lt;/tc3&gt;
@@ -21405,7 +21486,7 @@
       &lt;/Long&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tc3&quot; value=&quot;749&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tc3&quot; value=&quot;2999&quot;/&gt;
     &lt;/Values&gt;
   &lt;/tc3&gt;
 &lt;/tc3&gt;
@@ -21417,7 +21498,7 @@
   &lt;tc3 dnOrder=&quot;0&quot; id=&quot;TC_TIMER_TIME_MS&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Float dnOrder=&quot;0&quot; id=&quot;max&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;87.38133&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;21.845333&lt;/Value&gt;
       &lt;/Float&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;/&gt;
@@ -21490,7 +21571,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\definitions.h</file>
-         <hash>a758a35abba047af6892125f0f95a5d0bcf4604ee2fce4ab3e45dfe6bfe77588</hash>
+         <hash>4e17c8c75e8f0ff055d2374287f00afee74730a89d4fde208bfa6b88650b51b0</hash>
       </entry>
       <entry>
          <file>..\src\config\default\device.h</file>
@@ -21522,11 +21603,11 @@
       </entry>
       <entry>
          <file>..\src\config\default\interrupts.c</file>
-         <hash>1b7051a9b18604166112536a708ebd533b0edb38b5273b0ef669f7c789dad3c9</hash>
+         <hash>58d7eb38f4cfecbe18ce0a2d86f4a3a8de27124fefa0f01bf0e863329d8ff6d5</hash>
       </entry>
       <entry>
          <file>..\src\config\default\interrupts.h</file>
-         <hash>64e441941e9384de16df437ef9c04239b728a13e0643c7a29b33c10fdba3ad5c</hash>
+         <hash>8c5f6ba1a9fae44b9bc09cd08876eb68c72c678d512e73971fc6ef591b800b74</hash>
       </entry>
       <entry>
          <file>..\src\config\default\libc_syscalls.c</file>
@@ -21622,7 +21703,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\nvic\plib_nvic.c</file>
-         <hash>8d658775b939a1632b0f787300b8490d31443914c70740cbd6210cc4c225320d</hash>
+         <hash>74fcc54ec61f6190fbd33375251ebd81cb6f6e1a350257901d79d191c75e1344</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\nvic\plib_nvic.h</file>
@@ -21678,11 +21759,11 @@
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\sdadc\plib_sdadc.c</file>
-         <hash>2547e424ec5f1d53f3fd0174a391419338527de0e679facfd5d1bd54ea4ec115</hash>
+         <hash>393ea5b5713ea5cb2f70b8cde1ce5f98e1352bec52bc7b9a99779efbbbaa5220</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\sdadc\plib_sdadc.h</file>
-         <hash>6b1a2027b6bbcbf9e37f3d3bb1e97082d91081d84bb79e27c3753627706b9d3f</hash>
+         <hash>089dc70ab31a9c48593f305c64ba894a0d7cd8a0176442021ff0b881f6f7305b</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\sdadc\plib_sdadc_common.h</file>
@@ -21730,7 +21811,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\tc\plib_tc3.c</file>
-         <hash>2cb5df37e8d3274b6e432b73e22985500957fe390bff33017bf873651d79a00f</hash>
+         <hash>e5b386fc74b53f85aed861ddfab3c77e48abd2b40da5690d0fa8273b565baf78</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\tc\plib_tc3.h</file>

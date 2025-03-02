@@ -1,4 +1,4 @@
-build/default/debug/_ext/1360937237/main.o: ../src/main.c \
+build/default/debug/duration.o: duration.c duration.h \
  ../src/config/default/definitions.h \
  ../src/config/default/peripheral/nvmctrl/plib_nvmctrl.h \
  ../src/config/default/device.h \
@@ -141,6 +141,8 @@ build/default/debug/_ext/1360937237/main.o: ../src/main.c \
  ../src/config/default/library/emulated_eeprom/emulated_eeprom.h \
  ../src/config/default/library/emulated_eeprom/emulated_eeprom_definitions.h \
  ../src/app.h
+
+duration.h:
 
 ../src/config/default/definitions.h:
 
