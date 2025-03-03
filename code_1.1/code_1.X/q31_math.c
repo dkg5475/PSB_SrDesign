@@ -6,15 +6,53 @@
 //!
 //!Provides multiply and divide functions in the Q31 format \n\n
 //!
-//!This module is used as a wrapper around SDADC function calls to read and store voltage samples\n\n
+//!This module provides functions for Q31 fixed-point arithmetic \n\n
 //!
 //!The duration module defines the following functions:\n
-//!    - Q31_MUL, which multiplies two int32_t numbers
-//!    - Q31_DIV, which divides two int32_t numbers
+//!    - Q31_MUL, which multiplies two int32_t numbers\n
+//!    - Q31_DIV, which divides two int32_t numbers\n
+//!    - double_to_Q31, which converts a double type value to Q31 format\n
+//!    - Q31_to_double, which converts a Q31 type value to double\n
+//!    - float_to_Q31, which converts a float type value to Q31\n
+//!
+//!    - Q31 is a signed 32-bit fixed-point format where:\n
+//!       - 1 bit is for sign (MSB))\n
+//!       - 31 bits are for fractional values\n
+//!       - Since the sign bit is used, the range of numbers in Q31 is -1.0 <= x < 1.0\n
+//!       - Numerically, this means -2^31 <= x <= 2^31\n
+//!
+//!    - Since Q31 uses integers, mathematical operations must be scaled properly to \n
+//!      prevent overflow and maintain precision.\n\n
+//! 
+//!    - Multiplication in Q31 follows the form of result = ( (A * B) / 2^31) \n
+//!    - Since multiplying two Q31 numbers produces a Q62 result (32-bit × 32-bit = 64-bit), \n
+//!    - we must right shift by 31 to bring it back to Q31 format.\n
+//!    - The function implementation for multiplication ensures that 0.5 * 0.5 = 0.25 (correct scaling) and 
+//!    - 0.999 * 0.999 = 0.998, handling overflow\n\n
+//!
+//!    - Division in Q31 follows to form:  result = ( (A * 2^31) / B) \n
+//!    - Since dividing two Q31 numbers results in a Q31 output, we must left shift by 31 before dividing. \n
+//!    - function implementation for division ensures 0.5 / 2 = 0.25 (correct scaling) \n
+//!    - and handles divide by zero safety.\n\n
+//!
+//!    - Conversion Between Q31 and Floating-Point \n
+//!    - Since microcontrollers often work with floating-point numbers for ease of understanding,
+//!    - conversion functions are useful.\n
+//!    - Conversion from double to Q31 looks like result = (double * 2^31) \n
+//!    - Conversion from Q31 to double looks like result = (Q31 * 2^-31) \n\n
+//!    
+//!    - Exponential Function in Q31
+//!    - Since exponential functions (e^x) are non-linear, we approximate it using a Taylor Series. 
+//!    - For embedded systems, we limit the terms to 6 to save computation time. 
+//!
+//!
+//!
+//!
 //!@param None
 //!@return None
 
-/* Inline suggests that the compiler expands the function in place, avoiding function call overhead */
+
+
 
 static struct intermediate_t intermediate;
 

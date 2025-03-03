@@ -9361,7 +9361,7 @@
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; x=&quot;140&quot; y=&quot;391&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;cmsis&quot; x=&quot;660&quot; y=&quot;19&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;core&quot; x=&quot;558&quot; y=&quot;19&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;dac&quot; x=&quot;17&quot; y=&quot;292&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;dac&quot; x=&quot;17&quot; y=&quot;291&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;dfp&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;divas&quot; x=&quot;183&quot; y=&quot;85&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;dsu&quot; x=&quot;491&quot; y=&quot;81&quot;/&gt;
@@ -9376,7 +9376,7 @@
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;sercom0&quot; x=&quot;399&quot; y=&quot;393&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;sercom3&quot; x=&quot;416&quot; y=&quot;543&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;stdio&quot; x=&quot;429&quot; y=&quot;272&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;supc&quot; x=&quot;469&quot; y=&quot;137&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;supc&quot; x=&quot;499&quot; y=&quot;155&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;19&quot; id=&quot;sys_command&quot; x=&quot;634&quot; y=&quot;450&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;20&quot; id=&quot;sys_console&quot; x=&quot;551&quot; y=&quot;243&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;21&quot; id=&quot;sys_debug&quot; x=&quot;716&quot; y=&quot;337&quot;/&gt;
@@ -14128,6 +14128,7 @@
   &lt;dac dnOrder=&quot;0&quot; id=&quot;DAC_OUTPUT_MODE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;dac&quot; value=&quot;2&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;2&quot;/&gt;
     &lt;/Values&gt;
   &lt;/dac&gt;
 &lt;/dac&gt;
@@ -21571,7 +21572,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\definitions.h</file>
-         <hash>4e17c8c75e8f0ff055d2374287f00afee74730a89d4fde208bfa6b88650b51b0</hash>
+         <hash>a758a35abba047af6892125f0f95a5d0bcf4604ee2fce4ab3e45dfe6bfe77588</hash>
       </entry>
       <entry>
          <file>..\src\config\default\device.h</file>

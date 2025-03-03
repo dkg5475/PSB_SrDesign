@@ -5,15 +5,10 @@
         <group>
             <file>file:/C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_1.1/src/main.c</file>
             <file>file:/C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_1.1/code_1.X/q31_math.h</file>
-            <file>file:/C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_1.1/code_1.X/sensor.c</file>
-            <file>file:/C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_1.1/code_1.X/duration.h</file>
             <file>file:/C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_1.1/code_1.X/q31_math.c</file>
-            <file>file:/C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_1.1/code_1.X/convert.h</file>
-            <file>file:/C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_1.1/code_1.X/sensor.h</file>
-            <file>file:/C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_1.1/code_1.X/duration.c</file>
-            <file>file:/C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_1.1/code_1.X/convert.c</file>
             <file>file:/C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_1.1/code_1.X/fis.c</file>
             <file>file:/C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_1.1/code_1.X/fis.h</file>
+            <file>file:/C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_1.1/code_1.X/dac_10bit.h</file>
         </group>
     </open-files>
 </project-private>
