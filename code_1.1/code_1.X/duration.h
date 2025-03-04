@@ -8,7 +8,7 @@
 /* Function prototypes */
 void     startTimer                    (void);
 void     endTimer                      (void);
-double   calcElapsed                   (void);
+float    calcElapsed                   (void);
 void     TC3_Callback_InterruptHandler (TC_TIMER_STATUS status, uintptr_t context);
 
 /* Global structures */
@@ -20,7 +20,7 @@ void     TC3_Callback_InterruptHandler (TC_TIMER_STATUS status, uintptr_t contex
         volatile uint16_t startTime;
         volatile uint16_t endTime;
         volatile uint16_t elapsedTime; 
-        double elapsedSeconds;
+        float elapsedSeconds;
     };
     
     

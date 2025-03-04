@@ -29,14 +29,14 @@ static struct conversions_t conversions = {
     .kelvinConst = 273.15
 };
 
-double myLn (double x) {
-    return log(x);
+float myLn (double x) {
+    return float(log(x));
 }
 
 
 void rawToVoltage (int16_t *samples) {
     for (int i = 0; i < SAMPLE_COUNT; i++) {
-        conversions.voltageSamples[i] = (double)((samples[i] * SDADC_VREF) / 32768);
+        conversions.voltageSamples[i] = (float)((samples[i] * SDADC_VREF) / 32768);
     }
 }
 
@@ -64,7 +64,7 @@ void voltageToTemp (void) {
     }
 }
 
-double calcSlope (double t) {
+float calcSlope (float t) {
     conversions.firstSample = conversions.tempSamples[0];
     conversions.lastSample = conversions.tempSamples[SAMPLE_COUNT - 1];
     conversions.tempSlope = (conversions.firstSample - conversions.lastSample) / t;
@@ -72,7 +72,7 @@ double calcSlope (double t) {
     return conversions.tempSlope;
 }
 
-double* getTempSamples (void) {
+float* getTempSamples (void) {
     return conversions.tempSamples;
 }
 

@@ -6,11 +6,11 @@
 #define SDADC_VREF   2.0
 
 /* Function prototypes*/
-double  myLn                (double x); 
-void    rawToVoltage        (int16_t *samples);
-void    voltageToTemp       (void);
-double  calcSlope           (double);
-double* getTempSamples      (void);
+float  myLn                (double x); 
+void   rawToVoltage        (int16_t *samples);
+void   voltageToTemp       (void);
+float  calcSlope           (float);
+float* getTempSamples      (void);
 /* Adding myLn as a wrapper in case we decide to add a custom approximation */
 
 
@@ -19,24 +19,24 @@ double* getTempSamples      (void);
 #define CONVERT_H
     //!Define global structure for variables needed
     struct conversions_t {
-        const double SUPPLY_VOLTAGE;  
-        const double R18;             
-        const double B_VALUE;         
-        const double R_25;            
-        const double T_25;      
-        const double kelvinConst;
+        const float SUPPLY_VOLTAGE;  
+        const float R18;             
+        const float B_VALUE;         
+        const float R_25;            
+        const float T_25;      
+        const float kelvinConst;
 
-        double voltageOut; // Vout for calculating R_2 (thermistor resistance)
-        double rTherm;     // thermistor resistance 
-        double tempK;      // individual temperature data points in Kelvin
-        double tempC;      // individual temperature data points in Celsius 
+        float voltageOut; // Vout for calculating R_2 (thermistor resistance)
+        float rTherm;     // thermistor resistance 
+        float tempK;      // individual temperature data points in Kelvin
+        float tempC;      // individual temperature data points in Celsius 
         
-        double voltageSamples[SAMPLE_COUNT]; 
-        double tempSamples[SAMPLE_COUNT];
+        float voltageSamples[SAMPLE_COUNT]; 
+        float tempSamples[SAMPLE_COUNT];
         
-        double firstSample;  // first sample in the buffer
-        double lastSample; // last sample in the buffer
-        double tempSlope;
+        float firstSample;  // first sample in the buffer
+        float lastSample; // last sample in the buffer
+        float tempSlope;
     };
 
     
