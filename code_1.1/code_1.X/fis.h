@@ -4,6 +4,10 @@
 
 /* Macros */
 #define LUT_SIZE 256
+#define COLD_LOWER_LIMIT  -40.0f
+#define HOT_UPPER_LIMIT    120.0f
+#define MIN_SLOPE_LIMIT   -1.0f
+#define MAX_SLOPE_LIMIT    1.0f
 
 /* Global structures */
 #ifndef FIS_H
