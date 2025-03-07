@@ -133,13 +133,13 @@ build/default/debug/fis.o: fis.c ../src/config/default/definitions.h \
  ../src/config/default/peripheral/pac/plib_pac.h \
  ../src/config/default/peripheral/eic/plib_eic.h \
  ../src/config/default/peripheral/rstc/plib_rstc.h \
- ../src/config/default/peripheral/dac/plib_dac.h \
  ../src/config/default/peripheral/dsu/plib_dsu.h \
+ ../src/config/default/peripheral/dac/plib_dac.h \
  ../src/config/default/system/console/sys_console.h \
  ../src/config/default/system/console/src/sys_console_uart_definitions.h \
  ../src/config/default/library/emulated_eeprom/emulated_eeprom.h \
  ../src/config/default/library/emulated_eeprom/emulated_eeprom_definitions.h \
- ../src/app.h convert.h q31_math.h fis.h
+ ../src/app.h convert.h fis.h q31_math.h
 
 ../src/config/default/definitions.h:
 
@@ -415,9 +415,9 @@ build/default/debug/fis.o: fis.c ../src/config/default/definitions.h \
 
 ../src/config/default/peripheral/rstc/plib_rstc.h:
 
-../src/config/default/peripheral/dac/plib_dac.h:
-
 ../src/config/default/peripheral/dsu/plib_dsu.h:
+
+../src/config/default/peripheral/dac/plib_dac.h:
 
 ../src/config/default/system/console/sys_console.h:
 
@@ -431,6 +431,6 @@ build/default/debug/fis.o: fis.c ../src/config/default/definitions.h \
 
 convert.h:
 
-q31_math.h:
-
 fis.h:
+
+q31_math.h:

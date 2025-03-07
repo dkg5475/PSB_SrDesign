@@ -21,8 +21,7 @@
 */
 
 const int16_t  LUT_SIZE_1         =  256;
-const int16_t  LUT_SIZE_2         =  64;
-const int16_t  LUT_SIZE_3         =  32;
+const int16_t  LUT_SIZE_2         = 200;
 const float   X_MIN              = -40.0f;
 const float   X_MAX              =  120.0f;
 
@@ -91,10 +90,10 @@ void generate_gaussian_LUT(float *lut_arr, int16_t lut_size, float sigma1, float
 }
 
 void generate_gaussian_LUT_S(float *lut_arr, int16_t lut_size, float sigma1, float c1, float sigma2, float c2) {
-    float step_size = 2.0f / (lut_size - 1);
+    float step_size = 0.01f;
     
     for (int i = 0; i < lut_size; i++) {
-        float x = MIN_SLOPE_LIMIT + (i * step_size); // compute the x value for this index in the LUT
+        float x = (i * step_size); // compute the x value for this index in the LUT
         lut_arr[i] = compute_gaussian_value(x, sigma1, c1, sigma2, c2);
     }
    
@@ -151,9 +150,9 @@ int main() {
     
     
     printf("START OF INC_MF\n");
-    float incMF[LUT_SIZE_1];
-    generate_gaussian_LUT_S(incMF, LUT_SIZE_1, INCREASING_CENTER_1, SIGMA_SLOPE, MAX_SLOPE_LIMIT, SIGMA_SLOPE);
-    print_LUT(incMF, LUT_SIZE_1);
+    float incMF[LUT_SIZE_2];
+    generate_gaussian_LUT_S(incMF, LUT_SIZE_2, INCREASING_CENTER_1, SIGMA_SLOPE, MAX_SLOPE_LIMIT, SIGMA_SLOPE);
+    print_LUT(incMF, LUT_SIZE_2);
     printf("\n\n\n");
     
     

@@ -9,7 +9,7 @@
 float  myLn                (double x); 
 void   rawToVoltage        (int16_t *samples);
 void   voltageToTemp       (void);
-float  calcSlope           (float);
+float  calcSlope           (float t);
 float* getTempSamples      (void);
 /* Adding myLn as a wrapper in case we decide to add a custom approximation */
 

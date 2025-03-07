@@ -29,12 +29,13 @@
         TC3_TimerStop();
     }
 
-    double calcElapsed (void) {
+    float calcElapsed (void) {
+        
         if (timer.endTime >= timer.startTime) {
-            timer.elapsedTime = float( timer.endTime - timer.startTime );
+            timer.elapsedTime = timer.endTime - timer.startTime;
         }
         else { /* To handle overflow */
-            timer.elapsedTime = float( ( (65535 - timer.startTime) + timer.endTime + 1 ) );
+            timer.elapsedTime = (float)((65535 - timer.startTime) + timer.endTime + 1 );
         }
         
         timer.elapsedSeconds = timer.elapsedTime / TIMER_FREQ;

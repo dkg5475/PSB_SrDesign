@@ -17,22 +17,40 @@
 /* This means that in order to retrieve the value of a member, a get function must be implemented */
 static struct sdadc_t sdadc;
 
-/* Note that the parameters are unused but are included since the SDADC driver requires them*/
-void SDADC_ResultReadyHandler (SDADC_STATUS status, uintptr_t context) {
-    sdadc.adcResult = SDADC_ConversionResultGet();
-    sdadc.rawSamples[sdadc.counter++] = sdadc.adcResult;
+/* Note that the parameters are unused but are included since the SDADC driver requires them */
+void SDADC_ResultReadyHandler (SDADC_STATUS status, uintptr_t context) {   
+    if (!sdadc.bufferFullFlag) {
+        sdadc.adcResult = SDADC_ConversionResultGet();
+        sdadc.rawSamples[sdadc.counter++] = sdadc.adcResult;
+    }
+    
     if (sdadc.counter >= SAMPLE_COUNT) {
-        sdadc.counter = 0;
+        sdadc.bufferFullFlag = true;
     }
 }
 
 void SDADC_Init(void) {
+    sdadc.counter = 0;
+    sdadc.bufferFullFlag = false; 
     SDADC_Enable();
     SDADC_CallbackRegister(SDADC_ResultReadyHandler, (uintptr_t)NULL);
-    
 }   
 
+void isBufferFull(void) {
+    return sdadc.bufferFullFlag;
+}
+
+void clearBuffer(void) {
+    sdadc.counter = 0;
+    sdadc.bufferFullFlag = false;
+}
+
 int16_t* readSensor (void) {
+    
+    if (sdadc.bufferFullFlag) {
+        return NULL;
+    }
+    
     SDADC_ConversionStart();
     return sdadc.rawSamples;
 }

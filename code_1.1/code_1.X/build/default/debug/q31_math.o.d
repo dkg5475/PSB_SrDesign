@@ -134,8 +134,8 @@ build/default/debug/q31_math.o: q31_math.c \
  ../src/config/default/peripheral/pac/plib_pac.h \
  ../src/config/default/peripheral/eic/plib_eic.h \
  ../src/config/default/peripheral/rstc/plib_rstc.h \
- ../src/config/default/peripheral/dac/plib_dac.h \
  ../src/config/default/peripheral/dsu/plib_dsu.h \
+ ../src/config/default/peripheral/dac/plib_dac.h \
  ../src/config/default/system/console/sys_console.h \
  ../src/config/default/system/console/src/sys_console_uart_definitions.h \
  ../src/config/default/library/emulated_eeprom/emulated_eeprom.h \
@@ -416,9 +416,9 @@ build/default/debug/q31_math.o: q31_math.c \
 
 ../src/config/default/peripheral/rstc/plib_rstc.h:
 
-../src/config/default/peripheral/dac/plib_dac.h:
-
 ../src/config/default/peripheral/dsu/plib_dsu.h:
+
+../src/config/default/peripheral/dac/plib_dac.h:
 
 ../src/config/default/system/console/sys_console.h:
 

@@ -7,6 +7,8 @@
 /* Function prototypes */
 void SDADC_Init                   (void); 
 void SDADC_ResultReadyHandler     (SDADC_STATUS status, uintptr_t context);
+void isBufferFull                 (void);
+void clearBuffer                  (void);
 int16_t* readSensor               (void);
 
 /* Global Structures */
@@ -15,11 +17,10 @@ int16_t* readSensor               (void);
     //!Define global structure for callback handler
     struct sdadc_t {
         int16_t rawSamples[SAMPLE_COUNT];
-        volatile int16_t adcResult;
+        volatile int16_t  adcResult;
         volatile uint16_t counter;
+        bool              bufferFullFlag;
     };
-    
-    
 #endif
     
 

@@ -30,7 +30,7 @@ static struct conversions_t conversions = {
 };
 
 float myLn (double x) {
-    return float(log(x));
+    return (float)(log(x));
 }
 
 
