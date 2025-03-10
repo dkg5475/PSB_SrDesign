@@ -139,7 +139,7 @@ build/default/debug/fis.o: fis.c ../src/config/default/definitions.h \
  ../src/config/default/system/console/src/sys_console_uart_definitions.h \
  ../src/config/default/library/emulated_eeprom/emulated_eeprom.h \
  ../src/config/default/library/emulated_eeprom/emulated_eeprom_definitions.h \
- ../src/app.h convert.h fis.h q31_math.h
+ ../src/app.h convert.h fis.h
 
 ../src/config/default/definitions.h:
 
@@ -432,5 +432,3 @@ build/default/debug/fis.o: fis.c ../src/config/default/definitions.h \
 convert.h:
 
 fis.h:
-
-q31_math.h:

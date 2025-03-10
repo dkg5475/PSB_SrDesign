@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_1.1/src/main.c</file>
-            <file>file:/C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_1.1/code_1.X/fis.c</file>
-            <file>file:/C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_1.1/code_1.X/dac_10bit.h</file>
-            <file>file:/C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_1.1/code_1.X/fis.h</file>
+            <file>file:/C:/Users/Danfi/OneDrive/Documents/remote/PSBSD/code_1.1/src/config/default/peripheral/dac/plib_dac.c</file>
+            <file>file:/C:/Users/Danfi/OneDrive/Documents/remote/PSBSD/code_1.1/src/main.c</file>
+            <file>file:/C:/Users/Danfi/OneDrive/Documents/remote/PSBSD/code_1.1/code_1.X/sensor.c</file>
+            <file>file:/C:/Users/Danfi/OneDrive/Documents/remote/PSBSD/code_1.1/src/config/default/peripheral/sdadc/plib_sdadc.c</file>
         </group>
     </open-files>
 </project-private>
