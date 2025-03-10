@@ -13,36 +13,29 @@
     //!@param None
     //!@return None
 
-    /* Static ensures that the struct declared here is private */
-    /* This means that in order to retrieve the value of a member, a get function must be implemented */
-    static struct timer_t timer; 
+struct timer_t timer;
 
-    void startTimer (void) {
-        /* Start the timer and get its value */
-        TC3_TimerStart();
-        timer.startTime = TC3_Timer16bitCounterGet(); 
+void startTimer (void) {
+    /* Start the timer and get its value */
+    TC3_TimerStart();
+    timer.startTime = TC3_Timer16bitCounterGet(); 
+}
+
+void endTimer (void) {
+    /* Get the value of the timer right before it ends*/
+    timer.endTime = TC3_Timer16bitCounterGet();
+    TC3_TimerStop();
+}
+
+void calcElapsed (void) {
+    if (timer.endTime >= timer.startTime) {
+        timer.elapsedTime = timer.endTime - timer.startTime;
     }
-
-    void endTimer (void) {
-        /* Get the value of the timer right before it ends*/
-        timer.endTime = TC3_Timer16bitCounterGet();
-        TC3_TimerStop();
+    else { /* To handle overflow */
+        timer.elapsedTime = (float)((65535 - timer.startTime) + timer.endTime + 1 );
     }
-
-    float calcElapsed (void) {
-        
-        if (timer.endTime >= timer.startTime) {
-            timer.elapsedTime = timer.endTime - timer.startTime;
-        }
-        else { /* To handle overflow */
-            timer.elapsedTime = (float)((65535 - timer.startTime) + timer.endTime + 1 );
-        }
-        
-        timer.elapsedSeconds = timer.elapsedTime / TIMER_FREQ;
-        
-        return timer.elapsedSeconds;
-
-    }
+    timer.elapsedSeconds = timer.elapsedTime / TIMER_FREQ;
+}
 
 
 

@@ -13,9 +13,7 @@
 //!@param None
 //!@return None
 
-/* Static ensures that the struct declared here is private */
-/* This means that in order to retrieve the value of a member, a get function must be implemented */
-static struct sdadc_t sdadc;
+struct sdadc_t sdadc;
 
 /* Note that the parameters are unused but are included since the SDADC driver requires them */
 void SDADC_ResultReadyHandler (SDADC_STATUS status, uintptr_t context) {   
@@ -45,14 +43,13 @@ void clearBuffer(void) {
     sdadc.bufferFullFlag = false;
 }
 
-int16_t* readSensor (void) {
+void readSensor (void) {
     
     if (sdadc.bufferFullFlag) {
-        return NULL;
+        clearBuffer();
     }
     
     SDADC_ConversionStart();
-    return sdadc.rawSamples;
 }
 
 

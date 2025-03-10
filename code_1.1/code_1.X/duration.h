@@ -10,7 +10,7 @@
 /* Function prototypes */
 void     startTimer                    (void);
 void     endTimer                      (void);
-float    calcElapsed                   (void);
+void     calcElapsed                   (void);
 // void     TC3_Callback_InterruptHandler (TC_TIMER_STATUS status, uintptr_t context);
 
 /* Global structures */
@@ -23,6 +23,6 @@ float    calcElapsed                   (void);
         volatile uint16_t elapsedTime; 
     };
     
-    
+    extern struct timer_t timer;
 #endif
     

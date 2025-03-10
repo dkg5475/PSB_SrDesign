@@ -42,7 +42,15 @@ struct fuzzyOutputs_t fuzzyOutputs = {
     .LARGE_DECREASE      = 1.5f
 };
 
-static struct compute_gaussian_t compute_gaussian;
+struct fuzzyVars_t fuzzyVars = {
+    .T_set = 97.00f, // Example initial value, change as needed
+    .coldMF_c2 = fuzzyVars.T_set - 8.0f,
+    .optimalMF_c1 = fuzzyVars.T_set - 0.02f,
+    .optimalMF_c2 = fuzzyVars.T_set + 0.02f,
+    .hotMF_c1 = fuzzyVars.T_set + 8
+};
+
+struct compute_gaussian_t compute_gaussian;
 
 float compute_gaussian_value (float x, float sigma1, float c1, float sigma2, float c2) {
     if (x <= c1) {
@@ -68,7 +76,7 @@ float compute_gaussian_value (float x, float sigma1, float c1, float sigma2, flo
     return compute_gaussian.result;
 }
 
-static struct tempDev_gaussianLUT_t tempDev_gaussianLUT;
+struct tempDev_gaussianLUT_t tempDev_gaussianLUT_t;
 
 void generate_gaussianLUT_dev (float *lut, float sigma1, float c1, float sigma2, float c2) {
     tempDev_gaussianLUT.step_size = (fuzzyConstants.TEMP_DEV_UPPER_LIMIT - fuzzyConstants.TEMP_DEV_LOWER_LIMIT) / (fuzzyConstants.LUT_SIZE_DEV - 1);
@@ -79,7 +87,7 @@ void generate_gaussianLUT_dev (float *lut, float sigma1, float c1, float sigma2,
     }
 }
 
-static struct tempSlope_gaussianLUT_t tempSlope_gaussianLUT;
+struct tempSlope_gaussianLUT_t tempSlope_gaussianLUT;
 
 void generate_gaussianLUT_slope (float *lut, float sigma1, float c1, float sigma2, float c2) {
     tempSlope_gaussianLUT.step_size = (fuzzyConstants.MAX_SLOPE_LIMIT - fuzzyConstants.MIN_SLOPE_LIMIT) / (fuzzyConstants.LUT_SIZE_SLOPE - 1);
@@ -95,7 +103,7 @@ void generate_gaussianLUT_slope (float *lut, float sigma1, float c1, float sigma
 /* two LUT indices x_i and x_i+1 (x_ip1 in the code), then the corresponding output y can be */
 /* approximated as y = y_i + ( (x - x_i) * (y_ip1 - y_i) ) / (x_ip1 - x_i) */
 
-static struct interpolation_t interpolation;
+struct interpolation_t interpolation;
 
 float interpolate_LUT (float x, float *lut, int16_t lut_size, float x_min, float x_max) {
     interpolation.step_size = (x_max - x_min) / (lut_size - 1);
@@ -118,9 +126,10 @@ float interpolate_LUT (float x, float *lut, int16_t lut_size, float x_min, float
     return interpolation.y_i + ((x - interpolation.x_i) * (interpolation.y_ip1 - interpolation.y_i)) / (interpolation.x_ip1 - interpolation.x_i);
 }
 
-TempMembership_t  TempMembership;
+TempMembership_t TempMembership;
 SlopeMembership_t SlopeMembership;
 struct evaluate_t evaluate;
+struct fuzzyOutputs_t fuzzyOutputs;
 
 /* Fuzzy logic rule for Type-2 Sugeno are evaluted using Fuzzy AND operator, or the minimum of two values */
 /* Output = Sum(Rule Strength * Rule Output) / Sum(Rule Strength) */

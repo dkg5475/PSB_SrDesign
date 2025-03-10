@@ -20,13 +20,14 @@
 /* Static ensures that the struct declared here is private */
 /* This means that in order to retrieve the value of a member, a get function must be implemented */
 
-static struct conversions_t conversions = {
-    .SUPPLY_VOLTAGE = 3.0,
-    .R18 = 4990.0,
-    .B_VALUE = 4300.0,
-    .R_25 = 100000.0,
-    .T_25 = 298.15,
-    .kelvinConst = 273.15
+struct conversions_t conversions = {
+    .SUPPLY_VOLTAGE = 3.0f,
+    .SDADC_VREF     = 3.0f,
+    .R18 = 4990.0f,
+    .B_VALUE = 4300.0f,
+    .R_25 = 100000.0f,
+    .T_25 = 298.15f,
+    .kelvinConst = 273.15f
 };
 
 float myLn (double x) {
@@ -36,7 +37,7 @@ float myLn (double x) {
 
 void rawToVoltage (int16_t *samples) {
     for (int i = 0; i < SAMPLE_COUNT; i++) {
-        conversions.voltageSamples[i] = (float)((samples[i] * SDADC_VREF) / 32768);
+        conversions.voltageSamples[i] = (float)((samples[i] * conversions.SDADC_VREF) / 32768);
     }
 }
 

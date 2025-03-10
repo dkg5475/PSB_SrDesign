@@ -26,6 +26,7 @@ struct fuzzyConstants_t {
     const float INC_CENTER_1;
 };
 
+
 struct fuzzyVars_t {
     float T_set; 
     
@@ -36,6 +37,8 @@ struct fuzzyVars_t {
     
     float hotMF_c1;
 };
+
+extern struct fuzzyVars_t fuzzyVars;
 
 /* Struct for intermediate values used in gauss2mf function*/
 struct compute_gaussian_t {
@@ -50,17 +53,23 @@ struct compute_gaussian_t {
     float result;
 };
 
+extern struct compute_gaussian_t compute_gaussian;
+
 /* Intermediate values to be used for tempDev Gaussian LUT function */
 struct tempDev_gaussianLUT_t {
     float step_size;
     float x;
 };
 
+extern struct tempDev_gaussianLUT_t tempDev_gaussianLUT;
+
 /* Intermediate values to be used for tempSlope Gaussian LUT function */
 struct tempSlope_gaussianLUT_t {
     float step_size;
     float x;
 };
+
+extern struct tempSlope_gaussianLUT_t tempSlope_gaussianLUT;
 
 /* Intermediate values to be used for LUT interpolation */
 struct interpolation_t {
@@ -73,6 +82,8 @@ struct interpolation_t {
     float y_ip1; // LUT value at upper index
 };
 
+extern struct interpolation_t interpolation;
+
 /* Structs to hold the degrees of membership from inputs*/
 typedef struct {
     float cold;
@@ -80,11 +91,15 @@ typedef struct {
     float hot;
 }TempMembership_t;
 
+extern TempMembership_t TempMembership;
+
 typedef struct {
     float dec;
     float stable;
     float inc;
 }SlopeMembership_t;
+
+extern SlopeMembership_t SlopeMembership;
 
 struct evaluate_t {
     float rule_strengths[7];
@@ -94,6 +109,8 @@ struct evaluate_t {
     float denominator;
 };
 
+extern struct evaluate_t evaluate;
+
 struct fuzzyOutputs_t {
     const float VERY_LARGE_INCREASE;
     const float LARGE_INCREASE;
@@ -102,6 +119,8 @@ struct fuzzyOutputs_t {
     const float SMALL_DECREASE;
     const float LARGE_DECREASE;
 };
+
+extern struct fuzzyOutputs_t fuzzyOutputs;
 
 float compute_gaussian_value     (float x, float sigma1, float c1, float sigma2, float c2);
 void  generate_gaussianLUT_dev   (float *lut, float sigma1, float c1, float sigma2, float c2);

@@ -6,7 +6,7 @@
 
 /* Macros */
 #define SAMPLE_COUNT 64
-#define SDADC_VREF   2.0
+// #define SDADC_VREF   3.0
 
 /* Function prototypes*/
 float  myLn                (double x); 
@@ -21,6 +21,7 @@ float* getTempSamples      (void);
     //!Define global structure for variables needed
     struct conversions_t {
         const float SUPPLY_VOLTAGE;  
+        const float SDADC_VREF;
         const float R18;             
         const float B_VALUE;         
         const float R_25;            
@@ -40,7 +41,6 @@ float* getTempSamples      (void);
         float tempSlope;
     };
 
-    
 #endif
     
 

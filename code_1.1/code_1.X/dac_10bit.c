@@ -14,13 +14,14 @@
 //!@param None
 //!@return None
 
-static struct defuzzify_t defuzzify;
 
 /* Converts the output of the FIS to a DAC output */
 /* Maps fuzzy output to voltage range (2V at min heating, 0V at max heating) */
 /* Convert voltage to 14-bit DAC value (0-16383 for 0-2V range) */
 
-uint16_t defuzzify_to_DAC (float x) {
+struct defuzzify_t defuzzify;
+
+void defuzzify_to_DAC (float x) {
     // Ensure x is within expected range (-1.5 to 1.5)
     if (x > 1.5) {
         x = 1.5;
@@ -33,7 +34,6 @@ uint16_t defuzzify_to_DAC (float x) {
 
     defuzzify.DAC_val = (uint16_t)((defuzzify.Vout / 2.0) * 16383);
 
-    return defuzzify.DAC_val;
 }
 
 
