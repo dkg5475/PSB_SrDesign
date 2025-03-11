@@ -12,6 +12,7 @@
                 <sourceRootElem>../src/packs/CMSIS/CMSIS_DSP/Core/Source/BasicMathFunctions</sourceRootElem>
                 <sourceRootElem>../src/packs/CMSIS/CMSIS_DSP/Core/Source/FastMathFunctions</sourceRootElem>
                 <sourceRootElem>../src/packs/CMSIS/CMSIS_DSP/Core/Include</sourceRootElem>
+                <sourceRootElem/>
             </sourceRootList>
             <confList>
                 <confElem>

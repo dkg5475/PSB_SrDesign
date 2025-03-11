@@ -21,7 +21,7 @@
 
 struct defuzzify_t defuzzify;
 
-void defuzzify_to_DAC (float x) {
+void defuzzify_10bit (float x) {
     // Ensure x is within expected range (-1.5 to 1.5)
     if (x > 1.5) {
         x = 1.5;

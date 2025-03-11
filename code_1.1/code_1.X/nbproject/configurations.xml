@@ -406,6 +406,7 @@
     <Elem>../src/packs/CMSIS/CMSIS_DSP/Core/Source/BasicMathFunctions</Elem>
     <Elem>../src/packs/CMSIS/CMSIS_DSP/Core/Source/FastMathFunctions</Elem>
     <Elem>../src/packs/CMSIS/CMSIS_DSP/Core/Include</Elem>
+    <Elem></Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

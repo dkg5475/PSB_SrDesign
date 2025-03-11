@@ -15,9 +15,6 @@
 //!@return None
 
 struct fuzzyConstants_t fuzzyConstants = {
-    .LUT_SIZE_DEV          =  256,
-    .LUT_SIZE_SLOPE        =  201,
-    
     .TEMP_DEV_LOWER_LIMIT  = -40.0f,
     .TEMP_DEV_UPPER_LIMIT  =  120.0f,
     .MIN_SLOPE_LIMIT       = -1.0f,
@@ -42,13 +39,16 @@ struct fuzzyOutputs_t fuzzyOutputs = {
     .LARGE_DECREASE      = 1.5f
 };
 
-struct fuzzyVars_t fuzzyVars = {
-    .T_set = 97.00f, // Example initial value, change as needed
-    .coldMF_c2 = fuzzyVars.T_set - 8.0f,
-    .optimalMF_c1 = fuzzyVars.T_set - 0.02f,
-    .optimalMF_c2 = fuzzyVars.T_set + 0.02f,
-    .hotMF_c1 = fuzzyVars.T_set + 8
-};
+struct fuzzyVars_t fuzzyVars;
+
+/* Cannot initialize a struct with non-constant values, so this function will do so*/
+void initFuzzyVars (float T_set) {
+    fuzzyVars.T_set = T_set;
+    fuzzyVars.coldMF_c2 = T_set - 8.0f;
+    fuzzyVars.optimalMF_c1 = T_set - 0.02f;
+    fuzzyVars.optimalMF_c2 = T_set + 0.02f;
+    fuzzyVars.hotMF_c1 = T_set + 8.0f;
+}
 
 struct compute_gaussian_t compute_gaussian;
 
@@ -76,12 +76,12 @@ float compute_gaussian_value (float x, float sigma1, float c1, float sigma2, flo
     return compute_gaussian.result;
 }
 
-struct tempDev_gaussianLUT_t tempDev_gaussianLUT_t;
+struct tempDev_gaussianLUT_t tempDev_gaussianLUT;
 
 void generate_gaussianLUT_dev (float *lut, float sigma1, float c1, float sigma2, float c2) {
-    tempDev_gaussianLUT.step_size = (fuzzyConstants.TEMP_DEV_UPPER_LIMIT - fuzzyConstants.TEMP_DEV_LOWER_LIMIT) / (fuzzyConstants.LUT_SIZE_DEV - 1);
+    tempDev_gaussianLUT.step_size = (fuzzyConstants.TEMP_DEV_UPPER_LIMIT - fuzzyConstants.TEMP_DEV_LOWER_LIMIT) / (LUT_SIZE_DEV - 1);
     
-    for (int i = 0; i < fuzzyConstants.LUT_SIZE_DEV; i++) {
+    for (int i = 0; i < LUT_SIZE_DEV; i++) {
         tempDev_gaussianLUT.x = fuzzyConstants.TEMP_DEV_LOWER_LIMIT + (i * tempDev_gaussianLUT.step_size);
         lut[i] = compute_gaussian_value(tempDev_gaussianLUT.x, sigma1, c1, sigma2, c2);
     }
@@ -90,9 +90,9 @@ void generate_gaussianLUT_dev (float *lut, float sigma1, float c1, float sigma2,
 struct tempSlope_gaussianLUT_t tempSlope_gaussianLUT;
 
 void generate_gaussianLUT_slope (float *lut, float sigma1, float c1, float sigma2, float c2) {
-    tempSlope_gaussianLUT.step_size = (fuzzyConstants.MAX_SLOPE_LIMIT - fuzzyConstants.MIN_SLOPE_LIMIT) / (fuzzyConstants.LUT_SIZE_SLOPE - 1);
+    tempSlope_gaussianLUT.step_size = (fuzzyConstants.MAX_SLOPE_LIMIT - fuzzyConstants.MIN_SLOPE_LIMIT) / (LUT_SIZE_SLOPE - 1);
     
-    for (int i = 0; i < fuzzyConstants.LUT_SIZE_SLOPE; i++) {
+    for (int i = 0; i < LUT_SIZE_SLOPE; i++) {
         tempSlope_gaussianLUT.x = fuzzyConstants.MIN_SLOPE_LIMIT + (i * tempSlope_gaussianLUT.step_size);
         lut[i] = compute_gaussian_value(tempSlope_gaussianLUT.x, sigma1, c1, sigma2, c2);
     }
@@ -126,14 +126,14 @@ float interpolate_LUT (float x, float *lut, int16_t lut_size, float x_min, float
     return interpolation.y_i + ((x - interpolation.x_i) * (interpolation.y_ip1 - interpolation.y_i)) / (interpolation.x_ip1 - interpolation.x_i);
 }
 
-TempMembership_t TempMembership;
-SlopeMembership_t SlopeMembership;
+tempMembership_t TempMembership;
+slopeMembership_t SlopeMembership;
 struct evaluate_t evaluate;
 struct fuzzyOutputs_t fuzzyOutputs;
 
 /* Fuzzy logic rule for Type-2 Sugeno are evaluted using Fuzzy AND operator, or the minimum of two values */
 /* Output = Sum(Rule Strength * Rule Output) / Sum(Rule Strength) */
-float evaluate_ruleset (TempMembership_t tempMF, SlopeMembership_t slopeMF) {
+float evaluate_ruleset (tempMembership_t tempMF, slopeMembership_t slopeMF) {
     evaluate.rule_strengths[0] = fmin(tempMF.cold, slopeMF.dec);
     evaluate.rule_outputs[0] = fuzzyOutputs.VERY_LARGE_INCREASE;
     
@@ -170,6 +170,32 @@ float evaluate_ruleset (TempMembership_t tempMF, SlopeMembership_t slopeMF) {
     
     return (evaluate.numerator / evaluate.denominator);
 }
+
+tempMembership_t tempMembership = {
+    .cold = 0,
+    .optimal = 0,
+    .hot = 0
+};
+
+slopeMembership_t slopeMembership = {
+    .dec = 0,
+    .stable = 0,
+    .inc = 0
+};
+
+// Initialization of LUTs to be used during the algorithm
+
+struct devLUTs_t devLUTs = {
+    .coldMF = {0},
+    .optimalMF = {0},
+    .hotMF = {0} 
+};
+
+struct slopeLUTs_t slopeLUTs = {
+    .decMF = {0},     
+    .stableMF = {0},
+    .incMF = {0}
+};
 
 
 
