@@ -1,6 +1,7 @@
 #include "definitions.h"
 #include "convert.h"
 #include <math.h>
+#include <stdint.h>
 #include "fis.h"
 
 //!MODULE: fis
