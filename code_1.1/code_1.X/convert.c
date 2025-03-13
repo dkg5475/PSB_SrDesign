@@ -1,6 +1,7 @@
 #include "definitions.h"
 #include "convert.h"
 #include <math.h>
+#include <stdint.h>
 
 //!MODULE: convert
 //!
@@ -17,8 +18,7 @@
 //!@param None
 //!@return None
 
-/* Static ensures that the struct declared here is private */
-/* This means that in order to retrieve the value of a member, a get function must be implemented */
+
 
 struct conversions_t conversions = {
     .SUPPLY_VOLTAGE = 3.0f,
@@ -37,7 +37,7 @@ float myLn (double x) {
 
 void rawToVoltage (int16_t *samples) {
     for (int i = 0; i < SAMPLE_COUNT; i++) {
-        conversions.voltageSamples[i] = (float)((samples[i] * conversions.SDADC_VREF) / 32768);
+        conversions.voltageSamples[i] = (float)((samples[i] * conversions.SDADC_VREF) / INT16_MAX);
     }
 }
 
@@ -73,9 +73,6 @@ float calcSlope (float t) {
     return conversions.tempSlope;
 }
 
-float* getTempSamples (void) {
-    return conversions.tempSamples;
-}
 
 
 
