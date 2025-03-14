@@ -94,14 +94,8 @@ int main (void)
         endTimer();
         calcElapsed();
         // Convert the raw samples to voltage, and then to temperature 
-        rawToVoltage(sdadc.rawSamples);
+        //rawToVoltage();
         voltageToTemp();
-        // For debugging at runtime 
-        /*
-        for (int i = 0; i < 64; i++) {
-            printf(" sample %d is %.4f\n", i, conversions.tempSamples[i]);
-        }
-         * */
         // Calculate the slope 
         calcSlope(timer.elapsedSeconds);
         
