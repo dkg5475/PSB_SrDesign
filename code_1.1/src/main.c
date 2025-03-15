@@ -79,6 +79,7 @@ int main (void)
     
     while (true)
     {   
+        /*
         // Since the LUTs for tempDev is dynamic, the first step is to compute the LUTs
         // based on the starting setpoint (97.00f))
         generate_gaussianLUT_dev(devLUTs.coldMF, fuzzyConstants.SIGMA_COLD_HOT, fuzzyConstants.TEMP_DEV_LOWER_LIMIT, fuzzyConstants.SIGMA_COLD_HOT, fuzzyVars.coldMF_c2);
@@ -95,7 +96,6 @@ int main (void)
         calcElapsed();
         // Convert the raw samples to voltage, and then to temperature 
         //rawToVoltage();
-        voltageToTemp();
         // Calculate the slope 
         calcSlope(timer.elapsedSeconds);
         
@@ -114,6 +114,7 @@ int main (void)
         temp = evaluate_ruleset(tempMembership, slopeMembership);
         defuzzify_10bit(temp);
         DAC_DataWrite(defuzzify.DAC_val);
+        */
     }
     
     

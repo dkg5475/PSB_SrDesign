@@ -13,7 +13,7 @@ void SDADC_Init                   (void);
 void SDADC_ResultReadyHandler     (SDADC_STATUS status, uintptr_t context);
 bool isBufferFull                 (void);
 void clearBuffer                  (void);
-void readSensor               (void);
+void readSensor                   (void);
 
 /* Global Structures */
     //!Define global structure for callback handler

@@ -12,7 +12,8 @@
 float  myLn                (double x); 
 void   findAverage         (int16_t *sampleBuffer);
 void   rawToVoltage        (void);
-void   voltageToTemp       (void);
+float  voltageToTemp       (float sample);
+void   getTempPoints       (void);
 float  calcSlope           (float t);
 /* Adding myLn as a wrapper in case we decide to add a custom approximation */
 
@@ -33,17 +34,17 @@ float  calcSlope           (float t);
         float tempK;      // individual temperature data points in Kelvin
         float tempC;      // individual temperature data points in Celsius 
         
-        int16_t samplesAverage_temp;
-        int16_t firstSample_temp;
-        int16_t lastSample_temp;
+        int16_t samplesAverage_raw; // for storing the average of the samples before conversions
+        int16_t firstSample_raw; // first and last sample gathered before conversion
+        int16_t lastSample_raw;
         
-        float samplesAverage_voltage;
-        float firstSample_voltage;
+        float samplesAverage_voltage; // for storing average of the samples after converting to voltage
+        float firstSample_voltage; // first and last samples as voltage
         float lastSample_voltage;
         
-        float samplesAverage; // for holding the average of the samples in the buffer 
-        float firstSample;  // first sample in the buffer
-        float lastSample; // last sample in the buffer
+        float samplesAverage_temp;  // required variables as temperature
+        float firstSample_temp;
+        float lastSample_temp;
         float tempSlope;
         
     };
