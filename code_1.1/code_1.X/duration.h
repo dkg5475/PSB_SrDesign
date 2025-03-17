@@ -15,14 +15,14 @@ void     calcElapsed                   (void);
 
 /* Global structures */
     //!Define global structure timer variables
-    struct timer_t
+    typedef struct
     {
         float elapsedSeconds;
         volatile uint16_t startTime;
         volatile uint16_t endTime;
         volatile uint16_t elapsedTime; 
-    };
+    }duration_timer_t;
     
-    extern struct timer_t timer;
+    extern duration_timer_t timer;
 #endif
     

@@ -15,7 +15,7 @@
 //!@param None
 //!@return None
 
-struct fuzzyConstants_t fuzzyConstants = {
+fis_fuzzyConstants_t fuzzyConstants = {
     .TEMP_DEV_LOWER_LIMIT  = -40.0f,
     .TEMP_DEV_UPPER_LIMIT  =  120.0f,
     .MIN_SLOPE_LIMIT       = -1.0f,
@@ -31,7 +31,7 @@ struct fuzzyConstants_t fuzzyConstants = {
     .INC_CENTER_1          =   0.35f
 };
 
-struct fuzzyOutputs_t fuzzyOutputs = {
+fis_fuzzyOutputs_t fuzzyOutputs = {
     .VERY_LARGE_INCREASE = -1.5f,
     .LARGE_INCREASE      = -0.75f,
     .SMALL_INCREASE      = -0.5f,
@@ -40,7 +40,70 @@ struct fuzzyOutputs_t fuzzyOutputs = {
     .LARGE_DECREASE      = 1.5f
 };
 
-struct fuzzyVars_t fuzzyVars;
+fis_fuzzyVars_t fuzzyVars; // explicit init done in function call 
+
+fis_compute_gaussian_t compute_gaussian = {
+    .diff1 = 0,
+    .exp1 = 0,
+    .gauss1_value = 0,
+    
+    .diff2 = 0,
+    .exp2 = 0,
+    .gauss2_value = 0
+};
+
+fis_tempDev_gaussianLUT_t tempDev_gaussianLUT = {
+    .step_size = 0,
+    .x = 0
+};
+
+fis_tempSlope_gaussianLUT_t tempSlope_gaussianLUT = {
+    .step_size = 0,
+    .x = 0
+};
+
+fis_interpolation_t interpolation = {
+    .step_size = 0,
+    .index = 0,
+    
+    .x_i = 0,
+    .x_ip1 = 0,
+    .y_i = 0,
+    .y_ip1 = 0
+};
+
+fis_tempMembership_t tempMembership = {
+    .cold = 0,
+    .optimal = 0,
+    .hot = 0
+};
+
+fis_slopeMembership_t slopeMembership = {
+    .dec = 0,
+    .stable = 0,
+    .inc = 0
+};
+
+fis_evaluate_t evaluate = {
+    .rule_strengths = {0},
+    .rule_outputs = {0},
+    .numerator = 0,
+    .denominator = 0        
+};
+
+// Initialization of LUTs to be used during the algorithm
+
+fis_devLUTs_t devLUTs = {
+    .coldMF = {0},
+    .optimalMF = {0},
+    .hotMF = {0} 
+};
+
+fis_slopeLUTs_t slopeLUTs = {
+    .decMF = {0},     
+    .stableMF = {0},
+    .incMF = {0}
+};
 
 /* Cannot initialize a struct with non-constant values, so this function will do so*/
 void initFuzzyVars (float T_set) {
@@ -50,8 +113,6 @@ void initFuzzyVars (float T_set) {
     fuzzyVars.optimalMF_c2 = T_set + 0.02f;
     fuzzyVars.hotMF_c1 = T_set + 8.0f;
 }
-
-struct compute_gaussian_t compute_gaussian;
 
 float compute_gaussian_value (float x, float sigma1, float c1, float sigma2, float c2) {
     if (x <= c1) {
@@ -77,8 +138,6 @@ float compute_gaussian_value (float x, float sigma1, float c1, float sigma2, flo
     return compute_gaussian.result;
 }
 
-struct tempDev_gaussianLUT_t tempDev_gaussianLUT;
-
 void generate_gaussianLUT_dev (float *lut, float sigma1, float c1, float sigma2, float c2) {
     tempDev_gaussianLUT.step_size = (fuzzyConstants.TEMP_DEV_UPPER_LIMIT - fuzzyConstants.TEMP_DEV_LOWER_LIMIT) / (LUT_SIZE_DEV - 1);
     
@@ -87,8 +146,6 @@ void generate_gaussianLUT_dev (float *lut, float sigma1, float c1, float sigma2,
         lut[i] = compute_gaussian_value(tempDev_gaussianLUT.x, sigma1, c1, sigma2, c2);
     }
 }
-
-struct tempSlope_gaussianLUT_t tempSlope_gaussianLUT;
 
 void generate_gaussianLUT_slope (float *lut, float sigma1, float c1, float sigma2, float c2) {
     tempSlope_gaussianLUT.step_size = (fuzzyConstants.MAX_SLOPE_LIMIT - fuzzyConstants.MIN_SLOPE_LIMIT) / (LUT_SIZE_SLOPE - 1);
@@ -103,8 +160,6 @@ void generate_gaussianLUT_slope (float *lut, float sigma1, float c1, float sigma
 /* If x is the input value for which we need an interpolated LUT value, and it falls between */
 /* two LUT indices x_i and x_i+1 (x_ip1 in the code), then the corresponding output y can be */
 /* approximated as y = y_i + ( (x - x_i) * (y_ip1 - y_i) ) / (x_ip1 - x_i) */
-
-struct interpolation_t interpolation;
 
 float interpolate_LUT (float x, float *lut, int16_t lut_size, float x_min, float x_max) {
     interpolation.step_size = (x_max - x_min) / (lut_size - 1);
@@ -125,16 +180,11 @@ float interpolate_LUT (float x, float *lut, int16_t lut_size, float x_min, float
     interpolation.y_ip1 = lut[interpolation.index + 1];
     
     return interpolation.y_i + ((x - interpolation.x_i) * (interpolation.y_ip1 - interpolation.y_i)) / (interpolation.x_ip1 - interpolation.x_i);
-}
-
-tempMembership_t TempMembership;
-slopeMembership_t SlopeMembership;
-struct evaluate_t evaluate;
-struct fuzzyOutputs_t fuzzyOutputs;
+};
 
 /* Fuzzy logic rule for Type-2 Sugeno are evaluted using Fuzzy AND operator, or the minimum of two values */
 /* Output = Sum(Rule Strength * Rule Output) / Sum(Rule Strength) */
-float evaluate_ruleset (tempMembership_t tempMF, slopeMembership_t slopeMF) {
+float evaluate_ruleset (fis_tempMembership_t tempMF, fis_slopeMembership_t slopeMF) {
     evaluate.rule_strengths[0] = fmin(tempMF.cold, slopeMF.dec);
     evaluate.rule_outputs[0] = fuzzyOutputs.VERY_LARGE_INCREASE;
     
@@ -171,32 +221,6 @@ float evaluate_ruleset (tempMembership_t tempMF, slopeMembership_t slopeMF) {
     
     return (evaluate.numerator / evaluate.denominator);
 }
-
-tempMembership_t tempMembership = {
-    .cold = 0,
-    .optimal = 0,
-    .hot = 0
-};
-
-slopeMembership_t slopeMembership = {
-    .dec = 0,
-    .stable = 0,
-    .inc = 0
-};
-
-// Initialization of LUTs to be used during the algorithm
-
-struct devLUTs_t devLUTs = {
-    .coldMF = {0},
-    .optimalMF = {0},
-    .hotMF = {0} 
-};
-
-struct slopeLUTs_t slopeLUTs = {
-    .decMF = {0},     
-    .stableMF = {0},
-    .incMF = {0}
-};
 
 
 

@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "dac_10bit.h"
 
-//!MODULE: convert
+//!MODULE: dac_10bit
 //!
 //!Used to defuzzify the output from FIS and write to the internal 10-bit DAC (14 bits with dithering) \n\n
 //!
@@ -19,8 +19,9 @@
 /* Converts the output of the FIS to a DAC output */
 /* Maps fuzzy output to voltage range (2V at min heating, 0V at max heating) */
 /* Convert voltage to 14-bit DAC value (0-16383 for 0-2V range) */
+/* Voltage is set to 0 to 1023 for 10-bit DAC range*/
 
-struct defuzzify_t defuzzify;
+dac_10bit_defuzzify_t defuzzify;
 
 void defuzzify_10bit (float x) {
     // Ensure x is within expected range (-1.5 to 1.5)
@@ -33,7 +34,7 @@ void defuzzify_10bit (float x) {
     
     defuzzify.Vout = 1.0 - (x / 1.5);
 
-    defuzzify.DAC_val = (uint16_t)((defuzzify.Vout / 2.0) * 16383);
+    defuzzify.DAC_val = (uint16_t)((defuzzify.Vout / 2.0) * 1023);
 
 }
 

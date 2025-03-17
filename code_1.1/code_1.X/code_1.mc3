@@ -14078,7 +14078,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;dac&gt;
   &lt;dac dnOrder=&quot;0&quot; id=&quot;DAC_DITHERING_MODE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/dac&gt;
 &lt;/dac&gt;
@@ -21572,7 +21572,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\definitions.h</file>
-         <hash>a758a35abba047af6892125f0f95a5d0bcf4604ee2fce4ab3e45dfe6bfe77588</hash>
+         <hash>0ade08849493bc1caeda3f7fb65f0bbc1bea25822a386246b1487a573293d101</hash>
       </entry>
       <entry>
          <file>..\src\config\default\device.h</file>
@@ -21652,7 +21652,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\dac\plib_dac.c</file>
-         <hash>b313a3f419a9fa5b8ff7ada167d41fe7b6bb03903389ef33f1a7b5771639a71f</hash>
+         <hash>18b4ba066214a8446e4e22e39fcef34f1e46a266a48847597f216e044db0079e</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\dac\plib_dac.h</file>

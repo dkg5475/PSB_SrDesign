@@ -17,14 +17,14 @@ void readSensor               (void);
 
 /* Global Structures */
     //!Define global structure for callback handler
-    struct sdadc_t {
+    typedef struct {
         int16_t rawSamples[SAMPLE_COUNT];
         volatile int16_t  adcResult;
         volatile uint16_t counter;
         bool              bufferFullFlag;
-    };
+    }sensor_sdadc_t;
     
-    extern struct sdadc_t sdadc;
+    extern sensor_sdadc_t sdadc;
 #endif
     
 

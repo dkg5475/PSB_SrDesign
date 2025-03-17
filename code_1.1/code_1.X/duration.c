@@ -13,7 +13,12 @@
     //!@param None
     //!@return None
 
-struct timer_t timer;
+duration_timer_t timer = {
+    .elapsedSeconds = 0,
+    .startTime = 0,
+    .endTime = 0,
+    .elapsedTime = 0
+};
 
 void startTimer (void) {
     /* Start the timer and get its value */

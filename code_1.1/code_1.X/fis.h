@@ -11,7 +11,7 @@
 /* Global structures */
 
 /* Constants used repeatedly in calculations */
-struct fuzzyConstants_t {
+typedef struct {
 
     const float TEMP_DEV_LOWER_LIMIT;
     const float TEMP_DEV_UPPER_LIMIT;
@@ -26,11 +26,11 @@ struct fuzzyConstants_t {
     const float STABLE_CENTER_1;
     const float STABLE_CENTER_2;
     const float INC_CENTER_1;
-};
+}fis_fuzzyConstants_t;
 
-extern struct fuzzyConstants_t fuzzyConstants;
+extern fis_fuzzyConstants_t fuzzyConstants;
 
-struct fuzzyVars_t {
+typedef struct {
     float T_set; 
     
     float coldMF_c2;
@@ -39,12 +39,12 @@ struct fuzzyVars_t {
     float optimalMF_c2;
     
     float hotMF_c1;
-};
+}fis_fuzzyVars_t;
 
-extern struct fuzzyVars_t fuzzyVars;
+extern fis_fuzzyVars_t fuzzyVars;
 
 /* Struct for intermediate values used in gauss2mf function*/
-struct compute_gaussian_t {
+typedef struct {
     float diff1;
     float exp1;
     float gauss1_value;
@@ -54,28 +54,28 @@ struct compute_gaussian_t {
     float gauss2_value;
     
     float result;
-};
+}fis_compute_gaussian_t;
 
-extern struct compute_gaussian_t compute_gaussian;
+extern fis_compute_gaussian_t compute_gaussian;
 
 /* Intermediate values to be used for tempDev Gaussian LUT function */
-struct tempDev_gaussianLUT_t {
+typedef struct {
     float step_size;
     float x;
-};
+}fis_tempDev_gaussianLUT_t;
 
-extern struct tempDev_gaussianLUT_t tempDev_gaussianLUT;
+extern fis_tempDev_gaussianLUT_t tempDev_gaussianLUT;
 
 /* Intermediate values to be used for tempSlope Gaussian LUT function */
-struct tempSlope_gaussianLUT_t {
+typedef struct {
     float step_size;
     float x;
-};
+}fis_tempSlope_gaussianLUT_t;
 
-extern struct tempSlope_gaussianLUT_t tempSlope_gaussianLUT;
+extern fis_tempSlope_gaussianLUT_t tempSlope_gaussianLUT;
 
 /* Intermediate values to be used for LUT interpolation */
-struct interpolation_t {
+typedef struct {
     float step_size;
     int index;
     
@@ -83,63 +83,63 @@ struct interpolation_t {
     float x_ip1; // upper bound of LUT
     float y_i;   // LUT value at lower index
     float y_ip1; // LUT value at upper index
-};
+}fis_interpolation_t;
 
-extern struct interpolation_t interpolation;
+extern fis_interpolation_t interpolation;
 
 /* Structs to hold the degrees of membership from inputs*/
 typedef struct {
     float cold;
     float optimal; 
     float hot;
-}tempMembership_t;
+}fis_tempMembership_t;
 
-extern tempMembership_t tempMembership;
+extern fis_tempMembership_t tempMembership;
 
 typedef struct {
     float dec;
     float stable;
     float inc;
-}slopeMembership_t;
+}fis_slopeMembership_t;
 
-extern slopeMembership_t slopeMembership;
+extern fis_slopeMembership_t slopeMembership;
 
-struct evaluate_t {
+typedef struct {
     float rule_strengths[7];
     float rule_outputs[7];
     
     float numerator;
     float denominator;
-};
+}fis_evaluate_t;
 
-extern struct evaluate_t evaluate;
+extern fis_evaluate_t evaluate;
 
-struct fuzzyOutputs_t {
+typedef struct {
     const float VERY_LARGE_INCREASE;
     const float LARGE_INCREASE;
     const float SMALL_INCREASE;
     const float NO_CHANGE;
     const float SMALL_DECREASE;
     const float LARGE_DECREASE;
-};
+}fis_fuzzyOutputs_t;
 
-extern struct fuzzyOutputs_t fuzzyOutputs;
+extern fis_fuzzyOutputs_t fuzzyOutputs;
 
-struct devLUTs_t {
+typedef struct {
     float coldMF[LUT_SIZE_DEV];
     float optimalMF[LUT_SIZE_DEV];
     float hotMF[LUT_SIZE_DEV];
-};
+}fis_devLUTs_t;
 
-extern struct devLUTs_t devLUTs;
+extern fis_devLUTs_t devLUTs;
 
-struct slopeLUTs_t {
+typedef struct {
     float decMF[LUT_SIZE_SLOPE];
     float stableMF[LUT_SIZE_SLOPE];
     float incMF[LUT_SIZE_SLOPE];
-};
+}fis_slopeLUTs_t;
 
-extern struct slopeLUTs_t slopeLUTs;
+extern fis_slopeLUTs_t slopeLUTs;
 
 /* Function Prototypes */
 void  initFuzzyVars              (float T_set);
@@ -147,7 +147,7 @@ float compute_gaussian_value     (float x, float sigma1, float c1, float sigma2,
 void  generate_gaussianLUT_dev   (float *lut, float sigma1, float c1, float sigma2, float c2);
 void  generate_gaussianLUT_slope (float *lut, float sigma1, float c1, float sigma2, float c2);
 float interpolate_LUT            (float x, float *lut, int16_t lut_size, float x_min, float x_max);
-float evaluate_ruleset           (tempMembership_t tempMF, slopeMembership_t slopeMF);
+float evaluate_ruleset           (fis_tempMembership_t tempMF, fis_slopeMembership_t slopeMF);
 
     
 #endif

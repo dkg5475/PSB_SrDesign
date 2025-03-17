@@ -13,7 +13,7 @@
 //!@param None
 //!@return None
 
-struct sdadc_t sdadc;
+sensor_sdadc_t sdadc;
 
 /* Note that the parameters are unused but are included since the SDADC driver requires them */
 void SDADC_ResultReadyHandler (SDADC_STATUS status, uintptr_t context) {   

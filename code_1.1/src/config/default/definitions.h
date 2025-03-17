@@ -78,9 +78,9 @@
 #include "peripheral/rstc/plib_rstc.h"
 #include "peripheral/dsu/plib_dsu.h"
 #include "peripheral/dac/plib_dac.h"
+#include "library/emulated_eeprom/emulated_eeprom.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
-#include "library/emulated_eeprom/emulated_eeprom.h"
 #include "app.h"
 
 

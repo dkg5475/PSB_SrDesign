@@ -8,12 +8,12 @@
 void defuzzify_10bit (float x);
 /* Global Structures */ 
     //!Define global structure for callback handler
-    struct defuzzify_t {
+    typedef struct {
         float Vout;
         uint16_t DAC_val;
-    };
+    }dac_10bit_defuzzify_t;
     
-    extern struct defuzzify_t defuzzify;
+    extern dac_10bit_defuzzify_t defuzzify;
     
 #endif
     

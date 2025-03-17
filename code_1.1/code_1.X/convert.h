@@ -9,17 +9,17 @@
 // #define SDADC_VREF   3.0
 
 /* Function prototypes*/
-float  myLn                (double x); 
-void   findAverage         (int16_t *sampleBuffer);
-void   rawToVoltage        (void);
-void   voltageToTemp       (void);
+float  myLn                (float x); 
+void   rawToVoltage        (int16_t *rawSampleBuffer);
+void   findAverage         (void);
+float  voltageToTemp       (float voltageSample);
 float  calcSlope           (float t);
 /* Adding myLn as a wrapper in case we decide to add a custom approximation */
 
 
 /* Global structures */
     //!Define global structure for variables needed
-    struct conversions_t {
+    typedef struct {
         const float SUPPLY_VOLTAGE;  
         const float SDADC_VREF;
         const float R18;             
@@ -33,20 +33,22 @@ float  calcSlope           (float t);
         float tempK;      // individual temperature data points in Kelvin
         float tempC;      // individual temperature data points in Celsius 
         
-        int16_t samplesAverage_temp;
-        int16_t firstSample_temp;
-        int16_t lastSample_temp;
+        float voltageSamples[SAMPLE_COUNT];
         
         float samplesAverage_voltage;
         float firstSample_voltage;
         float lastSample_voltage;
+        
+        float result;
         
         float samplesAverage; // for holding the average of the samples in the buffer 
         float firstSample;  // first sample in the buffer
         float lastSample; // last sample in the buffer
         float tempSlope;
         
-    };
+    }convert_conversions_t;
+    
+    extern convert_conversions_t conversions;
 
 #endif
     

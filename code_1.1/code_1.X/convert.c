@@ -20,7 +20,7 @@
 
 
 
-struct conversions_t conversions = {
+convert_conversions_t conversions = {
     .SUPPLY_VOLTAGE = 3.0f,
     .SDADC_VREF     = 3.0f,
     .R18 = 4990.0f,
@@ -34,13 +34,13 @@ struct conversions_t conversions = {
     .tempK = 0,
     .tempC = 0,
     
-    .samplesAverage_temp = 0,
-    .firstSample_temp = 0,
-    .lastSample_temp = 0,
+    .voltageSamples = {0},
     
     .samplesAverage_voltage = 0,
     .firstSample_voltage = 0,
     .lastSample_voltage = 0,
+    
+    .result = 0,
             
     .samplesAverage = 0,
     .firstSample = 0, 
@@ -49,43 +49,40 @@ struct conversions_t conversions = {
     
 };
 
-float myLn (double x) {
-    return (float)(log(x));
+float myLn (float x) {
+    return (logf(x));
 }
 
-void findAverage (int16_t *sampleBuffer) {
-    conversions.samplesAverage = 0;
-    
+void rawToVoltage (int16_t *rawSampleBuffer) {
+    // Convert the raw samples into voltage  
     for (int i = 0; i < SAMPLE_COUNT; i++) {
-        conversions.samplesAverage += sampleBuffer[i];
+        conversions.voltageSamples[i] = (float)((rawSampleBuffer[i] * conversions.SDADC_VREF) / INT16_MAX);
     }
     
-    conversions.samplesAverage_temp /= SAMPLE_COUNT;
-    
-    //Store the first and last value (for slope calculation)
-    conversions.firstSample_temp = sampleBuffer[SAMPLE_COUNT - 1];
-    conversions.lastSample_temp = sampleBuffer[0];
+    // Store the first and last element of the buffer (for later use)
+    conversions.firstSample_voltage = conversions.voltageSamples[0];
+    conversions.lastSample_voltage = conversions.voltageSamples[SAMPLE_COUNT - 1];
 }
 
-void rawToVoltage (void) {
+void findAverage (void) {
+    // Sum up the voltage samples
+    for (int i = 0; i < SAMPLE_COUNT; i++) {
+        conversions.samplesAverage_voltage += conversions.voltageSamples[i];
+    }
     
-    //Convert the average of the samples to voltage
-    conversions.samplesAverage = (float)((conversions.samplesAverage * conversions.SDADC_VREF) / INT16_MAX);
-    
-    //Convert the first and last value of the samples to voltage (for the slope calculation)
-    conversions.firstSample = (float)((conversions.firstSample * conversions.SDADC_VREF) / INT16_MAX);
-    conversions.lastSample = (float)((conversions.lastSample * conversions.SDADC_VREF) / INT16_MAX);
+    // Divide by the sample count
+    conversions.samplesAverage_voltage = conversions.samplesAverage_voltage / SAMPLE_COUNT;
 }
 
-void voltageToTemp (void) {
-        /* Calculates passed data point (Voltage Divider Equation */
-        /* R_T = (Vout - R18) / (Vin - Vout) */
-        /* R_T = rTherm */
-        /* Vout = current element of voltageSamples */
-        /* Vin = supply voltage of voltage divider (3.0V) */
+float voltageToTemp (float voltageSample) {
+    /* Calculates passed data point (Voltage Divider Equation */
+    /* R_T = (Vout - R18) / (Vin - Vout) */
+    /* R_T = rTherm */
+    /* Vout = current element of voltageSamples */
+    /* Vin = supply voltage of voltage divider (3.0V) */
         
-    // Convert the average of the samples to temperature
-    conversions.voltageOut = conversions.samplesAverage_voltage; 
+    // Convert the the passed data sample to temperature
+    conversions.voltageOut = voltageSample; 
     conversions.rTherm = ( (conversions.voltageOut * conversions.R18) / (conversions.SUPPLY_VOLTAGE - conversions.voltageOut));
     /* Calculates the temperature using the beta equation */
     /* T = B / [ln(R_T / R_25) + (B/T_25)], where temperature is in Kelvin */
@@ -93,31 +90,9 @@ void voltageToTemp (void) {
     /* Convert the current data sample to Celsius */
     conversions.tempC = conversions.tempK - conversions.kelvinConst;
     /* Store the final result */
-    conversions.samplesAverage = conversions.tempC;
+    conversions.result = conversions.tempC;
     
-    // Convert the first data point to temperature
-    conversions.voltageOut = conversions.firstSample_voltage; 
-    conversions.rTherm = ( (conversions.voltageOut * conversions.R18) / (conversions.SUPPLY_VOLTAGE - conversions.voltageOut));
-    /* Calculates the temperature using the beta equation */
-    /* T = B / [ln(R_T / R_25) + (B/T_25)], where temperature is in Kelvin */
-    conversions.tempK = (conversions.B_VALUE) / ( ( myLn(conversions.rTherm) / conversions.R_25 ) + (conversions.B_VALUE / conversions.T_25) );
-    /* Convert the current data sample to Celsius */
-    conversions.tempC = conversions.tempK - conversions.kelvinConst;
-    /* Store the final result */
-    conversions.firstSample = conversions.tempC;
-    
-    // Convert the last data point to temperature
-    conversions.voltageOut = conversions.lastSample_voltage; 
-    conversions.rTherm = ( (conversions.voltageOut * conversions.R18) / (conversions.SUPPLY_VOLTAGE - conversions.voltageOut));
-    /* Calculates the temperature using the beta equation */
-    /* T = B / [ln(R_T / R_25) + (B/T_25)], where temperature is in Kelvin */
-    conversions.tempK = (conversions.B_VALUE) / ( ( myLn(conversions.rTherm) / conversions.R_25 ) + (conversions.B_VALUE / conversions.T_25) );
-    /* Convert the current data sample to Celsius */
-    conversions.tempC = conversions.tempK - conversions.kelvinConst;
-    /* Store the final result */
-    conversions.lastSample = conversions.tempC;
-        
-    
+    return conversions.result;
 }
 
 float calcSlope (float t) {
