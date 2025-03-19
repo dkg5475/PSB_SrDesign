@@ -27,10 +27,11 @@ void SDADC_ResultReadyHandler (SDADC_STATUS status, uintptr_t context) {
     }
 }
 
-void SDADC_Init(void) {
+void SDADC_InitVariables(void) {
     sdadc.counter = 0;
     sdadc.bufferFullFlag = false; 
-    SDADC_Enable();
+    SDADC_Enable(); // making sure device is enabled
+    // Initialization happens as a result of SYS_Initialize
     SDADC_CallbackRegister(SDADC_ResultReadyHandler, (uintptr_t)NULL);
 }   
 

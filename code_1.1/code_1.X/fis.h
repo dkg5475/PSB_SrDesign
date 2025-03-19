@@ -43,49 +43,6 @@ typedef struct {
 
 extern fis_fuzzyVars_t fuzzyVars;
 
-/* Struct for intermediate values used in gauss2mf function*/
-typedef struct {
-    float diff1;
-    float exp1;
-    float gauss1_value;
-    
-    float diff2;
-    float exp2; 
-    float gauss2_value;
-    
-    float result;
-}fis_compute_gaussian_t;
-
-extern fis_compute_gaussian_t compute_gaussian;
-
-/* Intermediate values to be used for tempDev Gaussian LUT function */
-typedef struct {
-    float step_size;
-    float x;
-}fis_tempDev_gaussianLUT_t;
-
-extern fis_tempDev_gaussianLUT_t tempDev_gaussianLUT;
-
-/* Intermediate values to be used for tempSlope Gaussian LUT function */
-typedef struct {
-    float step_size;
-    float x;
-}fis_tempSlope_gaussianLUT_t;
-
-extern fis_tempSlope_gaussianLUT_t tempSlope_gaussianLUT;
-
-/* Intermediate values to be used for LUT interpolation */
-typedef struct {
-    float step_size;
-    int index;
-    
-    float x_i;   // lower bound of LUT
-    float x_ip1; // upper bound of LUT
-    float y_i;   // LUT value at lower index
-    float y_ip1; // LUT value at upper index
-}fis_interpolation_t;
-
-extern fis_interpolation_t interpolation;
 
 /* Structs to hold the degrees of membership from inputs*/
 typedef struct {
@@ -103,16 +60,6 @@ typedef struct {
 }fis_slopeMembership_t;
 
 extern fis_slopeMembership_t slopeMembership;
-
-typedef struct {
-    float rule_strengths[7];
-    float rule_outputs[7];
-    
-    float numerator;
-    float denominator;
-}fis_evaluate_t;
-
-extern fis_evaluate_t evaluate;
 
 typedef struct {
     const float VERY_LARGE_INCREASE;

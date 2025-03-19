@@ -9,7 +9,7 @@
 #include <stdint.h> 
 
 /* Function prototypes */
-void SDADC_Init                   (void); 
+void SDADC_InitVariables          (void); 
 void SDADC_ResultReadyHandler     (SDADC_STATUS status, uintptr_t context);
 bool isBufferFull                 (void);
 void clearBuffer                  (void);

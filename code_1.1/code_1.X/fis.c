@@ -40,38 +40,6 @@ fis_fuzzyOutputs_t fuzzyOutputs = {
     .LARGE_DECREASE      = 1.5f
 };
 
-fis_fuzzyVars_t fuzzyVars; // explicit init done in function call 
-
-fis_compute_gaussian_t compute_gaussian = {
-    .diff1 = 0,
-    .exp1 = 0,
-    .gauss1_value = 0,
-    
-    .diff2 = 0,
-    .exp2 = 0,
-    .gauss2_value = 0
-};
-
-fis_tempDev_gaussianLUT_t tempDev_gaussianLUT = {
-    .step_size = 0,
-    .x = 0
-};
-
-fis_tempSlope_gaussianLUT_t tempSlope_gaussianLUT = {
-    .step_size = 0,
-    .x = 0
-};
-
-fis_interpolation_t interpolation = {
-    .step_size = 0,
-    .index = 0,
-    
-    .x_i = 0,
-    .x_ip1 = 0,
-    .y_i = 0,
-    .y_ip1 = 0
-};
-
 fis_tempMembership_t tempMembership = {
     .cold = 0,
     .optimal = 0,
@@ -82,13 +50,6 @@ fis_slopeMembership_t slopeMembership = {
     .dec = 0,
     .stable = 0,
     .inc = 0
-};
-
-fis_evaluate_t evaluate = {
-    .rule_strengths = {0},
-    .rule_outputs = {0},
-    .numerator = 0,
-    .denominator = 0        
 };
 
 // Initialization of LUTs to be used during the algorithm
@@ -105,6 +66,8 @@ fis_slopeLUTs_t slopeLUTs = {
     .incMF = {0}
 };
 
+fis_fuzzyVars_t fuzzyVars; // explicit init done in function call 
+
 /* Cannot initialize a struct with non-constant values, so this function will do so*/
 void initFuzzyVars (float T_set) {
     fuzzyVars.T_set = T_set;
@@ -115,44 +78,60 @@ void initFuzzyVars (float T_set) {
 }
 
 float compute_gaussian_value (float x, float sigma1, float c1, float sigma2, float c2) {
+    float diff1 = 0;
+    float exp1 = 0;
+    float gauss1_value = 0;
+    
+    float diff2 = 0;
+    float exp2 = 0;
+    float gauss2_value = 0;
+    
+    float result = 0;
+    
     if (x <= c1) {
-        compute_gaussian.diff1 = x - c1;
-        compute_gaussian.exp1 = -(compute_gaussian.diff1 * compute_gaussian.diff1) / (2.0f * (sigma1 * sigma1));
-        compute_gaussian.gauss1_value = expf(compute_gaussian.exp1);
+        diff1 = x - c1;
+        exp1 = -(diff1 * diff1) / (2.0f * (sigma1 * sigma1));
+        gauss1_value = expf(exp1);
     }
     else {
-        compute_gaussian.gauss1_value = 1;
+        gauss1_value = 1;
     }
     
     if (x <= c2) {
-        compute_gaussian.diff2 = x - c2;
-        compute_gaussian.exp2 = -(compute_gaussian.diff2 * compute_gaussian.diff2) / (2.0f * (sigma2 * sigma2));
-        compute_gaussian.gauss2_value = expf(compute_gaussian.exp2);
+        diff2 = x - c2;
+        exp2 = -(diff2 * diff2) / (2.0f * (sigma2 * sigma2));
+        gauss2_value = expf(exp2);
     }
     else {
-        compute_gaussian.gauss2_value = 1;
+        gauss2_value = 1;
     }
     
-    compute_gaussian.result = (compute_gaussian.gauss1_value * compute_gaussian.gauss2_value);
+    result = (gauss1_value * gauss2_value);
     
-    return compute_gaussian.result;
+    return result;
 }
 
 void generate_gaussianLUT_dev (float *lut, float sigma1, float c1, float sigma2, float c2) {
-    tempDev_gaussianLUT.step_size = (fuzzyConstants.TEMP_DEV_UPPER_LIMIT - fuzzyConstants.TEMP_DEV_LOWER_LIMIT) / (LUT_SIZE_DEV - 1);
+    float step_size = 0;
+    float x = 0;
+    
+    step_size = (fuzzyConstants.TEMP_DEV_UPPER_LIMIT - fuzzyConstants.TEMP_DEV_LOWER_LIMIT) / (LUT_SIZE_DEV - 1);
     
     for (int i = 0; i < LUT_SIZE_DEV; i++) {
-        tempDev_gaussianLUT.x = fuzzyConstants.TEMP_DEV_LOWER_LIMIT + (i * tempDev_gaussianLUT.step_size);
-        lut[i] = compute_gaussian_value(tempDev_gaussianLUT.x, sigma1, c1, sigma2, c2);
+        x = fuzzyConstants.TEMP_DEV_LOWER_LIMIT + (i * step_size);
+        lut[i] = compute_gaussian_value(x, sigma1, c1, sigma2, c2);
     }
 }
 
 void generate_gaussianLUT_slope (float *lut, float sigma1, float c1, float sigma2, float c2) {
-    tempSlope_gaussianLUT.step_size = (fuzzyConstants.MAX_SLOPE_LIMIT - fuzzyConstants.MIN_SLOPE_LIMIT) / (LUT_SIZE_SLOPE - 1);
+    float step_size = 0;
+    float x = 0;
+    
+    step_size = (fuzzyConstants.MAX_SLOPE_LIMIT - fuzzyConstants.MIN_SLOPE_LIMIT) / (LUT_SIZE_SLOPE - 1);
     
     for (int i = 0; i < LUT_SIZE_SLOPE; i++) {
-        tempSlope_gaussianLUT.x = fuzzyConstants.MIN_SLOPE_LIMIT + (i * tempSlope_gaussianLUT.step_size);
-        lut[i] = compute_gaussian_value(tempSlope_gaussianLUT.x, sigma1, c1, sigma2, c2);
+        x = fuzzyConstants.MIN_SLOPE_LIMIT + (i * step_size);
+        lut[i] = compute_gaussian_value(x, sigma1, c1, sigma2, c2);
     }
 }
 
@@ -162,64 +141,77 @@ void generate_gaussianLUT_slope (float *lut, float sigma1, float c1, float sigma
 /* approximated as y = y_i + ( (x - x_i) * (y_ip1 - y_i) ) / (x_ip1 - x_i) */
 
 float interpolate_LUT (float x, float *lut, int16_t lut_size, float x_min, float x_max) {
-    interpolation.step_size = (x_max - x_min) / (lut_size - 1);
-    interpolation.index = (int)((x - x_min) / interpolation.step_size);
+    float step_size = 0;
+    int index = 0;
     
-    if (interpolation.index < 0) {
+    float x_i = 0;   // lower bound of LUT
+    float x_ip1 = 0; // upper bound of LUT
+    float y_i = 0;   // LUT value at lower index
+    float y_ip1 = 0; // LUT value at upper index
+    
+    
+    step_size = (x_max - x_min) / (lut_size - 1);
+    index = (int)((x - x_min) / step_size);
+    
+    if (index < 0) {
         return lut[0];
     }
     
-    if (interpolation.index >= (lut_size - 1)) {
+    if (index >= (lut_size - 1)) {
         return lut[lut_size - 1];
     }
     
-    interpolation.x_i = x_min + (interpolation.index * interpolation.step_size);
-    interpolation.x_ip1 = x_min + ((interpolation.index + 1) * interpolation.step_size);
+    x_i = x_min + (index * step_size);
+    x_ip1 = x_min + ((index + 1) * step_size);
     
-    interpolation.y_i = lut[interpolation.index];
-    interpolation.y_ip1 = lut[interpolation.index + 1];
+    y_i = lut[index];
+    y_ip1 = lut[index + 1];
     
-    return interpolation.y_i + ((x - interpolation.x_i) * (interpolation.y_ip1 - interpolation.y_i)) / (interpolation.x_ip1 - interpolation.x_i);
+    return y_i + ((x - x_i) * (y_ip1 - y_i)) / (x_ip1 - x_i);
 };
 
 /* Fuzzy logic rule for Type-2 Sugeno are evaluted using Fuzzy AND operator, or the minimum of two values */
 /* Output = Sum(Rule Strength * Rule Output) / Sum(Rule Strength) */
 float evaluate_ruleset (fis_tempMembership_t tempMF, fis_slopeMembership_t slopeMF) {
-    evaluate.rule_strengths[0] = fmin(tempMF.cold, slopeMF.dec);
-    evaluate.rule_outputs[0] = fuzzyOutputs.VERY_LARGE_INCREASE;
+    float rule_strengths[7] = {0};
+    float rule_outputs[7] = {0};
     
-    evaluate.rule_strengths[1] = fmin(tempMF.cold, slopeMF.stable);
-    evaluate.rule_outputs[1] = fuzzyOutputs.LARGE_DECREASE;
+    float numerator = 0;
+    float denominator = 0;
     
-    evaluate.rule_strengths[2] = fmin(tempMF.cold, slopeMF.inc);
-    evaluate.rule_outputs[2] = fuzzyOutputs.SMALL_INCREASE;
     
-    evaluate.rule_strengths[3] = tempMF.optimal;
-    evaluate.rule_outputs[3] = fuzzyOutputs.NO_CHANGE;
+    rule_strengths[0] = fmin(tempMF.cold, slopeMF.dec);
+    rule_outputs[0] = fuzzyOutputs.VERY_LARGE_INCREASE;
     
-    evaluate.rule_strengths[4] = fmin(tempMF.hot, slopeMF.dec);
-    evaluate.rule_outputs[4] = fuzzyOutputs.NO_CHANGE;
+    rule_strengths[1] = fmin(tempMF.cold, slopeMF.stable);
+    rule_outputs[1] = fuzzyOutputs.LARGE_DECREASE;
     
-    evaluate.rule_strengths[5] = fmin(tempMF.hot, slopeMF.stable);
-    evaluate.rule_outputs[5] = fuzzyOutputs.SMALL_DECREASE;
+    rule_strengths[2] = fmin(tempMF.cold, slopeMF.inc);
+    rule_outputs[2] = fuzzyOutputs.SMALL_INCREASE;
     
-    evaluate.rule_strengths[6] = fmin(tempMF.hot, slopeMF.inc);
-    evaluate.rule_outputs[6] = fuzzyOutputs.LARGE_DECREASE;
+    rule_strengths[3] = tempMF.optimal;
+    rule_outputs[3] = fuzzyOutputs.NO_CHANGE;
     
-    evaluate.numerator = 0;
-    evaluate.denominator = 0;
+    rule_strengths[4] = fmin(tempMF.hot, slopeMF.dec);
+    rule_outputs[4] = fuzzyOutputs.NO_CHANGE;
+    
+    rule_strengths[5] = fmin(tempMF.hot, slopeMF.stable);
+    rule_outputs[5] = fuzzyOutputs.SMALL_DECREASE;
+    
+    rule_strengths[6] = fmin(tempMF.hot, slopeMF.inc);
+    rule_outputs[6] = fuzzyOutputs.LARGE_DECREASE;
     
     // Sugeno Weighted Sum
     for (int i = 0; i < 7; i++) {
-        evaluate.numerator += evaluate.rule_strengths[i] * evaluate.rule_outputs[i];
-        evaluate.denominator += evaluate.rule_strengths[i];
+        numerator += rule_strengths[i] * rule_outputs[i];
+        denominator += rule_strengths[i];
     }
     
-    if (evaluate.denominator == 0) { // Division by 0 error
+    if (denominator == 0) { // Division by 0 error
         return 0; 
     }
     
-    return (evaluate.numerator / evaluate.denominator);
+    return (numerator / denominator);
 }
 
 

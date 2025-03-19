@@ -23,10 +23,10 @@ void show_boot_screen (void) {
    printf("Sponsored by Kyocera AVX\r\n\r\n");
 }
 
-/* Triggered when event threshold is reached (10 bytes) */
+/* Triggered when event threshold is reached (2 bytes) */
 void usartReadEventHandler (SERCOM_USART_EVENT event, uintptr_t context) {
     if (event == SERCOM_USART_EVENT_READ_THRESHOLD_REACHED) {
-        uart.nBytesRead = SERCOM0_USART_ReadCountGet();
+        uart.nBytesAvailable = SERCOM0_USART_ReadCountGet();
         
         uart.nBytesRead += SERCOM0_USART_Read((uint8_t*)&uart.rxBuffer[uart.nBytesRead], uart.nBytesAvailable);
     }

@@ -39,11 +39,36 @@ int main (void)
     /* Initialize all modules */
     SYS_Initialize (NULL);
      
-    SDADC_Init(); // Initialize SDADC
-    DAC_Initialize(); //Initialize DAC
+    SDADC_InitVariables(); // Initialize SDADC and some internal struct members
+    
+    float T_set_initial = 97.00f;
+    initFuzzyVars(T_set_initial);
+    
+    // Create look-up tables (LUTs) for slope membership functions
+    generate_gaussianLUT_slope(slopeLUTs.decMF, fuzzyConstants.SIGMA_SLOPE, fuzzyConstants.MIN_SLOPE_LIMIT, fuzzyConstants.SIGMA_SLOPE, fuzzyConstants.DEC_CENTER_2);
+    generate_gaussianLUT_slope(slopeLUTs.stableMF, fuzzyConstants.SIGMA_SLOPE, fuzzyConstants.STABLE_CENTER_1, fuzzyConstants.SIGMA_SLOPE, fuzzyConstants.STABLE_CENTER_2);
+    generate_gaussianLUT_slope(slopeLUTs.incMF, fuzzyConstants.SIGMA_SLOPE, fuzzyConstants.INC_CENTER_1, fuzzyConstants.SIGMA_SLOPE, fuzzyConstants.MAX_SLOPE_LIMIT);
     
     while (true)
     {   
+        // Create LUTs for temperature difference membership functions
+        
+        startTimer();
+        while(!sdadc.bufferFullFlag) {
+            readSensor();
+        }
+        endTimer();
+        calcElapsed();
+        
+        rawToVoltage(sdadc.rawSamples);
+        findAverage();
+        
+        conversions.samplesAverage = voltageToTemp(conversions.samplesAverage_voltage);
+        conversions.firstSample = voltageToTemp(conversions.firstSample_voltage);
+        conversions.lastSample = voltageToTemp(conversions.lastSample_voltage);
+        
+        calcSlope(timer.elapsedSeconds);
+        
         
     }
     
