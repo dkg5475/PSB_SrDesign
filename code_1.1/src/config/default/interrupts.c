@@ -121,7 +121,7 @@ const H3DeviceVectors exception_table=
     .pvStack = &_stack,
 
     .pfnReset_Handler              = Reset_Handler,
-    .pfnNonMaskableInt_Handler     = NMI_InterruptHandler,
+    .pfnNonMaskableInt_Handler     = NonMaskableInt_Handler,
     .pfnHardFault_Handler          = HardFault_Handler,
     .pfnSVCall_Handler             = SVCall_Handler,
     .pfnPendSV_Handler             = PendSV_Handler,

@@ -48,25 +48,9 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include <stdio.h>
-#include "peripheral/nvmctrl/plib_nvmctrl.h"
-#include "peripheral/ram/plib_ram.h"
-#include "peripheral/supc/plib_supc.h"
-#include "peripheral/rtc/plib_rtc.h"
-#include "peripheral/tc/plib_tc3.h"
-#include "system/time/sys_time.h"
-#include "peripheral/sdadc/plib_sdadc.h"
-#include "peripheral/divas/plib_divas.h"
-#include "system/int/sys_int.h"
-#include "system/ports/sys_ports.h"
-#include "system/dma/sys_dma.h"
-#include "system/reset/sys_reset.h"
-#include "osal/osal.h"
-#include "system/debug/sys_debug.h"
 #include "peripheral/sercom/spi_master/plib_sercom3_spi_master.h"
-#include "peripheral/evsys/plib_evsys.h"
+#include "peripheral/nvmctrl/plib_nvmctrl.h"
 #include "peripheral/sercom/usart/plib_sercom0_usart.h"
-#include "system/command/sys_command.h"
 #include "peripheral/port/plib_port.h"
 #include "peripheral/clock/plib_clock.h"
 #include "peripheral/nvic/plib_nvic.h"
@@ -74,13 +58,22 @@
 #include "peripheral/systick/plib_systick.h"
 #include "peripheral/wdt/plib_wdt.h"
 #include "peripheral/pac/plib_pac.h"
-#include "peripheral/eic/plib_eic.h"
+#include "peripheral/ram/plib_ram.h"
+#include "peripheral/supc/plib_supc.h"
+#include "peripheral/rtc/plib_rtc.h"
 #include "peripheral/rstc/plib_rstc.h"
+#include "peripheral/tc/plib_tc3.h"
 #include "peripheral/dsu/plib_dsu.h"
 #include "peripheral/dac/plib_dac.h"
+#include "system/time/sys_time.h"
 #include "library/emulated_eeprom/emulated_eeprom.h"
-#include "system/console/sys_console.h"
-#include "system/console/src/sys_console_uart_definitions.h"
+#include "peripheral/sdadc/plib_sdadc.h"
+#include "peripheral/divas/plib_divas.h"
+#include "system/int/sys_int.h"
+#include "system/ports/sys_ports.h"
+#include "system/dma/sys_dma.h"
+#include "osal/osal.h"
+#include "system/debug/sys_debug.h"
 #include "app.h"
 
 
@@ -213,12 +206,6 @@ Remarks:
 typedef struct
 {
     SYS_MODULE_OBJ  sysTime;
-    SYS_MODULE_OBJ  sysConsole0;
-
-    SYS_MODULE_OBJ sysCommand;
-
-    SYS_MODULE_OBJ  sysDebug;
-
     /* libEMULATED_EEPROM0 library Object */
     SYS_MODULE_OBJ libEMULATED_EEPROM0;
 

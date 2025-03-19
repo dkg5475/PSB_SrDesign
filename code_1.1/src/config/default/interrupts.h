@@ -58,7 +58,7 @@
 // *****************************************************************************
 
 void Reset_Handler (void);
-void NMI_InterruptHandler (void);
+void NonMaskableInt_Handler (void);
 void HardFault_Handler (void);
 void SysTick_Handler (void);
 void PAC_InterruptHandler (void);

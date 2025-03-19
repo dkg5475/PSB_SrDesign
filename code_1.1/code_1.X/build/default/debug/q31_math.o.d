@@ -1,6 +1,7 @@
 build/default/debug/q31_math.o: q31_math.c \
  ../src/config/default/definitions.h \
- ../src/config/default/peripheral/nvmctrl/plib_nvmctrl.h \
+ ../src/config/default/peripheral/sercom/spi_master/plib_sercom3_spi_master.h \
+ ../src/config/default/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h \
  ../src/config/default/device.h \
  ../src/packs/ATSAMC21E18A_DFP/samc21e18a.h \
  ../src/packs/CMSIS/CMSIS/Core/Include/core_cm0plus.h \
@@ -86,11 +87,24 @@ build/default/debug/q31_math.o: q31_math.c \
  ../src/config/default/device_cache.h ../src/config/default/device.h \
  ../src/config/default/toolchain_specifics.h \
  ../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h \
+ ../src/config/default/peripheral/nvmctrl/plib_nvmctrl.h \
+ ../src/config/default/peripheral/sercom/usart/plib_sercom0_usart.h \
+ ../src/config/default/peripheral/sercom/usart/plib_sercom_usart_common.h \
+ ../src/config/default/peripheral/port/plib_port.h \
+ ../src/config/default/peripheral/clock/plib_clock.h \
+ ../src/config/default/peripheral/nvic/plib_nvic.h \
+ ../src/config/default/peripheral/mpu/plib_mpu.h \
+ ../src/config/default/peripheral/systick/plib_systick.h \
+ ../src/config/default/peripheral/wdt/plib_wdt.h \
+ ../src/config/default/peripheral/pac/plib_pac.h \
  ../src/config/default/peripheral/ram/plib_ram.h \
  ../src/config/default/peripheral/supc/plib_supc.h \
  ../src/config/default/peripheral/rtc/plib_rtc.h \
+ ../src/config/default/peripheral/rstc/plib_rstc.h \
  ../src/config/default/peripheral/tc/plib_tc3.h \
  ../src/config/default/peripheral/tc/plib_tc_common.h \
+ ../src/config/default/peripheral/dsu/plib_dsu.h \
+ ../src/config/default/peripheral/dac/plib_dac.h \
  ../src/config/default/system/time/sys_time.h \
  ../src/config/default/system/system.h \
  ../src/config/default/system/system_common.h \
@@ -100,6 +114,8 @@ build/default/debug/q31_math.o: q31_math.c \
  ../src/config/default/system/int/sys_int.h \
  ../src/config/default/system/int/sys_int_mapping.h \
  ../src/config/default/configuration.h ../src/config/default/user.h \
+ ../src/config/default/library/emulated_eeprom/emulated_eeprom.h \
+ ../src/config/default/library/emulated_eeprom/emulated_eeprom_definitions.h \
  ../src/config/default/peripheral/sdadc/plib_sdadc.h \
  ../src/config/default/peripheral/sdadc/plib_sdadc_common.h \
  ../src/config/default/peripheral/divas/plib_divas.h \
@@ -109,42 +125,17 @@ build/default/debug/q31_math.o: q31_math.c \
  ../src/config/default/peripheral/port/plib_port.h \
  ../src/config/default/system/dma/sys_dma.h \
  ../src/config/default/system/dma/sys_dma_mapping.h \
- ../src/config/default/system/reset/sys_reset.h \
  ../src/config/default/osal/osal.h \
  ../src/config/default/osal/osal_definitions.h \
  ../src/config/default/osal/osal_impl_basic.h \
  ../src/config/default/peripheral/systick/plib_systick.h \
- ../src/config/default/system/debug/sys_debug.h \
- ../src/config/default/system/console/sys_console.h \
- ../src/config/default/driver/driver.h \
- ../src/config/default/driver/driver_common.h \
- ../src/config/default/system/console/src/sys_console_local.h \
- ../src/config/default/peripheral/sercom/spi_master/plib_sercom3_spi_master.h \
- ../src/config/default/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h \
- ../src/config/default/peripheral/evsys/plib_evsys.h \
- ../src/config/default/peripheral/sercom/usart/plib_sercom0_usart.h \
- ../src/config/default/peripheral/sercom/usart/plib_sercom_usart_common.h \
- ../src/config/default/system/command/sys_command.h \
- ../src/config/default/peripheral/port/plib_port.h \
- ../src/config/default/peripheral/clock/plib_clock.h \
- ../src/config/default/peripheral/nvic/plib_nvic.h \
- ../src/config/default/peripheral/mpu/plib_mpu.h \
- ../src/config/default/peripheral/systick/plib_systick.h \
- ../src/config/default/peripheral/wdt/plib_wdt.h \
- ../src/config/default/peripheral/pac/plib_pac.h \
- ../src/config/default/peripheral/eic/plib_eic.h \
- ../src/config/default/peripheral/rstc/plib_rstc.h \
- ../src/config/default/peripheral/dsu/plib_dsu.h \
- ../src/config/default/peripheral/dac/plib_dac.h \
- ../src/config/default/system/console/sys_console.h \
- ../src/config/default/system/console/src/sys_console_uart_definitions.h \
- ../src/config/default/library/emulated_eeprom/emulated_eeprom.h \
- ../src/config/default/library/emulated_eeprom/emulated_eeprom_definitions.h \
- ../src/app.h q31_math.h
+ ../src/config/default/system/debug/sys_debug.h ../src/app.h q31_math.h
 
 ../src/config/default/definitions.h:
 
-../src/config/default/peripheral/nvmctrl/plib_nvmctrl.h:
+../src/config/default/peripheral/sercom/spi_master/plib_sercom3_spi_master.h:
+
+../src/config/default/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h:
 
 ../src/config/default/device.h:
 
@@ -318,15 +309,41 @@ build/default/debug/q31_math.o: q31_math.c \
 
 ../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h:
 
+../src/config/default/peripheral/nvmctrl/plib_nvmctrl.h:
+
+../src/config/default/peripheral/sercom/usart/plib_sercom0_usart.h:
+
+../src/config/default/peripheral/sercom/usart/plib_sercom_usart_common.h:
+
+../src/config/default/peripheral/port/plib_port.h:
+
+../src/config/default/peripheral/clock/plib_clock.h:
+
+../src/config/default/peripheral/nvic/plib_nvic.h:
+
+../src/config/default/peripheral/mpu/plib_mpu.h:
+
+../src/config/default/peripheral/systick/plib_systick.h:
+
+../src/config/default/peripheral/wdt/plib_wdt.h:
+
+../src/config/default/peripheral/pac/plib_pac.h:
+
 ../src/config/default/peripheral/ram/plib_ram.h:
 
 ../src/config/default/peripheral/supc/plib_supc.h:
 
 ../src/config/default/peripheral/rtc/plib_rtc.h:
 
+../src/config/default/peripheral/rstc/plib_rstc.h:
+
 ../src/config/default/peripheral/tc/plib_tc3.h:
 
 ../src/config/default/peripheral/tc/plib_tc_common.h:
+
+../src/config/default/peripheral/dsu/plib_dsu.h:
+
+../src/config/default/peripheral/dac/plib_dac.h:
 
 ../src/config/default/system/time/sys_time.h:
 
@@ -348,6 +365,10 @@ build/default/debug/q31_math.o: q31_math.c \
 
 ../src/config/default/user.h:
 
+../src/config/default/library/emulated_eeprom/emulated_eeprom.h:
+
+../src/config/default/library/emulated_eeprom/emulated_eeprom_definitions.h:
+
 ../src/config/default/peripheral/sdadc/plib_sdadc.h:
 
 ../src/config/default/peripheral/sdadc/plib_sdadc_common.h:
@@ -366,8 +387,6 @@ build/default/debug/q31_math.o: q31_math.c \
 
 ../src/config/default/system/dma/sys_dma_mapping.h:
 
-../src/config/default/system/reset/sys_reset.h:
-
 ../src/config/default/osal/osal.h:
 
 ../src/config/default/osal/osal_definitions.h:
@@ -377,56 +396,6 @@ build/default/debug/q31_math.o: q31_math.c \
 ../src/config/default/peripheral/systick/plib_systick.h:
 
 ../src/config/default/system/debug/sys_debug.h:
-
-../src/config/default/system/console/sys_console.h:
-
-../src/config/default/driver/driver.h:
-
-../src/config/default/driver/driver_common.h:
-
-../src/config/default/system/console/src/sys_console_local.h:
-
-../src/config/default/peripheral/sercom/spi_master/plib_sercom3_spi_master.h:
-
-../src/config/default/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h:
-
-../src/config/default/peripheral/evsys/plib_evsys.h:
-
-../src/config/default/peripheral/sercom/usart/plib_sercom0_usart.h:
-
-../src/config/default/peripheral/sercom/usart/plib_sercom_usart_common.h:
-
-../src/config/default/system/command/sys_command.h:
-
-../src/config/default/peripheral/port/plib_port.h:
-
-../src/config/default/peripheral/clock/plib_clock.h:
-
-../src/config/default/peripheral/nvic/plib_nvic.h:
-
-../src/config/default/peripheral/mpu/plib_mpu.h:
-
-../src/config/default/peripheral/systick/plib_systick.h:
-
-../src/config/default/peripheral/wdt/plib_wdt.h:
-
-../src/config/default/peripheral/pac/plib_pac.h:
-
-../src/config/default/peripheral/eic/plib_eic.h:
-
-../src/config/default/peripheral/rstc/plib_rstc.h:
-
-../src/config/default/peripheral/dsu/plib_dsu.h:
-
-../src/config/default/peripheral/dac/plib_dac.h:
-
-../src/config/default/system/console/sys_console.h:
-
-../src/config/default/system/console/src/sys_console_uart_definitions.h:
-
-../src/config/default/library/emulated_eeprom/emulated_eeprom.h:
-
-../src/config/default/library/emulated_eeprom/emulated_eeprom_definitions.h:
 
 ../src/app.h:
 

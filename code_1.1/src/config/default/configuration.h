@@ -85,31 +85,6 @@ extern "C" {
 #define SYS_TIME_HW_COUNTER_WIDTH                   (24)
 #define SYS_TIME_TICK_FREQ_IN_HZ                    (1000)
 
-#define SYS_CONSOLE_INDEX_0                       0
-
-
-
-
-
-#define SYS_CMD_ENABLE
-#define SYS_CMD_DEVICE_MAX_INSTANCES       SYS_CONSOLE_DEVICE_MAX_INSTANCES
-#define SYS_CMD_PRINT_BUFFER_SIZE          1024U
-#define SYS_CMD_BUFFER_DMA_READY
-
-
-
-#define SYS_DEBUG_ENABLE
-#define SYS_DEBUG_GLOBAL_ERROR_LEVEL       SYS_ERROR_DEBUG
-#define SYS_DEBUG_BUFFER_DMA_READY
-#define SYS_DEBUG_USE_CONSOLE
-
-
-#define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			(1U)
-#define SYS_CONSOLE_UART_MAX_INSTANCES 	   			(1U)
-#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		(0U)
-#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(200U)
-
-
 
 
 // *****************************************************************************

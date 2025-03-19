@@ -6,10 +6,6 @@
                    projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
         <logicalFolder name="default" displayName="default" projectFiles="true">
-          <logicalFolder name="driver" displayName="driver" projectFiles="true">
-            <itemPath>../src/config/default/driver/driver.h</itemPath>
-            <itemPath>../src/config/default/driver/driver_common.h</itemPath>
-          </logicalFolder>
           <logicalFolder name="library" displayName="library" projectFiles="true">
             <logicalFolder name="emulated_eeprom"
                            displayName="emulated_eeprom"
@@ -36,12 +32,6 @@
             </logicalFolder>
             <logicalFolder name="dsu" displayName="dsu" projectFiles="true">
               <itemPath>../src/config/default/peripheral/dsu/plib_dsu.h</itemPath>
-            </logicalFolder>
-            <logicalFolder name="eic" displayName="eic" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/eic/plib_eic.h</itemPath>
-            </logicalFolder>
-            <logicalFolder name="evsys" displayName="evsys" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/evsys/plib_evsys.h</itemPath>
             </logicalFolder>
             <logicalFolder name="mpu" displayName="mpu" projectFiles="true">
               <itemPath>../src/config/default/peripheral/mpu/plib_mpu_local.h</itemPath>
@@ -97,17 +87,7 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
-            <logicalFolder name="command" displayName="command" projectFiles="true">
-              <itemPath>../src/config/default/system/command/sys_command.h</itemPath>
-            </logicalFolder>
-            <logicalFolder name="console" displayName="console" projectFiles="true">
-              <itemPath>../src/config/default/system/console/src/sys_console_uart_definitions.h</itemPath>
-              <itemPath>../src/config/default/system/console/src/sys_console_local.h</itemPath>
-              <itemPath>../src/config/default/system/console/sys_console.h</itemPath>
-              <itemPath>../src/config/default/system/console/src/sys_console_uart.h</itemPath>
-            </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
-              <itemPath>../src/config/default/system/debug/src/sys_debug_local.h</itemPath>
               <itemPath>../src/config/default/system/debug/sys_debug.h</itemPath>
             </logicalFolder>
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
@@ -121,9 +101,6 @@
             <logicalFolder name="ports" displayName="ports" projectFiles="true">
               <itemPath>../src/config/default/system/ports/sys_ports_mapping.h</itemPath>
               <itemPath>../src/config/default/system/ports/sys_ports.h</itemPath>
-            </logicalFolder>
-            <logicalFolder name="reset" displayName="reset" projectFiles="true">
-              <itemPath>../src/config/default/system/reset/sys_reset.h</itemPath>
             </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
               <itemPath>../src/config/default/system/time/src/sys_time_local.h</itemPath>
@@ -261,6 +238,7 @@
       <itemPath>q31_math.h</itemPath>
       <itemPath>fis.h</itemPath>
       <itemPath>dac_10bit.h</itemPath>
+      <itemPath>uart.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -301,12 +279,6 @@
             </logicalFolder>
             <logicalFolder name="dsu" displayName="dsu" projectFiles="true">
               <itemPath>../src/config/default/peripheral/dsu/plib_dsu.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="eic" displayName="eic" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/eic/plib_eic.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="evsys" displayName="evsys" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/evsys/plib_evsys.c</itemPath>
             </logicalFolder>
             <logicalFolder name="mpu" displayName="mpu" projectFiles="true">
               <itemPath>../src/config/default/peripheral/mpu/plib_mpu.c</itemPath>
@@ -360,24 +332,11 @@
             <itemPath>../src/config/default/stdio/xc32_monitor.c</itemPath>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
-            <logicalFolder name="command" displayName="command" projectFiles="true">
-              <itemPath>../src/config/default/system/command/src/sys_command.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="console" displayName="console" projectFiles="true">
-              <itemPath>../src/config/default/system/console/src/sys_console.c</itemPath>
-              <itemPath>../src/config/default/system/console/src/sys_console_uart.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="debug" displayName="debug" projectFiles="true">
-              <itemPath>../src/config/default/system/debug/src/sys_debug.c</itemPath>
-            </logicalFolder>
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
               <itemPath>../src/config/default/system/dma/sys_dma.c</itemPath>
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
               <itemPath>../src/config/default/system/int/src/sys_int.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="reset" displayName="reset" projectFiles="true">
-              <itemPath>../src/config/default/system/reset/sys_reset.c</itemPath>
             </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
               <itemPath>../src/config/default/system/time/src/sys_time.c</itemPath>
@@ -400,6 +359,7 @@
       <itemPath>fis.c</itemPath>
       <itemPath>q31_math.c</itemPath>
       <itemPath>dac_10bit.c</itemPath>
+      <itemPath>uart.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
