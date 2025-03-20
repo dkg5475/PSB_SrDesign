@@ -9344,9 +9344,9 @@
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;rtc&quot; x=&quot;212&quot; y=&quot;173&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;sdadc&quot; x=&quot;359&quot; y=&quot;184&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;sercom0&quot; x=&quot;514&quot; y=&quot;253&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;sercom3&quot; x=&quot;785&quot; y=&quot;146&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;sercom3&quot; x=&quot;722&quot; y=&quot;260&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;supc&quot; x=&quot;499&quot; y=&quot;155&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;sys_time&quot; x=&quot;343&quot; y=&quot;317&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;sys_time&quot; x=&quot;342&quot; y=&quot;317&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;tc3&quot; x=&quot;650&quot; y=&quot;59&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;

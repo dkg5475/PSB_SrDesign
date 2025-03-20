@@ -5,17 +5,19 @@
 #include <stdio.h>
 #include <string.h>
 
-uart_t uart = {
-  .txBuffer = {0},
-  .rxBuffer = {0},
-  .nBytesRead = 0,
-  .nBytesAvailable = 0,
-  .txThresholdEventReceived = false,
-  .rxThresholdEventReceived = false,
-  .calibrationActiveFlag = false
-};
+uint8_t txBuffer[TX_BUFFER_SIZE] = {0};
+uint8_t rxBuffer[RX_BUFFER_SIZE] = {0};
+volatile uint32_t nBytesRead = 0;
+uint32_t nBytesAvailable = 0;
+volatile bool txThresholdEventReceived = false;
+volatile bool rxThresholdEventReceived = false;
+bool verboseActiveFlag = false;
+volatile float new_setpoint = 0;
+bool tempUpdateFlag = false;
 
 
+Command_t receivedCommand;
+volatile bool commandReady;
 
 void show_boot_screen (void) {
    printf("\r\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -26,39 +28,28 @@ void show_boot_screen (void) {
 /* Triggered when event threshold is reached (2 bytes) */
 void usartReadEventHandler (SERCOM_USART_EVENT event, uintptr_t context) {
     if (event == SERCOM_USART_EVENT_READ_THRESHOLD_REACHED) {
-        uart.nBytesAvailable = SERCOM0_USART_ReadCountGet();
+        nBytesAvailable = SERCOM0_USART_ReadCountGet();
         
-        uart.nBytesRead += SERCOM0_USART_Read((uint8_t*)&uart.rxBuffer[uart.nBytesRead], uart.nBytesAvailable);
+        nBytesRead += SERCOM0_USART_Read((uint8_t*)&rxBuffer[nBytesRead], nBytesAvailable);
     }
     
-    if (uart.rxBuffer[uart.nBytesRead - 1] == '\n' || uart.rxBuffer[uart.nBytesRead - 1] == '\r') {
-        uart.rxBuffer[uart.nBytesRead - 1] = '\0'; // null terminate the last character (replace the \r or \n)
-        uart.nBytesRead = 0; // reset bytes read counter
+    if (rxBuffer[nBytesRead - 1] == '\n' || rxBuffer[nBytesRead - 1] == '\r') {
+        rxBuffer[nBytesRead - 1] = '\0'; // null terminate the last character (replace the \r or \n)
+        nBytesRead = 0; // reset bytes read counter
         commandReady = true; // command is ready to parse
     }
 }
 
 /* Triggered when the TX buffer is empty */
 void usartWriteEventHandler (SERCOM_USART_EVENT event, uintptr_t context) {
-    uart.txThresholdEventReceived = true;
+    txThresholdEventReceived = true;
 }
-
-/* Register both event handlers */
-void usartRegisterHandlers (void) {
-    SERCOM0_USART_WriteCallbackRegister(usartWriteEventHandler, (uintptr_t) NULL);
-    // Set the read threshold so that the event handler runs when there are at least 2 bytes in the buffer
-    SERCOM0_USART_ReadThresholdSet(2);
-    SERCOM0_USART_ReadCallbackRegister(usartReadEventHandler, (uintptr_t) NULL);
-}
-
-Command_t receivedCommand;
-volatile bool commandReady;
 
 commandMessages_t cmdMessages = {
-    .start_msg      = "Entering Calibration mode...\r\n",  // Initialization of start_msg
-    .setpt_msg      = "Received new setpoint...\r\n",     // Initialization of setpt_msg
-    .end_msg        = "Ending Calibration Mode...\r\n",   // Initialization of end_msg
-    .invalid_msg    = "Invalid Command\r\n"             // Initialization of invalid_msg
+    .start_msg        = "Entering Calibration mode...\r\n",  // Initialization of start_msg
+    .setpt_msg        = "Received new setpoint...\r\n",     // Initialization of setpt_msg
+    .end_msg          = "Ending Calibration Mode...\r\n",   // Initialization of end_msg
+    .invalid_msg      = "Invalid Command\r\n"             // Initialization of invalid_msg
 };
 
 
@@ -68,7 +59,7 @@ cmd_id_t parseCommand (const char *input) {
     }
     else if (strncmp(input, "!s", 2) == 0) {
         if (strlen(input) > 3) {
-            strncpy(receivedCommand.payload, input + 3, BUFFER_SIZE - 1);
+            strncpy(receivedCommand.payload, input + 3, RX_BUFFER_SIZE - 1);
             return SETPOINT;
         }
         /* If the "!s" command doesn't have a valid setpoint attached, it's invalid */
@@ -84,21 +75,29 @@ cmd_id_t parseCommand (const char *input) {
 void handleCommand (Command_t *cmd) {
     switch (cmd->id) {
         case START:
-            SERCOM0_USART_Write((uint8_t*)cmdMessages.start_msg, strlen(cmdMessages.start_msg));
-            uart.calibrationActiveFlag = true;
+            printf(cmdMessages.start_msg);
+            verboseActiveFlag = true;
             break;
         
         case SETPOINT:
-            SERCOM0_USART_Write((uint8_t*)cmdMessages.setpt_msg, strlen(cmdMessages.setpt_msg));
+            printf(cmdMessages.setpt_msg);
             break;
         
         case END:
-            SERCOM0_USART_Write((uint8_t*)cmdMessages.end_msg, strlen(cmdMessages.end_msg));
-            uart.calibrationActiveFlag = false;
+            printf(cmdMessages.end_msg);
+            verboseActiveFlag = false;
             break;
             
         default:
-            SERCOM0_USART_Write((uint8_t*)cmdMessages.end_msg, strlen(cmdMessages.end_msg));
+            printf(cmdMessages.invalid_msg);
     }
 }
 
+void sendCurrentTemp(float temp) {
+    printf("Current temperature is approximately %.3f\r\n", temp);
+}
+
+int _write (int file, char *ptr, int len) {
+    SERCOM0_USART_Write((void*)ptr, len);
+    return len;
+}

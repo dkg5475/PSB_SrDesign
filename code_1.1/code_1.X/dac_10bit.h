@@ -5,7 +5,7 @@
 #include <stdint.h> 
 
 /* Function prototypes (wrapper functions) */
-float defuzzify_10bit (float x);
+uint16_t defuzzify_10bit (float x);
     
 #endif
     

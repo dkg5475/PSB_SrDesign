@@ -21,7 +21,7 @@
 /* Convert voltage to 14-bit DAC value (0-16383 for 0-2V range) */
 /* Voltage is set to 0 to 1023 for 10-bit DAC range*/
 
-float defuzzify_10bit (float x) {
+uint16_t defuzzify_10bit (float x) {
     float Vout = 0;
     float DAC_val = 0;
     

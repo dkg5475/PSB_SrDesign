@@ -132,7 +132,7 @@ build/default/debug/_ext/1360937237/main.o: ../src/main.c \
  ../src/config/default/system/debug/sys_debug.h ../src/app.h \
  ../src/../code_1.X/duration.h ../src/../code_1.X/sensor.h \
  ../src/../code_1.X/convert.h ../src/../code_1.X/fis.h \
- ../src/../code_1.X/dac_10bit.h
+ ../src/../code_1.X/dac_10bit.h ../src/../code_1.x/uart.h
 
 ../src/config/default/definitions.h:
 
@@ -411,3 +411,5 @@ build/default/debug/_ext/1360937237/main.o: ../src/main.c \
 ../src/../code_1.X/fis.h:
 
 ../src/../code_1.X/dac_10bit.h:
+
+../src/../code_1.x/uart.h:

@@ -507,6 +507,14 @@ bool SERCOM0_USART_ReadNotificationEnable(bool isEnabled, bool isPersistent)
     return previousStatus;
 }
 
+void SERCOM0_USART_ReadThresholdSet(uint32_t nBytesThreshold)
+{
+    if (nBytesThreshold > 0U)
+    {
+        sercom0USARTObj.rdThreshold = nBytesThreshold;
+    }
+}
+
 void SERCOM0_USART_ReadCallbackRegister( SERCOM_USART_RING_BUFFER_CALLBACK callback, uintptr_t context)
 {
     sercom0USARTObj.rdCallback = callback;
