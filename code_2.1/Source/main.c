@@ -7,10 +7,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "system_samc21.h"
 #include "samc21e18a.h"
 #include "CMSIS/Core/../Core/../Core/Include/core_cm0plus.h"
-#include "sam.h"
 
 void system_init(void) {
     /* Enable OSC32K to run at 32.768 kHz */
