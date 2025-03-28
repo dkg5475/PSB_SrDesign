@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=Source/startup_atsamc21a.c Source/main.c Source/system.c Source/port.c
+SOURCEFILES_QUOTED_IF_SPACED=Source/startup_atsamc21a.c Source/main.c Source/system.c Source/port.c Source/uart.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/Source/startup_atsamc21a.o ${OBJECTDIR}/Source/main.o ${OBJECTDIR}/Source/system.o ${OBJECTDIR}/Source/port.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/Source/startup_atsamc21a.o.d ${OBJECTDIR}/Source/main.o.d ${OBJECTDIR}/Source/system.o.d ${OBJECTDIR}/Source/port.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/Source/startup_atsamc21a.o ${OBJECTDIR}/Source/main.o ${OBJECTDIR}/Source/system.o ${OBJECTDIR}/Source/port.o ${OBJECTDIR}/Source/uart.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/Source/startup_atsamc21a.o.d ${OBJECTDIR}/Source/main.o.d ${OBJECTDIR}/Source/system.o.d ${OBJECTDIR}/Source/port.o.d ${OBJECTDIR}/Source/uart.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/Source/startup_atsamc21a.o ${OBJECTDIR}/Source/main.o ${OBJECTDIR}/Source/system.o ${OBJECTDIR}/Source/port.o
+OBJECTFILES=${OBJECTDIR}/Source/startup_atsamc21a.o ${OBJECTDIR}/Source/main.o ${OBJECTDIR}/Source/system.o ${OBJECTDIR}/Source/port.o ${OBJECTDIR}/Source/uart.o
 
 # Source Files
-SOURCEFILES=Source/startup_atsamc21a.c Source/main.c Source/system.c Source/port.c
+SOURCEFILES=Source/startup_atsamc21a.c Source/main.c Source/system.c Source/port.c Source/uart.c
 
 # Pack Options 
 PACK_COMMON_OPTIONS=-I "${CMSIS_DIR}/CMSIS/Core/Include"
@@ -104,54 +104,66 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/Source/startup_atsamc21a.o: Source/startup_atsamc21a.c  .generated_files/flags/default/b79ac643e526418bcbd60d15e8e90d2bf5286df4 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+${OBJECTDIR}/Source/startup_atsamc21a.o: Source/startup_atsamc21a.c  .generated_files/flags/default/f682ac55d1d1f9a9b713a32d59cb57c3e997d980 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}/Source" 
 	@${RM} ${OBJECTDIR}/Source/startup_atsamc21a.o.d 
 	@${RM} ${OBJECTDIR}/Source/startup_atsamc21a.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/Source/startup_atsamc21a.o.d" -o ${OBJECTDIR}/Source/startup_atsamc21a.o Source/startup_atsamc21a.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}/samc21" ${PACK_COMMON_OPTIONS} 
 	
-${OBJECTDIR}/Source/main.o: Source/main.c  .generated_files/flags/default/3f3642f1dc94bf93c968fffa80542aedbec3c82e .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+${OBJECTDIR}/Source/main.o: Source/main.c  .generated_files/flags/default/36e397707cca519ab61531533b9276237d31cfd0 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}/Source" 
 	@${RM} ${OBJECTDIR}/Source/main.o.d 
 	@${RM} ${OBJECTDIR}/Source/main.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/Source/main.o.d" -o ${OBJECTDIR}/Source/main.o Source/main.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}/samc21" ${PACK_COMMON_OPTIONS} 
 	
-${OBJECTDIR}/Source/system.o: Source/system.c  .generated_files/flags/default/3b9dd42dfcf0654c4879c75fdf7050be5f9ff40c .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+${OBJECTDIR}/Source/system.o: Source/system.c  .generated_files/flags/default/151e7518ef96b81cef99e86df27f4a0ee20f45de .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}/Source" 
 	@${RM} ${OBJECTDIR}/Source/system.o.d 
 	@${RM} ${OBJECTDIR}/Source/system.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/Source/system.o.d" -o ${OBJECTDIR}/Source/system.o Source/system.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}/samc21" ${PACK_COMMON_OPTIONS} 
 	
-${OBJECTDIR}/Source/port.o: Source/port.c  .generated_files/flags/default/97edf629a198e58a9d533ea9789f465b29b9eea4 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+${OBJECTDIR}/Source/port.o: Source/port.c  .generated_files/flags/default/ff40f9a7c083f3990a1f444840ff40da0bfcad59 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}/Source" 
 	@${RM} ${OBJECTDIR}/Source/port.o.d 
 	@${RM} ${OBJECTDIR}/Source/port.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/Source/port.o.d" -o ${OBJECTDIR}/Source/port.o Source/port.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}/samc21" ${PACK_COMMON_OPTIONS} 
 	
+${OBJECTDIR}/Source/uart.o: Source/uart.c  .generated_files/flags/default/a3fffbe412dbbadda2cbc5c77610971a123f622e .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/Source" 
+	@${RM} ${OBJECTDIR}/Source/uart.o.d 
+	@${RM} ${OBJECTDIR}/Source/uart.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/Source/uart.o.d" -o ${OBJECTDIR}/Source/uart.o Source/uart.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}/samc21" ${PACK_COMMON_OPTIONS} 
+	
 else
-${OBJECTDIR}/Source/startup_atsamc21a.o: Source/startup_atsamc21a.c  .generated_files/flags/default/cb522b3fca6b57b99bc63e6022b341a39bd3e8c6 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+${OBJECTDIR}/Source/startup_atsamc21a.o: Source/startup_atsamc21a.c  .generated_files/flags/default/4c19be576935ef51d5d1e5c5ca0c20640bebc30c .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}/Source" 
 	@${RM} ${OBJECTDIR}/Source/startup_atsamc21a.o.d 
 	@${RM} ${OBJECTDIR}/Source/startup_atsamc21a.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/Source/startup_atsamc21a.o.d" -o ${OBJECTDIR}/Source/startup_atsamc21a.o Source/startup_atsamc21a.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}/samc21" ${PACK_COMMON_OPTIONS} 
 	
-${OBJECTDIR}/Source/main.o: Source/main.c  .generated_files/flags/default/f8b6e30c1e647bf2eb09a807c083844a9f0084cb .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+${OBJECTDIR}/Source/main.o: Source/main.c  .generated_files/flags/default/65de940b53961f704cd5c4b1c3e4fe73c93bf2b3 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}/Source" 
 	@${RM} ${OBJECTDIR}/Source/main.o.d 
 	@${RM} ${OBJECTDIR}/Source/main.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/Source/main.o.d" -o ${OBJECTDIR}/Source/main.o Source/main.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}/samc21" ${PACK_COMMON_OPTIONS} 
 	
-${OBJECTDIR}/Source/system.o: Source/system.c  .generated_files/flags/default/40b8d74e9feff4722e1843d358030ad2e0fa3b7e .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+${OBJECTDIR}/Source/system.o: Source/system.c  .generated_files/flags/default/4a8859098fe84809d3ae97d0bb5eb2484c88b524 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}/Source" 
 	@${RM} ${OBJECTDIR}/Source/system.o.d 
 	@${RM} ${OBJECTDIR}/Source/system.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/Source/system.o.d" -o ${OBJECTDIR}/Source/system.o Source/system.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}/samc21" ${PACK_COMMON_OPTIONS} 
 	
-${OBJECTDIR}/Source/port.o: Source/port.c  .generated_files/flags/default/82d2d07071d3b6f164602fced149190a6572fd92 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+${OBJECTDIR}/Source/port.o: Source/port.c  .generated_files/flags/default/5d2ab3478becf567faeefbc892cd4a41687cd8b5 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}/Source" 
 	@${RM} ${OBJECTDIR}/Source/port.o.d 
 	@${RM} ${OBJECTDIR}/Source/port.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/Source/port.o.d" -o ${OBJECTDIR}/Source/port.o Source/port.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}/samc21" ${PACK_COMMON_OPTIONS} 
+	
+${OBJECTDIR}/Source/uart.o: Source/uart.c  .generated_files/flags/default/650b739dd04dc51269f042c5a90b07cfd5ad097f .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/Source" 
+	@${RM} ${OBJECTDIR}/Source/uart.o.d 
+	@${RM} ${OBJECTDIR}/Source/uart.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/Source/uart.o.d" -o ${OBJECTDIR}/Source/uart.o Source/uart.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}/samc21" ${PACK_COMMON_OPTIONS} 
 	
 endif
 
@@ -166,12 +178,12 @@ endif
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 ${DISTDIR}/code_2.1.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    Linker/ATSAMC21E18A.ld
 	@${MKDIR} ${DISTDIR} 
-	${MP_CC} $(MP_EXTRA_LD_PRE) -g   -mprocessor=$(MP_PROCESSOR_OPTION)  -o ${DISTDIR}/code_2.1.${IMAGE_TYPE}.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}          -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=__ICD2RAM=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,-D=__DEBUG_D,--defsym=_min_heap_size=0,--gc-sections,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--memorysummary,${DISTDIR}/memoryfile.xml,-T,Linker/ATSAMC21E18A.ld, -mdfp="${DFP_DIR}/samc21"
+	${MP_CC} $(MP_EXTRA_LD_PRE) -g   -mprocessor=$(MP_PROCESSOR_OPTION)  -o ${DISTDIR}/code_2.1.${IMAGE_TYPE}.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}          -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=__ICD2RAM=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,-D=__DEBUG_D,--defsym=_min_heap_size=0,--gc-sections,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--memorysummary,${DISTDIR}/memoryfile.xml,-T,Linker/ATSAMC21E18A.ld,,-lm,-u,_printf_float, -mdfp="${DFP_DIR}/samc21"
 	
 else
 ${DISTDIR}/code_2.1.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   Linker/ATSAMC21E18A.ld
 	@${MKDIR} ${DISTDIR} 
-	${MP_CC} $(MP_EXTRA_LD_PRE)  -mprocessor=$(MP_PROCESSOR_OPTION)  -o ${DISTDIR}/code_2.1.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}          -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=_min_heap_size=0,--gc-sections,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--memorysummary,${DISTDIR}/memoryfile.xml,-T,Linker/ATSAMC21E18A.ld, -mdfp="${DFP_DIR}/samc21"
+	${MP_CC} $(MP_EXTRA_LD_PRE)  -mprocessor=$(MP_PROCESSOR_OPTION)  -o ${DISTDIR}/code_2.1.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}          -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=_min_heap_size=0,--gc-sections,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--memorysummary,${DISTDIR}/memoryfile.xml,-T,Linker/ATSAMC21E18A.ld,,-lm,-u,_printf_float, -mdfp="${DFP_DIR}/samc21"
 	${MP_CC_DIR}\\xc32-bin2hex ${DISTDIR}/code_2.1.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} 
 endif
 

@@ -9,7 +9,7 @@ void dpll_init                 (void);
 void gclk0_init                (void);
 void mclk_init                 (void);
 void peripheral_clk_init       (void);
-void pin_cfg                   (void);
+void clocks_init               (void);
 
 
 #endif

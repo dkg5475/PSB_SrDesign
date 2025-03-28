@@ -95,8 +95,6 @@ void mclk_init (void) {
             MCLK_APBCMASK_SERCOM3_Msk |
             MCLK_APBCMASK_SDADC_Msk |
             MCLK_APBCMASK_DAC_Msk;            
-    
-    
 }
 
 void peripheral_clk_init(void) {
@@ -113,8 +111,15 @@ void peripheral_clk_init(void) {
     GCLK_REGS->GCLK_PCHCTRL[SDADC_GCLK_ID] = GCLK_PCHCTRL_GEN_GCLK1 | GCLK_PCHCTRL_CHEN_Msk;
     /* Set DAC to run off GCLK1 */
     GCLK_REGS->GCLK_PCHCTRL[DAC_GCLK_ID] = GCLK_PCHCTRL_GEN_GCLK1 | GCLK_PCHCTRL_CHEN_Msk;
-    
-    
+}
+
+void clocks_init (void) {
+    osc48m_init();
+    gclk1_init();
+    dpll_init();
+    gclk0_init();
+    mclk_init();
+    peripheral_clk_init();
 }
 
 

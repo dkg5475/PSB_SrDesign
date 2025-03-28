@@ -27,7 +27,7 @@
      In PORT_PMUX[1] -> PMUXO controls PA03
     */
 
-void pin_cfg(void) {
+void pin_init(void) {
     
     /* Enable multiplexing on PA02 and disable digital inputs*/
     PORT_REGS->GROUP[0].PORT_PINCFG[2] = PORT_PINCFG_PMUXEN_Msk |
@@ -79,7 +79,6 @@ void pin_cfg(void) {
     PORT_REGS->GROUP[0].PORT_DIRSET = (1 << 8); 
     /* Set PA09 (UART RX) as input */
     PORT_REGS->GROUP[0].PORT_DIRCLR = (1 << 9);  
-    
     
     
     /* Configure PA16 for SPI SDIN */
