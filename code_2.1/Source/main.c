@@ -12,16 +12,17 @@
 #include "../Header/system.h"
 #include "../Header/port.h"
 #include "../Header/uart.h"
+#include <xc.h>
 
 int main(void) {
     clocks_init();
     pin_init();
-    uart_init();
     
-    uint8_t msg[10] = "Hello\n\r";
+    //uint8_t msg[10] = "Hello\n\r";
+    //uint8_t character1 = 'H';
+    // uint8_t character2 = 'E';
     
     while(1) {
-        printf("%s\n\r", msg);
     }
     
     return (EXIT_SUCCESS);
