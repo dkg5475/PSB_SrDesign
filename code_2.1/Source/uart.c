@@ -2,6 +2,8 @@
 #include "samc21e18a.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
 
 /* Macros to be used only in the source file */
 #define F_CPU 48000000UL  // Adjust if your clock changes
@@ -10,9 +12,19 @@
 #define BAUD_VALUE (65536 * (1 - (16.0 * BAUD_RATE) / F_CPU))
 
 /* Initialization of global values */
-volatile uint8_t rxBuffer[RX_BUFFER_SIZE];
-volatile uint8_t rx_ptr = 0;
-bool commandReady = false; 
+static uint8_t rxBuffer[RX_BUFFER_SIZE];
+static uint8_t rx_ptr;
+Command_t receivedCommand; 
+volatile bool commandReady = false; 
+bool verboseActiveFlag = false;
+
+// override printf functionality 
+int _write(int file, char *ptr, int len) {
+    for (int i = 0; i < len; i++) {
+        tx_byte(ptr[i]);  // Send each character via USART
+    }
+    return len;  // Return the number of bytes written
+}
 
 
 void init_uart (void) {
@@ -24,7 +36,7 @@ void init_uart (void) {
     while (SERCOM0_REGS->USART_INT.SERCOM_SYNCBUSY & SERCOM_USART_INT_SYNCBUSY_SWRST_Msk);
     
     /* Set the USART to run in async mode (CMODE) */
-    /* Set the data order */
+    /* Set the data order (set to be LSB is transmitted first) */
     /* Set the Immediate Buffer Overflow Notification (IBON) */
     /* Set the RX pin to be SERCOM0_PAD1 */
     /* TX: PAD[0] = TxD; PAD[2] = RTS; PAD[3] = CTS Position (RTS and CTS are disabled) */ 
@@ -82,32 +94,131 @@ void tx_byte (uint8_t data) {
     SERCOM0_REGS->USART_INT.SERCOM_INTFLAG = SERCOM_USART_INT_INTFLAG_TXC_Msk;
 }
 
-void sercom0_rx_handler (void) {
-    
+void sercom0_rx_handler(void) {
     if (SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_RXC_Msk) {
-        // Check if there's room in the buffer to store the byte
-        if (rx_ptr < RX_BUFFER_SIZE - 1) {  // Ensure there's space for the null terminator
-            rxBuffer[rx_ptr] = SERCOM0_REGS->USART_INT.SERCOM_DATA;
+        uint8_t received_byte = SERCOM0_REGS->USART_INT.SERCOM_DATA;
+        
+        // Check if ESC (0x1B) key is pressed
+        if (received_byte == 0x1B) {
+            printf("Escape requested, please try again!\r\n");
+            rx_ptr = 0;  // reset the buffer pointer
+            memset(rxBuffer, 0, RX_BUFFER_SIZE);  // clear the buffer
+            return;  
+        }
+        
+        // Ensure buffer does not overflow
+        if (rx_ptr < RX_BUFFER_SIZE - 1) {
+            rxBuffer[rx_ptr] = received_byte;
             rx_ptr++;
 
-            // Null terminate the buffer after receiving a byte
-            rxBuffer[rx_ptr] = '\0';  // Null-terminate the string
+            // If newline is received, assume it's a complete command
+            if (received_byte == '\n') {
+                rxBuffer[rx_ptr] = '\0';  // Null-terminate the string
+                commandReady = true;      // Flag the command for processing
+                rx_ptr = 0;               // Reset buffer pointer for the next command
+            }
+        } else {
+            // Buffer Overflow Handling
+            rx_ptr = 0; 
+            rxBuffer[rx_ptr] = '\0';
+            printf("Error: RX buffer overflow!\r\n");
         }
     }
-        
-    // Check if the ERROR interrupt flag is set (optional error handling)
+
+    // Check for errors
     if (SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_ERROR_Msk) {
-        // Handle the error
-        for (int i = 0; i < RX_BUFFER_SIZE; i++) {
-            rxBuffer[i] = 0;  // Clear the buffer
-        }
-        rx_ptr = 0;  // Reset the pointer
+        memset(rxBuffer, 0, RX_BUFFER_SIZE);  // Clear the buffer
+        rx_ptr = 0;
+        printf("Escape requested, please try again!\r\n");
+
+        // Clear the error flag to prevent repeated error handling
+        SERCOM0_REGS->USART_INT.SERCOM_INTFLAG = SERCOM_USART_INT_INTFLAG_ERROR_Msk;
     }
-    
 }
 
 cmd_id_t parseCommand (void) {
-    if (strncmp(rxBuffer[rx_ptr], "!c") == 0) {
+    char* buffer = ((char*)rxBuffer);
+    
+    if (strncmp(buffer, "!c", 2) == 0) {
         return START;
+    }
+    else if(strncmp(buffer, "!s", 2) == 0) {
+        if (strlen(buffer) > 3) {  // Ensure a payload exists
+            
+            // Find the start of the number (after "!s ")
+            char *payload_start = buffer + 3;  // Skip "!s "
+            
+            // Trim leading spaces
+            while (*payload_start == ' ') {
+                payload_start++;
+            }
+
+            // Find the first '\r' or '\n' and replace with '\0'
+            char *end = payload_start;
+            while (*end != '\0' && *end != '\r' && *end != '\n') {
+                end++;
+            }
+            *end = '\0';  // Null-terminate at the newline
+            
+            // Convert the extracted string to float and check for errors
+            char *endptr;
+            float value = strtof(payload_start, &endptr);
+
+            // check for invalid options after !s, like "!s abc\n\n\n\r"
+            if (endptr == payload_start || (!isspace(*endptr) && *endptr != '\0')) {
+                printf("Invalid number received: %s\r\n", payload_start);
+                return INVALID;  // Return invalid command if no valid float is found
+            }
+
+            receivedCommand.setpoint = value;
+            return SETPOINT;
+        }
+        else { // no valid setpoint found
+            return INVALID;
+        }
+    }
+    else if (strncmp(buffer, "!e", 2) == 0) { // end verbose mode detection
+        return END;
+    }
+    else if (strncmp(buffer, "!h", 2) == 0) {
+        return HELP;
+    }
+    else { // any other input is invalid 
+        return INVALID;
+    }
+    return INVALID;
+}
+
+void handleCommand (Command_t *cmd) {
+    switch (cmd->id) {
+        case START:
+            printf("Entering Verbose Mode...\r\n");
+            verboseActiveFlag = true;
+            printf("Verbose Mode has been entered!\r\n");
+            break;
+        
+        case SETPOINT:
+            printf("Received new setpoint...\r\n");
+            break;
+        
+        case END:
+            printf("Ending Verbose Mode...\r\n");
+            verboseActiveFlag = false;
+            printf("Verbose Mode has been ended!\r\n");
+            break;
+            
+        case HELP:
+            printf("\r\n\n\n");
+            printf("********************************************************************************************\r\n");
+            printf("                                       COMMANDS MENU\r\n");
+            printf("********************************************************************************************\r\n\n");
+            printf("Command  Action\r\n");
+            printf("  !c     Begin or end verbose mode \r\n");
+            printf("  !s     Send a new setpoint during verbose mode\r\n");
+            printf("  !e     End verbose mode\r\n");
+            printf("  !h     Show commands menu \r\n");
+            
+        default:
+            printf("Invalid command, please try again!\r\n");
     }
 }

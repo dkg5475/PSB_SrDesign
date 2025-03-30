@@ -99,7 +99,7 @@ void SDADC_Initialize( void )
 
     SDADC_REGS->SDADC_EVCTRL = (uint8_t)(SDADC_EVCTRL_RESRDYEO_Msk);
 
-   /* Configure Run in standby, On demand property */
+    /* Configure Run in standby, On demand property */
     SDADC_REGS->SDADC_CTRLA |= (uint8_t)(SDADC_CTRLA_RUNSTDBY_Msk | SDADC_CTRLA_ONDEMAND_Msk);
 
     /* Enable SDADC */

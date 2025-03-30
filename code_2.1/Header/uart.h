@@ -5,10 +5,11 @@
 #include <stdbool.h>
 
 /* Macros*/
-#define RX_BUFFER_SIZE 50
+#define RX_BUFFER_SIZE 20
 
 /* Global data structures */
 typedef enum {
+    HELP,
     START,
     SETPOINT,
     END,
@@ -18,19 +19,16 @@ typedef enum {
 typedef struct {
     cmd_id_t id;
     char payload[RX_BUFFER_SIZE];
+    float setpoint;
 }Command_t;
-
-extern volatile uint8_t rxBuffer[RX_BUFFER_SIZE];
-extern volatile uint8_t rx_ptr; // to track the current index in the buffer 
-extern Command_t receivedCommand; 
-extern bool commandReady;
 
 /* Function prototypes */
 void init_uart               (void);
 void show_boot_screen        (void);
-void tx_byte                 (void);
+void tx_byte                 (uint8_t data);
 void sercom0_rx_handler      (void);
 cmd_id_t parseCommand        (void);
+void handleCommand           (Command_t *cmd);
 
 
 #endif

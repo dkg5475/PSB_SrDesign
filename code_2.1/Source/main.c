@@ -14,6 +14,11 @@
 #include "../Header/uart.h"
 #include <xc.h>
 
+// Declaration of global variables
+extern Command_t receivedCommand; // mark each as "extern" so the linker knows where to find their declaration
+extern bool commandReady; 
+extern bool verboseActiveFlag;
+
 int main(void) {
     clocks_init();
     pin_init();
