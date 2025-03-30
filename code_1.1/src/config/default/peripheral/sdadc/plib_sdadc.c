@@ -83,7 +83,7 @@ void SDADC_Initialize( void )
     }
 
     /* Set prescaler, over sampling ratio and skip count */
-    SDADC_REGS->SDADC_CTRLB = (uint16_t)(SDADC_CTRLB_PRESCALER_DIV2 | SDADC_CTRLB_OSR_OSR1024 | SDADC_CTRLB_SKPCNT(2UL));
+    SDADC_REGS->SDADC_CTRLB = (uint16_t)(SDADC_CTRLB_PRESCALER_DIV4 | SDADC_CTRLB_OSR_OSR1024 | SDADC_CTRLB_SKPCNT(2UL));
 
     /* Configure reference voltage */
     SDADC_REGS->SDADC_REFCTRL = (uint8_t)SDADC_REFCTRL_REFSEL_AREFB;
@@ -97,7 +97,6 @@ void SDADC_Initialize( void )
     SDADC_REGS->SDADC_INTENSET = (uint8_t)(SDADC_INTENSET_RESRDY_Msk);
     SDADC_CallbackObj.callback = NULL;
 
-    SDADC_REGS->SDADC_EVCTRL = (uint8_t)(SDADC_EVCTRL_RESRDYEO_Msk);
 
     /* Configure Run in standby, On demand property */
     SDADC_REGS->SDADC_CTRLA |= (uint8_t)(SDADC_CTRLA_RUNSTDBY_Msk | SDADC_CTRLA_ONDEMAND_Msk);

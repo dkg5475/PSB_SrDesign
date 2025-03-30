@@ -30,10 +30,6 @@
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
       <entry>
-         <string>lib_emulated_eeprom</string>
-         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
-      </entry>
-      <entry>
          <string>nvmctrl</string>
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
@@ -220,7 +216,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;HarmonyCore&gt;
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;ENABLE_APP_FILE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; value=&quot;false&quot;/&gt;
       &lt;User dnOrder=&quot;1&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/HarmonyCore&gt;
@@ -248,7 +244,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;HarmonyCore&gt;
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;ENABLE_OSAL&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; value=&quot;false&quot;/&gt;
       &lt;User dnOrder=&quot;1&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/HarmonyCore&gt;
@@ -289,11 +285,11 @@
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;ENABLE_SYS_COMMON&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/HarmonyCore&gt;
 &lt;/HarmonyCore&gt;
@@ -324,7 +320,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;HarmonyCore&gt;
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;ENABLE_SYS_INT&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/HarmonyCore&gt;
 &lt;/HarmonyCore&gt;
@@ -9014,7 +9010,7 @@
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;INT_DEF&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/HarmonyCore&gt;
@@ -9027,7 +9023,7 @@
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;INT_HEADER&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/HarmonyCore&gt;
@@ -9040,7 +9036,7 @@
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;INT_MAPPING&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/HarmonyCore&gt;
@@ -9053,7 +9049,7 @@
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;INT_SOURCE&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/HarmonyCore&gt;
@@ -9218,7 +9214,7 @@
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;SYSTEM_COMMON&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/HarmonyCore&gt;
@@ -9231,7 +9227,7 @@
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;SYSTEM_MODULE&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/HarmonyCore&gt;
@@ -9244,7 +9240,7 @@
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;SYSTEM_ROOT&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/HarmonyCore&gt;
@@ -9257,7 +9253,7 @@
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;SYS_DEBUG_DEF_HEADER&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/HarmonyCore&gt;
@@ -9270,7 +9266,7 @@
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;SYS_DEBUG_HEADER&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/HarmonyCore&gt;
@@ -9324,7 +9320,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;393&quot; canvasWidth=&quot;922&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;GraphSettings canvasHeight=&quot;420&quot; canvasWidth=&quot;859&quot; dnOrder=&quot;0&quot;/&gt;
     &lt;PowerProfiles dnOrder=&quot;1&quot;&gt;
       &lt;Profile dnOrder=&quot;0&quot; id=&quot;profile0&quot; name=&quot;Main&quot;/&gt;
     &lt;/PowerProfiles&gt;
@@ -9337,17 +9333,16 @@
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;dfp&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;divas&quot; x=&quot;183&quot; y=&quot;85&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;dsu&quot; x=&quot;491&quot; y=&quot;81&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;lib_emulated_eeprom&quot; x=&quot;27&quot; y=&quot;146&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;nvmctrl&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;ram&quot; x=&quot;191&quot; y=&quot;281&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;rstc&quot; x=&quot;650&quot; y=&quot;160&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;rtc&quot; x=&quot;212&quot; y=&quot;173&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;sdadc&quot; x=&quot;359&quot; y=&quot;184&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;sercom0&quot; x=&quot;514&quot; y=&quot;253&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;sercom3&quot; x=&quot;722&quot; y=&quot;260&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;supc&quot; x=&quot;499&quot; y=&quot;155&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;sys_time&quot; x=&quot;342&quot; y=&quot;317&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;tc3&quot; x=&quot;650&quot; y=&quot;59&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;nvmctrl&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;ram&quot; x=&quot;191&quot; y=&quot;281&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;rstc&quot; x=&quot;650&quot; y=&quot;160&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;rtc&quot; x=&quot;212&quot; y=&quot;173&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;sdadc&quot; x=&quot;359&quot; y=&quot;184&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;sercom0&quot; x=&quot;514&quot; y=&quot;253&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;sercom3&quot; x=&quot;722&quot; y=&quot;260&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;supc&quot; x=&quot;499&quot; y=&quot;155&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;sys_time&quot; x=&quot;342&quot; y=&quot;317&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;tc3&quot; x=&quot;650&quot; y=&quot;59&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
   &lt;/UserData&gt;
@@ -10371,7 +10366,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_6_0_ENABLE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -10382,7 +10377,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_6_0_HANDLER&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;NVMCTRL_InterruptHandler&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;NVMCTRL_Handler&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -10393,7 +10388,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_6_0_HANDLER_LOCK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -10460,7 +10455,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVMCTRL_INTERRUPT_ENABLE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;nvmctrl&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;nvmctrl&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -10471,7 +10466,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVMCTRL_INTERRUPT_ENABLE_UPDATE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -10482,7 +10477,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVMCTRL_INTERRUPT_HANDLER&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;nvmctrl&quot; value=&quot;NVMCTRL_InterruptHandler&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;nvmctrl&quot; value=&quot;NVMCTRL_Handler&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -10493,7 +10488,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVMCTRL_INTERRUPT_HANDLER_LOCK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;nvmctrl&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;nvmctrl&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -14208,260 +14203,9 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="!@#harmonyAttachmentState"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot;&gt;
-    &lt;Attachments dnOrder=&quot;0&quot;&gt;
-      &lt;DirectDependency dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom_MEMORY_dependency&quot;&gt;
-        &lt;Attributes dnOrder=&quot;0&quot;&gt;
-          &lt;String dnOrder=&quot;0&quot; id=&quot;targetComponentID&quot;&gt;
-            &lt;Value dnOrder=&quot;0&quot;&gt;nvmctrl&lt;/Value&gt;
-          &lt;/String&gt;
-          &lt;String dnOrder=&quot;1&quot; id=&quot;targetAttachmentID&quot;&gt;
-            &lt;Value dnOrder=&quot;0&quot;&gt;NVMCTRL_MEMORY&lt;/Value&gt;
-          &lt;/String&gt;
-        &lt;/Attributes&gt;
-      &lt;/DirectDependency&gt;
-    &lt;/Attachments&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="#&amp;__MCC_Group_Parrent_id"/>
-         <value>__ROOTVIEW</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_ADDRESS_SPACE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_ADDRESS_SPACE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_EEPROM_LOGICAL_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_EEPROM_LOGICAL_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;0&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_EEPROM_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_EEPROM_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_EEPROM_START_ADDRESS"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_EEPROM_START_ADDRESS&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;262144&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_IS_DEPENDENCY_SATISFIED"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_IS_DEPENDENCY_SATISFIED&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_MAIN_ARRAY_ENABLED"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_MAIN_ARRAY_ENABLED&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_MAIN_ARRAY_NUM_PHYSICAL_PAGES"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_MAIN_ARRAY_NUM_PHYSICAL_PAGES&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;0&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_MAIN_ARRAY_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_MAIN_ARRAY_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;262144&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_MAIN_ARRAY_START_ADDR"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_MAIN_ARRAY_START_ADDR&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;0&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_NUM_LOGICAL_PAGES"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_NUM_LOGICAL_PAGES&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;0&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_NUM_PHYSICAL_PAGES"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_NUM_PHYSICAL_PAGES&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;0&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_NVM_PLIB"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_NVM_PLIB&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;NVMCTRL&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_PAGES_PER_ROW"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_PAGES_PER_ROW&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;4&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_PAGE_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_PAGE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;64&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_ROW_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_ROW_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;256&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_RWWEE_ENABLED"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_RWWEE_ENABLED&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;false&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_RWWEE_MEM_NAME"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_RWWEE_MEM_NAME&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_RWWEE_NUM_PHYSICAL_PAGES"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_RWWEE_NUM_PHYSICAL_PAGES&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;128&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_RWWEE_SIZE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_RWWEE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;8192&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_emulated_eeprom" name="EEPROM_EMULATOR_RWWEE_START_ADDRESS"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_emulated_eeprom&gt;
-  &lt;lib_emulated_eeprom dnOrder=&quot;0&quot; id=&quot;EEPROM_EMULATOR_RWWEE_START_ADDRESS&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_emulated_eeprom&quot; value=&quot;4194304&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/lib_emulated_eeprom&gt;
-&lt;/lib_emulated_eeprom&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="nvmctrl" name="!@#harmonyAttachmentState"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;nvmctrl&gt;
-  &lt;nvmctrl dnOrder=&quot;0&quot;&gt;
-    &lt;Attachments dnOrder=&quot;0&quot;&gt;
-      &lt;DirectCapability dnOrder=&quot;0&quot; id=&quot;NVMCTRL_MEMORY&quot;&gt;
-        &lt;Attributes dnOrder=&quot;0&quot;&gt;
-          &lt;String dnOrder=&quot;0&quot; id=&quot;targetComponentID&quot;&gt;
-            &lt;Value dnOrder=&quot;0&quot;&gt;lib_emulated_eeprom&lt;/Value&gt;
-          &lt;/String&gt;
-          &lt;String dnOrder=&quot;1&quot; id=&quot;targetAttachmentID&quot;&gt;
-            &lt;Value dnOrder=&quot;0&quot;&gt;lib_emulated_eeprom_MEMORY_dependency&lt;/Value&gt;
-          &lt;/String&gt;
-        &lt;/Attributes&gt;
-      &lt;/DirectCapability&gt;
-    &lt;/Attachments&gt;
-  &lt;/nvmctrl&gt;
+  &lt;nvmctrl dnOrder=&quot;0&quot;/&gt;
 &lt;/nvmctrl&gt;
 </value>
       </entry>
@@ -14474,7 +14218,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;nvmctrl&gt;
   &lt;nvmctrl dnOrder=&quot;0&quot; id=&quot;INTERRUPT_ENABLE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/nvmctrl&gt;
 &lt;/nvmctrl&gt;
@@ -15810,7 +15554,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sdadc&gt;
   &lt;sdadc dnOrder=&quot;0&quot; id=&quot;SDADC_CTRLB_PRESCALER&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;0&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
     &lt;/Values&gt;
   &lt;/sdadc&gt;
 &lt;/sdadc&gt;
@@ -15830,7 +15574,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sdadc&gt;
   &lt;sdadc dnOrder=&quot;0&quot; id=&quot;SDADC_EVCTRL_RESRDYEO&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/sdadc&gt;
 &lt;/sdadc&gt;
@@ -19528,11 +19272,11 @@
       </entry>
       <entry>
          <file>..\src\config\default\configuration.h</file>
-         <hash>9fcf904d303b68e0b4160ff32731f518d18d3ff0cd21814e841927cf26acdd13</hash>
+         <hash>ad07aa84145794be7986923cd90ecda1dc8832a9fdfc77b614e5535cbd7394bc</hash>
       </entry>
       <entry>
          <file>..\src\config\default\definitions.h</file>
-         <hash>8d100897d60cd7b06eef4184705c5a4de355fce9c757e5e6d38dc4a2d0b335e3</hash>
+         <hash>efa19d315caf5b1a246bf3d2175f7fd71357de2a8956a224aff750ab5bd1cba3</hash>
       </entry>
       <entry>
          <file>..\src\config\default\device.h</file>
@@ -19552,35 +19296,19 @@
       </entry>
       <entry>
          <file>..\src\config\default\initialization.c</file>
-         <hash>807efb2612fd0de77a2f5798cf83c604f578a17be51c4b0a504b7bfd95f215e0</hash>
+         <hash>ee55d72fbc041a8d7f522ce5162294b08ca522e58ba39b3c9e20365009722233</hash>
       </entry>
       <entry>
          <file>..\src\config\default\interrupts.c</file>
-         <hash>b6280bf196effd651f279860e29ed8a96bc700a186b9f3e4d607e1c5810d5a94</hash>
+         <hash>cd756f6398cd2813f0c0da8d90d08486c21ee3244935465119a390baac6bb05f</hash>
       </entry>
       <entry>
          <file>..\src\config\default\interrupts.h</file>
-         <hash>3941afbf6b81b6baeca3c54c97d9b6962b262622f2e47f8c46f3d096802872f3</hash>
+         <hash>9cfb82219293fd1f8899717a758bbf85df5713d5ba1a70a5cc33b218e77c4dfa</hash>
       </entry>
       <entry>
          <file>..\src\config\default\libc_syscalls.c</file>
          <hash>88bb2e34c939601b5b7ad076556e3ee0fcedf388436b8cddb6d6fd3e9d07472f</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\default\library\emulated_eeprom\emulated_eeprom.c</file>
-         <hash>3dd9dde4d2c9e364b33914a2010935fd53e7fe3e1ce9d32679ef762615cbf8c3</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\default\library\emulated_eeprom\emulated_eeprom.h</file>
-         <hash>639e77263b3b2702305e08cd2747b2da5eefaa3bb89070ffc7ded5fd9a23d6b1</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\default\library\emulated_eeprom\emulated_eeprom_definitions.h</file>
-         <hash>31b9fadf28096e75c42c2e469d917c4e80f058213498f18d0c85e97fa83da01f</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\default\library\emulated_eeprom\emulated_eeprom_local.h</file>
-         <hash>5325997922b646928de4ee9398df6f62fa02312258c7b62875f08be727588aa9</hash>
       </entry>
       <entry>
          <file>..\src\config\default\osal\osal.h</file>
@@ -19640,7 +19368,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\nvic\plib_nvic.c</file>
-         <hash>74fcc54ec61f6190fbd33375251ebd81cb6f6e1a350257901d79d191c75e1344</hash>
+         <hash>f7c5a48d711fd73007904da7e440afdbfd54afe9936488cb29264036def6a6c6</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\nvic\plib_nvic.h</file>
@@ -19648,11 +19376,11 @@
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\nvmctrl\plib_nvmctrl.c</file>
-         <hash>f705c22187cdd1651fd43f90f1f53ec099e5649b70ee395b17814c932af6357f</hash>
+         <hash>1fb8d05a455e4b5ec9a5e2fdfe11470cbde614fa7df8a005b0f0110a95f071bc</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\nvmctrl\plib_nvmctrl.h</file>
-         <hash>e797479055f11e94db80ad62158240dbbbcd301090b5416b1e0aada7d2647023</hash>
+         <hash>a2f572d8ba174971959f4a9319fc61b460c00432512d38e19e28e2dfddf6cde5</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\pac\plib_pac.c</file>
@@ -19696,7 +19424,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\sdadc\plib_sdadc.c</file>
-         <hash>393ea5b5713ea5cb2f70b8cde1ce5f98e1352bec52bc7b9a99779efbbbaa5220</hash>
+         <hash>3468e831b4577bbe3349c173db29924bcc6c8a1378b03b51fd7b011d6c7df934</hash>
       </entry>
       <entry>
          <file>..\src\config\default\peripheral\sdadc\plib_sdadc.h</file>
@@ -19783,10 +19511,6 @@
          <hash>21f254f497a18a024cd00128d06c4776c2643f867a460c1ba9880a7dd41a8d56</hash>
       </entry>
       <entry>
-         <file>..\src\config\default\system\debug\sys_debug.h</file>
-         <hash>4162d9e1fab93b8b33f6c8a24726f5dc287ea05c31e3ab984c3c920c725d0882</hash>
-      </entry>
-      <entry>
          <file>..\src\config\default\system\dma\sys_dma.c</file>
          <hash>093cd2dc1d8f6179639884a84681b2f1ac6cfc1f67c48fe43f525224d09aabf4</hash>
       </entry>
@@ -19799,36 +19523,12 @@
          <hash>9f88a55cde1335782ea00df3eddad5a61a345a2bd15fb73d1d6ddc92380f39d9</hash>
       </entry>
       <entry>
-         <file>..\src\config\default\system\int\src\sys_int.c</file>
-         <hash>4281667cc2b84c9e4be1f0dfb3f7d42b77d36c5dcf6513d29ff40262f746cfc6</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\default\system\int\sys_int.h</file>
-         <hash>dc104ae181fd5309e1bb42896246644fae95915a8e639b23ecfccc8840850274</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\default\system\int\sys_int_mapping.h</file>
-         <hash>5abf8528dabc1b17378f5d137870597037214fddf33880fa40e9263352da3008</hash>
-      </entry>
-      <entry>
          <file>..\src\config\default\system\ports\sys_ports.h</file>
          <hash>01858f6ac32a104461b2f7ea8a83dc0c910286a28592f2acbd7125f9833d2306</hash>
       </entry>
       <entry>
          <file>..\src\config\default\system\ports\sys_ports_mapping.h</file>
          <hash>8a3e7ed01aa847c87f76796b56665f7f91f591fddfe6cf2e4161a03332608c3e</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\default\system\system.h</file>
-         <hash>2b75f8e370e5cb2c54f70da7351ee149f0d5a7673e700f39b373099716b31b55</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\default\system\system_common.h</file>
-         <hash>c9f34bd226f8efab12f5766e77f8355996cd0430b50e0f6ee30258664c494984</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\default\system\system_module.h</file>
-         <hash>96c74368801b0a7aaa25aec3ec2cb0d483250385f103ffc1ff64089b4ca2c6d9</hash>
       </entry>
       <entry>
          <file>..\src\config\default\system\time\src\sys_time.c</file>

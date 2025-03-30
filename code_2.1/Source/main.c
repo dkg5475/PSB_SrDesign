@@ -12,16 +12,18 @@
 #include "../Header/system.h"
 #include "../Header/port.h"
 #include "../Header/uart.h"
-#include <xc.h>
-
-// Declaration of global variables
-extern Command_t receivedCommand; // mark each as "extern" so the linker knows where to find their declaration
-extern bool commandReady; 
-extern bool verboseActiveFlag;
+#include "../Header/analog.h"
+#include "../Header/cal_temp.h"
+#include "../Header/timer.h"
 
 int main(void) {
+    // Initialization of clock, pins, and peripherals
     clocks_init();
     pin_init();
+    sdadc_init();
+    tc3_init();
+    
+    
     
     //uint8_t msg[10] = "Hello\n\r";
     //uint8_t character1 = 'H';

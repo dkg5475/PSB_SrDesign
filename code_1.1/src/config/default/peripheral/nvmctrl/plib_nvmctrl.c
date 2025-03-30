@@ -52,37 +52,12 @@
 #include "plib_nvmctrl.h"
 
 
-typedef struct
-{
-	NVMCTRL_CALLBACK CallbackFunc;
-	uintptr_t Context;
-}nvmCallbackObjType;
-
-volatile static nvmCallbackObjType nvmctrlCallbackObj;
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: NVMCTRL Implementation
 // *****************************************************************************
 // *****************************************************************************
 
-void NVMCTRL_CallbackRegister( NVMCTRL_CALLBACK callback, uintptr_t context )
-{
-    /* Register callback function */
-    nvmctrlCallbackObj.CallbackFunc = callback;
-    nvmctrlCallbackObj.Context = context;
-}
-
-void __attribute__((used)) NVMCTRL_InterruptHandler(void)
-{
-    NVMCTRL_REGS->NVMCTRL_INTENCLR = NVMCTRL_INTENCLR_READY_Msk;
-
-    if(nvmctrlCallbackObj.CallbackFunc != NULL)
-    {
-        uintptr_t context = nvmctrlCallbackObj.Context;
-        nvmctrlCallbackObj.CallbackFunc(context);
-    }
-}
 
 void NVMCTRL_Initialize(void)
 {
@@ -117,7 +92,6 @@ bool NVMCTRL_RWWEEPROM_PageWrite ( uint32_t *data, const uint32_t address )
 
     NVMCTRL_REGS->NVMCTRL_CTRLA = (uint16_t)(NVMCTRL_CTRLA_CMD_RWWEEWP | NVMCTRL_CTRLA_CMDEX_KEY);
 
-    NVMCTRL_REGS->NVMCTRL_INTENSET = NVMCTRL_INTENSET_READY_Msk;
     return true;
 }
 
@@ -128,7 +102,6 @@ bool NVMCTRL_RWWEEPROM_RowErase( uint32_t address )
 
     NVMCTRL_REGS->NVMCTRL_CTRLA = (uint16_t)(NVMCTRL_CTRLA_CMD_RWWEEER | NVMCTRL_CTRLA_CMDEX_KEY);
 
-    NVMCTRL_REGS->NVMCTRL_INTENSET = NVMCTRL_INTENSET_READY_Msk;
     return true;
 }
 bool NVMCTRL_Read( uint32_t *data, uint32_t length, const uint32_t address )
@@ -167,7 +140,6 @@ bool NVMCTRL_PageBufferCommit( const uint32_t address)
 
     NVMCTRL_REGS->NVMCTRL_CTRLA = (uint16_t)(command | NVMCTRL_CTRLA_CMDEX_KEY);
 
-    NVMCTRL_REGS->NVMCTRL_INTENSET = NVMCTRL_INTENSET_READY_Msk;
 
     return true;
 }
@@ -184,12 +156,14 @@ bool NVMCTRL_PageWrite( uint32_t *data, const uint32_t address )
         paddress++;
     }
 
-     /* Set address and command */
+    /* Set address and command */
+    /* Shift right by 1 bit to ensure word alignment */
     NVMCTRL_REGS->NVMCTRL_ADDR = address >> 1U;
 
+    // Trigger the page write command to NVMCTRL register
+    // CMDEX_KEY confirms that the write operation command is valid 
     NVMCTRL_REGS->NVMCTRL_CTRLA = (uint16_t)(NVMCTRL_CTRLA_CMD_WP_Val | NVMCTRL_CTRLA_CMDEX_KEY);
 
-    NVMCTRL_REGS->NVMCTRL_INTENSET = NVMCTRL_INTENSET_READY_Msk;
     return true;
 }
 
@@ -200,7 +174,6 @@ bool NVMCTRL_RowErase( uint32_t address )
 
     NVMCTRL_REGS->NVMCTRL_CTRLA = (uint16_t)(NVMCTRL_CTRLA_CMD_ER_Val | NVMCTRL_CTRLA_CMDEX_KEY);
 
-    NVMCTRL_REGS->NVMCTRL_INTENSET = NVMCTRL_INTENSET_READY_Msk;
     return true;
 }
 
@@ -224,7 +197,6 @@ bool NVMCTRL_USER_ROW_PageWrite( uint32_t *data, const uint32_t address )
 
         NVMCTRL_REGS->NVMCTRL_CTRLA = NVMCTRL_CTRLA_CMD_WAP_Val | NVMCTRL_CTRLA_CMDEX_KEY;
 
-        NVMCTRL_REGS->NVMCTRL_INTENSET = NVMCTRL_INTENSET_READY_Msk;
 
         pagewrite_val = true;
     }
@@ -234,7 +206,7 @@ bool NVMCTRL_USER_ROW_PageWrite( uint32_t *data, const uint32_t address )
 
 bool NVMCTRL_USER_ROW_RowErase( uint32_t address )
 {
-     bool rowerase = false;
+    bool rowerase = false;
     if ((address >= NVMCTRL_USERROW_START_ADDRESS) && (address <= (NVMCTRL_USERROW_START_ADDRESS + NVMCTRL_USERROW_SIZE)))
     {
         /* Set address and command */
@@ -242,7 +214,6 @@ bool NVMCTRL_USER_ROW_RowErase( uint32_t address )
 
         NVMCTRL_REGS->NVMCTRL_CTRLA = NVMCTRL_CTRLA_CMD_EAR_Val | NVMCTRL_CTRLA_CMDEX_KEY;
 
-        NVMCTRL_REGS->NVMCTRL_INTENSET = NVMCTRL_INTENSET_READY_Msk;
 
         rowerase = true;
     }

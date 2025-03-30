@@ -65,7 +65,6 @@ void PAC_InterruptHandler (void);
 void SUPC_InterruptHandler (void);
 void WDT_InterruptHandler (void);
 void RTC_InterruptHandler (void);
-void NVMCTRL_InterruptHandler (void);
 void SERCOM0_USART_InterruptHandler (void);
 void SERCOM3_SPI_InterruptHandler (void);
 void TC3_TimerInterruptHandler (void);

@@ -47,7 +47,7 @@ float voltage_to_temp (float sample) {
     return result;
 }
 
-void get_inputs (void) {
+void get_temp_inputs (void) {
     voltage_to_temp(inputs.samples_average);
     voltage_to_temp(inputs.first_sample);
     voltage_to_temp(inputs.last_sample);

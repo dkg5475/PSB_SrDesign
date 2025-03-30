@@ -91,8 +91,6 @@
 // Section: System Data
 // *****************************************************************************
 // *****************************************************************************
-/* Structure to hold the object handles for the modules in the system. */
-SYSTEM_OBJECTS sysObj;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -188,8 +186,6 @@ void SYS_Initialize ( void* data )
     /* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
     /* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
-    /* Initialize EMULATED_EEPROM0 Library Instance */
-    sysObj.libEMULATED_EEPROM0 = EMU_EEPROM_Initialize(EMULATED_EEPROM0, (SYS_MODULE_INIT *)NULL);
 
     /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/

@@ -6,15 +6,6 @@
                    projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
         <logicalFolder name="default" displayName="default" projectFiles="true">
-          <logicalFolder name="library" displayName="library" projectFiles="true">
-            <logicalFolder name="emulated_eeprom"
-                           displayName="emulated_eeprom"
-                           projectFiles="true">
-              <itemPath>../src/config/default/library/emulated_eeprom/emulated_eeprom_definitions.h</itemPath>
-              <itemPath>../src/config/default/library/emulated_eeprom/emulated_eeprom.h</itemPath>
-              <itemPath>../src/config/default/library/emulated_eeprom/emulated_eeprom_local.h</itemPath>
-            </logicalFolder>
-          </logicalFolder>
           <logicalFolder name="osal" displayName="osal" projectFiles="true">
             <itemPath>../src/config/default/osal/osal_definitions.h</itemPath>
             <itemPath>../src/config/default/osal/osal.h</itemPath>
@@ -87,16 +78,9 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
-            <logicalFolder name="debug" displayName="debug" projectFiles="true">
-              <itemPath>../src/config/default/system/debug/sys_debug.h</itemPath>
-            </logicalFolder>
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
               <itemPath>../src/config/default/system/dma/sys_dma_mapping.h</itemPath>
               <itemPath>../src/config/default/system/dma/sys_dma.h</itemPath>
-            </logicalFolder>
-            <logicalFolder name="int" displayName="int" projectFiles="true">
-              <itemPath>../src/config/default/system/int/sys_int_mapping.h</itemPath>
-              <itemPath>../src/config/default/system/int/sys_int.h</itemPath>
             </logicalFolder>
             <logicalFolder name="ports" displayName="ports" projectFiles="true">
               <itemPath>../src/config/default/system/ports/sys_ports_mapping.h</itemPath>
@@ -107,9 +91,6 @@
               <itemPath>../src/config/default/system/time/sys_time.h</itemPath>
               <itemPath>../src/config/default/system/time/sys_time_definitions.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/default/system/system_module.h</itemPath>
-            <itemPath>../src/config/default/system/system.h</itemPath>
-            <itemPath>../src/config/default/system/system_common.h</itemPath>
           </logicalFolder>
           <itemPath>../src/config/default/device_vectors.h</itemPath>
           <itemPath>../src/config/default/toolchain_specifics.h</itemPath>
@@ -260,13 +241,6 @@
                    projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
         <logicalFolder name="default" displayName="default" projectFiles="true">
-          <logicalFolder name="library" displayName="library" projectFiles="true">
-            <logicalFolder name="emulated_eeprom"
-                           displayName="emulated_eeprom"
-                           projectFiles="true">
-              <itemPath>../src/config/default/library/emulated_eeprom/emulated_eeprom.c</itemPath>
-            </logicalFolder>
-          </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
             <logicalFolder name="clock" displayName="clock" projectFiles="true">
               <itemPath>../src/config/default/peripheral/clock/plib_clock.c</itemPath>
@@ -334,9 +308,6 @@
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
               <itemPath>../src/config/default/system/dma/sys_dma.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="int" displayName="int" projectFiles="true">
-              <itemPath>../src/config/default/system/int/src/sys_int.c</itemPath>
             </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
               <itemPath>../src/config/default/system/time/src/sys_time.c</itemPath>
@@ -415,6 +386,7 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
@@ -471,6 +443,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value="-u _printf_float "/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -511,6 +484,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>

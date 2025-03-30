@@ -9,7 +9,7 @@
 #define F_CPU 48000000UL  // Adjust if your clock changes
 #define BAUD_RATE 14400UL
 /* Integer/Arithmetic baud value calculation */
-#define BAUD_VALUE (65536 * (1 - (16.0 * BAUD_RATE) / F_CPU))
+#define BAUD_VALUE ((uint16_t)(65536 * (1.0 - (16.0 * BAUD_RATE / F_CPU))))
 
 /* Initialization of global values */
 static uint8_t rxBuffer[RX_BUFFER_SIZE];
@@ -51,7 +51,7 @@ void init_uart (void) {
             SERCOM_USART_INT_CTRLA_FORM_USART_FRAME_NO_PARITY;
     
     /* Set baud rate to be 14400 for a 48 MHz clock  */
-    SERCOM0_REGS->USART_INT.SERCOM_BAUD = (uint16_t)SERCOM_USART_INT_BAUD_BAUD(65521UL);
+    SERCOM0_REGS->USART_INT.SERCOM_BAUD = (uint16_t)SERCOM_USART_INT_BAUD_BAUD(BAUD_VALUE);
     
     /* Set the data size to be 8 bits */
     /* Set number of stop bits to be 1 */

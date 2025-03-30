@@ -12,7 +12,7 @@ float myLn               (float x);
 void  raw_to_voltage     (void);
 void  find_average       (void);
 float voltage_to_temp    (float sample);
-void  get_inputs         (void);
+void  get_temp_inputs         (void);
 
 // Global struct for constants used in calculations 
 typedef struct {

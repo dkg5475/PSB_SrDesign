@@ -1,6 +1,9 @@
 #ifndef ANALOG_H
 #define ANALOG_H
 
+#include <stdint.h>
+#include <stdbool.h>
+
 #define SAMPLE_COUNT 64
 
 // Global variables 

@@ -10,6 +10,8 @@
       <itemPath>Header/timer.h</itemPath>
       <itemPath>Header/analog.h</itemPath>
       <itemPath>Header/cal_temp.h</itemPath>
+      <itemPath>Header/dac.h</itemPath>
+      <itemPath>Header/flash.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -33,6 +35,8 @@
       <itemPath>Source/timer.c</itemPath>
       <itemPath>Source/analog.c</itemPath>
       <itemPath>Source/cal_temp.c</itemPath>
+      <itemPath>Source/dac.c</itemPath>
+      <itemPath>Source/flash.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -324,6 +328,8 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_2.1/debug/default/default_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.ledbrightness" value="5"/>

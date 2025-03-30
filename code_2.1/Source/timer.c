@@ -14,12 +14,6 @@ void tc3_init (void) {
             TC_CTRLA_PRESCALER_DIV16 | 
             TC_CTRLA_PRESCSYNC_PRESC;
     
-    /* Configure in Match Frequency Mode */
-    TC3_REGS->COUNT16.TC_WAVE = (uint8_t)TC_WAVE_WAVEGEN_MPWM;
-    
-    /* Configure timer period */
-    TC3_REGS->COUNT16.TC_CC[0U] = 2999U;
-    
     /* Clear all interrupt flags */
     TC3_REGS->COUNT16.TC_INTFLAG = (uint8_t)TC_INTFLAG_Msk;
     
