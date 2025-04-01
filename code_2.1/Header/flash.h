@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
 
 /* Macros */
 #define NVMCTRL_FLASH_START_ADDRESS        (0x00000000U)

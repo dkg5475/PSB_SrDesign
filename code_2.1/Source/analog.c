@@ -33,9 +33,6 @@ void sdadc_init (void) {
     /* Enable the SDADC result ready interrupt */
     SDADC_REGS->SDADC_INTENSET = (uint8_t)(SDADC_INTENSET_RESRDY_Msk);
     
-    // Enable SDADC NVIC Interrupt
-    NVIC_EnableIRQ(SDADC_IRQn);
-    
     /* Configure Run in standby, On demand property */
     SDADC_REGS->SDADC_CTRLA |= (uint8_t)(SDADC_CTRLA_RUNSTDBY_Msk | SDADC_CTRLA_ONDEMAND_Msk);
 

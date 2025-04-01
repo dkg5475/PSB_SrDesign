@@ -31,27 +31,30 @@ void init_uart (void) {
     /* Disable USART instance before configurations are made*/
     SERCOM0_REGS->USART_INT.SERCOM_CTRLA &= ~SERCOM_USART_INT_CTRLA_ENABLE_Msk; 
     /* Software reset of USART settings */
-    SERCOM0_REGS->USART_INT.SERCOM_CTRLA = SERCOM_USART_INT_CTRLA_SWRST_Msk; 
+    // SERCOM0_REGS->USART_INT.SERCOM_CTRLA = SERCOM_USART_INT_CTRLA_SWRST_Msk; 
     /* Wait for the software reset to complete */
-    while (SERCOM0_REGS->USART_INT.SERCOM_SYNCBUSY & SERCOM_USART_INT_SYNCBUSY_SWRST_Msk);
+    // while (SERCOM0_REGS->USART_INT.SERCOM_SYNCBUSY & SERCOM_USART_INT_SYNCBUSY_SWRST_Msk);
     
     /* Set the USART to run in async mode (CMODE) */
     /* Set the data order (set to be LSB is transmitted first) */
     /* Set the Immediate Buffer Overflow Notification (IBON) */
     /* Set the RX pin to be SERCOM0_PAD1 */
     /* TX: PAD[0] = TxD; PAD[2] = RTS; PAD[3] = CTS Position (RTS and CTS are disabled) */ 
-    /* Set the sampling rate to be 16x the baud rate and to use arithmetic/integer baud rate generation (0UL) */
+    /* Set the sampling rate to be 16x the baud rate and to use fractional baud rate generation (1UL) */
     /* Set the format of the data to be 8 bits, no parity, 1 stop bit */
     SERCOM0_REGS->USART_INT.SERCOM_CTRLA = SERCOM_USART_INT_CTRLA_CMODE(0UL) |
             SERCOM_USART_INT_CTRLA_DORD_Msk | 
             SERCOM_USART_INT_CTRLA_IBON_Msk | 
             SERCOM_USART_INT_CTRLA_RXPO_PAD1 |
             SERCOM_USART_INT_CTRLA_TXPO_PAD0 | 
-            SERCOM_USART_INT_CTRLA_SAMPR_16X_ARITHMETIC |
-            SERCOM_USART_INT_CTRLA_FORM_USART_FRAME_NO_PARITY;
+            SERCOM_USART_INT_CTRLA_SAMPR(1UL) |
+            SERCOM_USART_INT_CTRLA_FORM_USART_FRAME_NO_PARITY |
+            SERCOM_USART_INT_CTRLA_RUNSTDBY_Msk |
+            SERCOM_USART_INT_CTRLA_MODE_USART_INT_CLK;
+            
     
     /* Set baud rate to be 14400 for a 48 MHz clock  */
-    SERCOM0_REGS->USART_INT.SERCOM_BAUD = (uint16_t)SERCOM_USART_INT_BAUD_BAUD(BAUD_VALUE);
+    SERCOM0_REGS->USART_INT.SERCOM_BAUD = (uint16_t)SERCOM_USART_INT_BAUD_BAUD(16592UL);
     
     /* Set the data size to be 8 bits */
     /* Set number of stop bits to be 1 */
@@ -71,9 +74,6 @@ void init_uart (void) {
     /* Enable Receive Complete interrupt */
     SERCOM0_REGS->USART_INT.SERCOM_INTENSET = (uint8_t)SERCOM_USART_INT_INTENSET_RXC_Msk;
     
-    // Enable SERCOM0 IRQ in NVIC
-    NVIC_EnableIRQ(SERCOM0_IRQn);
-    
 }
 
 void show_boot_screen (void) {
@@ -85,6 +85,7 @@ void show_boot_screen (void) {
 void tx_byte (uint8_t data) {
     /* Wait for the data register to empty before sending the byte */
     while(!(SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_DRE_Msk));
+    
     SERCOM0_REGS->USART_INT.SERCOM_DATA = data;
     
     /* Wait for the transmission to complete */

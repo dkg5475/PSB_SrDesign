@@ -2,12 +2,10 @@
 #define SYSTEM_H
 
 /* Function prototypes*/
-void osc48m_init               (void);
-void gclk1_init                (void);
-void gclk0_init                (void);
-void mclk_init                 (void);
-void peripheral_clk_init       (void);
-void clocks_init               (void);
-
-
+void clocks_init                      (void);
+void nvic_init                        (void);
+void nvic_int_disable                 (void);
+void nvic_int_enable                  (void);
+void supc_init                        (void);
+void chip_erase                       (void);
 #endif
