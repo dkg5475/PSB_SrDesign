@@ -10,6 +10,11 @@
 #define BAUD_RATE 14400UL
 /* Integer/Arithmetic baud value calculation */
 #define BAUD_VALUE ((uint16_t)(65536 * (1.0 - (16.0 * BAUD_RATE / F_CPU))))
+/* Fraction baud calculation, sampling is 16x so S = 16  */
+
+#define S 16
+#define BAUD_VALUE_INT (uint16_t)(F_CPU / (S * BAUD_RATE))
+#define BAUD_VALUE_FRAC (uint8_t)(((F_CPU / (float)(S * BAUD_RATE)) - baud_int) * 8)
 
 /* Initialization of global values */
 static uint8_t rxBuffer[RX_BUFFER_SIZE];
@@ -18,43 +23,29 @@ Command_t receivedCommand;
 volatile bool commandReady = false; 
 bool verboseActiveFlag = false;
 
-// override printf functionality 
+// override printf functiont to work with uart
+/* 
 int _write(int file, char *ptr, int len) {
     for (int i = 0; i < len; i++) {
         tx_byte(ptr[i]);  // Send each character via USART
     }
     return len;  // Return the number of bytes written
 }
+ * */
+ 
+void _mon_putc(char c) {
+    tx_byte((uint8_t)c);
+}
 
 
-void init_uart (void) {
+void uart_init (void) {
     /* Disable USART instance before configurations are made*/
     SERCOM0_REGS->USART_INT.SERCOM_CTRLA &= ~SERCOM_USART_INT_CTRLA_ENABLE_Msk; 
     /* Software reset of USART settings */
-    // SERCOM0_REGS->USART_INT.SERCOM_CTRLA = SERCOM_USART_INT_CTRLA_SWRST_Msk; 
+    SERCOM0_REGS->USART_INT.SERCOM_CTRLA = SERCOM_USART_INT_CTRLA_SWRST_Msk; 
     /* Wait for the software reset to complete */
-    // while (SERCOM0_REGS->USART_INT.SERCOM_SYNCBUSY & SERCOM_USART_INT_SYNCBUSY_SWRST_Msk);
+    while (SERCOM0_REGS->USART_INT.SERCOM_SYNCBUSY & SERCOM_USART_INT_SYNCBUSY_SWRST_Msk);
     
-    /* Set the USART to run in async mode (CMODE) */
-    /* Set the data order (set to be LSB is transmitted first) */
-    /* Set the Immediate Buffer Overflow Notification (IBON) */
-    /* Set the RX pin to be SERCOM0_PAD1 */
-    /* TX: PAD[0] = TxD; PAD[2] = RTS; PAD[3] = CTS Position (RTS and CTS are disabled) */ 
-    /* Set the sampling rate to be 16x the baud rate and to use fractional baud rate generation (1UL) */
-    /* Set the format of the data to be 8 bits, no parity, 1 stop bit */
-    SERCOM0_REGS->USART_INT.SERCOM_CTRLA = SERCOM_USART_INT_CTRLA_CMODE(0UL) |
-            SERCOM_USART_INT_CTRLA_DORD_Msk | 
-            SERCOM_USART_INT_CTRLA_IBON_Msk | 
-            SERCOM_USART_INT_CTRLA_RXPO_PAD1 |
-            SERCOM_USART_INT_CTRLA_TXPO_PAD0 | 
-            SERCOM_USART_INT_CTRLA_SAMPR(1UL) |
-            SERCOM_USART_INT_CTRLA_FORM_USART_FRAME_NO_PARITY |
-            SERCOM_USART_INT_CTRLA_RUNSTDBY_Msk |
-            SERCOM_USART_INT_CTRLA_MODE_USART_INT_CLK;
-            
-    
-    /* Set baud rate to be 14400 for a 48 MHz clock  */
-    SERCOM0_REGS->USART_INT.SERCOM_BAUD = (uint16_t)SERCOM_USART_INT_BAUD_BAUD(16592UL);
     
     /* Set the data size to be 8 bits */
     /* Set number of stop bits to be 1 */
@@ -67,6 +58,27 @@ void init_uart (void) {
     
     /* Wait for sync */
     while((SERCOM0_REGS->USART_INT.SERCOM_SYNCBUSY) != 0U);
+    
+    /* Set the USART to run in async mode (CMODE) */
+    /* Set the data order (set to be LSB is transmitted first) */
+    /* Set the Immediate Buffer Overflow Notification (IBON) */
+    /* Set the RX pin to be SERCOM0_PAD1 */
+    /* TX: PAD[0] = TxD; PAD[2] = RTS; PAD[3] = CTS Position (RTS and CTS are disabled) */ 
+    /* Set the sampling rate to be 16x the baud rate and to use fractional baud rate generation (1UL) */
+    /* Set the format of the data to be 8 bits, no parity, 1 stop bit */
+    SERCOM0_REGS->USART_INT.SERCOM_CTRLA = SERCOM_USART_INT_CTRLA_CMODE_ASYNC |
+            SERCOM_USART_INT_CTRLA_DORD_Msk | 
+            SERCOM_USART_INT_CTRLA_IBON_Msk | 
+            SERCOM_USART_INT_CTRLA_RXPO_PAD1 |
+            SERCOM_USART_INT_CTRLA_TXPO_PAD2 | 
+            SERCOM_USART_INT_CTRLA_SAMPR(1UL) |
+            SERCOM_USART_INT_CTRLA_FORM_USART_FRAME_NO_PARITY |
+            SERCOM_USART_INT_CTRLA_RUNSTDBY_Msk |
+            SERCOM_USART_INT_CTRLA_MODE_USART_INT_CLK;
+            
+    
+    /* Set baud rate to be 14400 for a 48 MHz clock  */
+    SERCOM0_REGS->USART_INT.SERCOM_BAUD = (uint16_t)SERCOM_USART_INT_BAUD_BAUD(16592UL);
     
     /* Enable the UART after the configurations */
     SERCOM0_REGS->USART_INT.SERCOM_CTRLA |= SERCOM_USART_INT_CTRLA_ENABLE_Msk;

@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=Source/startup_atsamc21a.c Source/main.c Source/system.c Source/port.c Source/uart.c Source/timer.c Source/analog.c Source/cal_temp.c Source/dac.c Source/flash.c
+SOURCEFILES_QUOTED_IF_SPACED=Source/startup_atsamc21a.c Source/main.c Source/system.c Source/port.c Source/uart.c Source/timer.c Source/analog.c Source/cal_temp.c Source/dac.c Source/flash.c Source/systick.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/Source/startup_atsamc21a.o ${OBJECTDIR}/Source/main.o ${OBJECTDIR}/Source/system.o ${OBJECTDIR}/Source/port.o ${OBJECTDIR}/Source/uart.o ${OBJECTDIR}/Source/timer.o ${OBJECTDIR}/Source/analog.o ${OBJECTDIR}/Source/cal_temp.o ${OBJECTDIR}/Source/dac.o ${OBJECTDIR}/Source/flash.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/Source/startup_atsamc21a.o.d ${OBJECTDIR}/Source/main.o.d ${OBJECTDIR}/Source/system.o.d ${OBJECTDIR}/Source/port.o.d ${OBJECTDIR}/Source/uart.o.d ${OBJECTDIR}/Source/timer.o.d ${OBJECTDIR}/Source/analog.o.d ${OBJECTDIR}/Source/cal_temp.o.d ${OBJECTDIR}/Source/dac.o.d ${OBJECTDIR}/Source/flash.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/Source/startup_atsamc21a.o ${OBJECTDIR}/Source/main.o ${OBJECTDIR}/Source/system.o ${OBJECTDIR}/Source/port.o ${OBJECTDIR}/Source/uart.o ${OBJECTDIR}/Source/timer.o ${OBJECTDIR}/Source/analog.o ${OBJECTDIR}/Source/cal_temp.o ${OBJECTDIR}/Source/dac.o ${OBJECTDIR}/Source/flash.o ${OBJECTDIR}/Source/systick.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/Source/startup_atsamc21a.o.d ${OBJECTDIR}/Source/main.o.d ${OBJECTDIR}/Source/system.o.d ${OBJECTDIR}/Source/port.o.d ${OBJECTDIR}/Source/uart.o.d ${OBJECTDIR}/Source/timer.o.d ${OBJECTDIR}/Source/analog.o.d ${OBJECTDIR}/Source/cal_temp.o.d ${OBJECTDIR}/Source/dac.o.d ${OBJECTDIR}/Source/flash.o.d ${OBJECTDIR}/Source/systick.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/Source/startup_atsamc21a.o ${OBJECTDIR}/Source/main.o ${OBJECTDIR}/Source/system.o ${OBJECTDIR}/Source/port.o ${OBJECTDIR}/Source/uart.o ${OBJECTDIR}/Source/timer.o ${OBJECTDIR}/Source/analog.o ${OBJECTDIR}/Source/cal_temp.o ${OBJECTDIR}/Source/dac.o ${OBJECTDIR}/Source/flash.o
+OBJECTFILES=${OBJECTDIR}/Source/startup_atsamc21a.o ${OBJECTDIR}/Source/main.o ${OBJECTDIR}/Source/system.o ${OBJECTDIR}/Source/port.o ${OBJECTDIR}/Source/uart.o ${OBJECTDIR}/Source/timer.o ${OBJECTDIR}/Source/analog.o ${OBJECTDIR}/Source/cal_temp.o ${OBJECTDIR}/Source/dac.o ${OBJECTDIR}/Source/flash.o ${OBJECTDIR}/Source/systick.o
 
 # Source Files
-SOURCEFILES=Source/startup_atsamc21a.c Source/main.c Source/system.c Source/port.c Source/uart.c Source/timer.c Source/analog.c Source/cal_temp.c Source/dac.c Source/flash.c
+SOURCEFILES=Source/startup_atsamc21a.c Source/main.c Source/system.c Source/port.c Source/uart.c Source/timer.c Source/analog.c Source/cal_temp.c Source/dac.c Source/flash.c Source/systick.c
 
 # Pack Options 
 PACK_COMMON_OPTIONS=-I "${CMSIS_DIR}/CMSIS/Core/Include"
@@ -164,6 +164,12 @@ ${OBJECTDIR}/Source/flash.o: Source/flash.c  .generated_files/flags/default/3ed1
 	@${RM} ${OBJECTDIR}/Source/flash.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD4=1  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/Source/flash.o.d" -o ${OBJECTDIR}/Source/flash.o Source/flash.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}/samc21" ${PACK_COMMON_OPTIONS} 
 	
+${OBJECTDIR}/Source/systick.o: Source/systick.c  .generated_files/flags/default/79cedd16deea4d6eaf01a91f52cdf6805a9a69f4 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/Source" 
+	@${RM} ${OBJECTDIR}/Source/systick.o.d 
+	@${RM} ${OBJECTDIR}/Source/systick.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD4=1  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/Source/systick.o.d" -o ${OBJECTDIR}/Source/systick.o Source/systick.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}/samc21" ${PACK_COMMON_OPTIONS} 
+	
 else
 ${OBJECTDIR}/Source/startup_atsamc21a.o: Source/startup_atsamc21a.c  .generated_files/flags/default/cb522b3fca6b57b99bc63e6022b341a39bd3e8c6 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}/Source" 
@@ -224,6 +230,12 @@ ${OBJECTDIR}/Source/flash.o: Source/flash.c  .generated_files/flags/default/d539
 	@${RM} ${OBJECTDIR}/Source/flash.o.d 
 	@${RM} ${OBJECTDIR}/Source/flash.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/Source/flash.o.d" -o ${OBJECTDIR}/Source/flash.o Source/flash.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}/samc21" ${PACK_COMMON_OPTIONS} 
+	
+${OBJECTDIR}/Source/systick.o: Source/systick.c  .generated_files/flags/default/2bf2d1922423a2a507600c5ba0fe5224386b3cd6 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}/Source" 
+	@${RM} ${OBJECTDIR}/Source/systick.o.d 
+	@${RM} ${OBJECTDIR}/Source/systick.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -fdata-sections -O1 -fno-common -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/Source/systick.o.d" -o ${OBJECTDIR}/Source/systick.o Source/systick.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}/samc21" ${PACK_COMMON_OPTIONS} 
 	
 endif
 

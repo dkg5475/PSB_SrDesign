@@ -65,7 +65,7 @@ void pin_init(void) {
     
     /* Configure PA08 and PA09 for UART TX/RX */   
     /* Enable peripheral multiplexing for PA08, and PA09 */
-    PORT_REGS->GROUP[0].PORT_PINCFG[8] = PORT_PINCFG_PMUXEN_Msk;
+    PORT_REGS->GROUP[0].PORT_PINCFG[8] = PORT_PINCFG_PMUXEN_Msk | PORT_PINCFG_DRVSTR_Msk;
     PORT_REGS->GROUP[0].PORT_PINCFG[9] = PORT_PINCFG_PMUXEN_Msk; 
     
     /* PMUX[4] PMUXE -> PA08 */

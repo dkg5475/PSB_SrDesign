@@ -1,22 +1,26 @@
 #include "../Header/system.h"
 #include "samc21e18a.h"
+#include "core_cm0plus.h"
 #include <stdint.h>
 
 static void osc48m_init(void) {
     
-    /* Use the factory calibration for the 48 MHz oscillator */
-    uint32_t calibValue = (uint32_t)(((*(uint64_t*)0x00806020UL) >> 19) & 0x3FFFFF);
+    uint32_t calibValue = (uint32_t)(((*(uint64_t*)0x00806020UL) >> 41 ) & 0x3fffffUL);
     OSCCTRL_REGS->OSCCTRL_CAL48M = calibValue;
 
-    /* Set the oscillator divider to 1 (48 MHz output) */
+
+    /* Selection of the Division Value */
     OSCCTRL_REGS->OSCCTRL_OSC48MDIV = (uint8_t)OSCCTRL_OSC48MDIV_DIV(0UL);
 
-    /* Wait for the divider to synchronize after setting the division value  */
-    while (OSCCTRL_REGS->OSCCTRL_OSC48MSYNCBUSY & OSCCTRL_OSC48MSYNCBUSY_OSC48MDIV_Msk);
-    
-    /* Wait for the oscillator to be ready */
-    while((OSCCTRL_REGS->OSCCTRL_STATUS & OSCCTRL_STATUS_OSC48MRDY_Msk) != OSCCTRL_STATUS_OSC48MRDY_Msk);
-    
+    while((OSCCTRL_REGS->OSCCTRL_OSC48MSYNCBUSY & OSCCTRL_OSC48MSYNCBUSY_OSC48MDIV_Msk) == OSCCTRL_OSC48MSYNCBUSY_OSC48MDIV_Msk)
+    {
+        /* Waiting for the synchronization */
+    }
+
+    while((OSCCTRL_REGS->OSCCTRL_STATUS & OSCCTRL_STATUS_OSC48MRDY_Msk) != OSCCTRL_STATUS_OSC48MRDY_Msk)
+    {
+        /* Waiting for the OSC48M Ready state */
+    }
     OSCCTRL_REGS->OSCCTRL_OSC48MCTRL |= OSCCTRL_OSC48MCTRL_ONDEMAND_Msk;
 }
 
@@ -107,11 +111,12 @@ static void peripheral_clk_init (void) {
     while ((GCLK_REGS->GCLK_PCHCTRL[TC3_GCLK_ID] & GCLK_PCHCTRL_CHEN_Msk) != GCLK_PCHCTRL_CHEN_Msk);
 }
 
-void clocks_init (void) {
+void system_init (void) {
     osc48m_init();
-    mclk_init();
     gclk0_init();
+    mclk_init();
     peripheral_clk_init();
+    supc_init();
 }
 
 void nvic_init (void) {
@@ -162,8 +167,8 @@ void supc_init (void) {
     
     while(!(WDT_REGS->WDT_SYNCBUSY & WDT_SYNCBUSY_WEN_Msk)); // Wait for window enable sync 
     
-    WDT_REGS->WDT_CONFIG = WDT_CONFIG_PER_CYC4096 | // timeout period of 16384 cycles
-            WDT_CONFIG_WINDOW_CYC4096; // watchdog closed window period of 16384
+    WDT_REGS->WDT_CONFIG = WDT_CONFIG_PER_CYC4096 | // timeout period of 4096 cycles
+            WDT_CONFIG_WINDOW_CYC4096; // watchdog closed window period of 4096
     
     WDT_REGS->WDT_EWCTRL = WDT_EWCTRL_EWOFFSET_CYC2048; // cycles after warning is triggered before reset 
     
@@ -178,6 +183,5 @@ void chip_erase (void) {
     // when a DSU operation is finished, a 1 is written to the STATUSA Register
     
 }
-
 
 

@@ -23,7 +23,7 @@ typedef struct {
 }Command_t;
 
 /* Function prototypes */
-void init_uart               (void);
+void uart_init               (void);
 void show_boot_screen        (void);
 void tx_byte                 (uint8_t data);
 void sercom0_rx_handler      (void);

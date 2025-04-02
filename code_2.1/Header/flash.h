@@ -1,5 +1,5 @@
-#ifndef SYSTEM_H
-#define SYSTEM_H
+#ifndef FLASH_H
+#define FLASH_H
 
 #include <stdint.h>
 #include <stdbool.h>
