@@ -15,7 +15,7 @@ extern volatile bool bufferFullFlag;
 void     sdadc_init         (void);
 void     sdadc_start        (void);
 void     sdadc_stop         (void);
-void     sdadc_handler      (void);
+void     SDADC_Handler      (void);
 
 
 

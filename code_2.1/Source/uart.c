@@ -107,7 +107,7 @@ void tx_byte (uint8_t data) {
     SERCOM0_REGS->USART_INT.SERCOM_INTFLAG = SERCOM_USART_INT_INTFLAG_TXC_Msk;
 }
 
-void sercom0_rx_handler(void) {
+void SERCOM0_Handler(void) {
     if (SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_RXC_Msk) {
         uint8_t received_byte = SERCOM0_REGS->USART_INT.SERCOM_DATA;
         

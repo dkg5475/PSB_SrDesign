@@ -1,4 +1,5 @@
 #include "../Header/system.h"
+#include "../Header/analog.h"
 #include "samc21e18a.h"
 #include <stdint.h>
 #include <stdbool.h>
@@ -58,7 +59,7 @@ void sdadc_stop (void) {
    while((SDADC_REGS->SDADC_SYNCBUSY & SDADC_SYNCBUSY_ENABLE_Msk) == SDADC_SYNCBUSY_ENABLE_Msk);
 }
 
-void sdadc_handler (void) {
+void SDADC_Handler (void) {
     // Check if the interrupt is triggered by the Result Ready event
     if (SDADC_REGS->SDADC_INTFLAG & SDADC_INTFLAG_RESRDY_Msk) {
         // Store result in buffer 

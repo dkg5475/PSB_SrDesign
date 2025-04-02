@@ -26,7 +26,7 @@ typedef struct {
 void uart_init               (void);
 void show_boot_screen        (void);
 void tx_byte                 (uint8_t data);
-void sercom0_rx_handler      (void);
+void SERCOM0_Handler         (void);
 cmd_id_t parseCommand        (void);
 void handleCommand           (Command_t *cmd);
 
