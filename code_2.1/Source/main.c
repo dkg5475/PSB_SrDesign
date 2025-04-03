@@ -19,16 +19,19 @@
 #include "../Header/systick.h"
 
 int main (void) {
-    // Chip erase function
+    // Clearing of PAC write protection for DSU and chip erase function
+    //PAC_REGS->PAC_WRCTRL = PAC_WRCTRL_PERID(33) | PAC_WRCTRL_KEY_CLR;
     //chip_erase();
     
+    NVMCTRL_REGS->NVMCTRL_CTRLB = NVMCTRL_CTRLB_RWS(3UL); 
+
+    
     // Initialization of clock, pins, and peripherals
-    nvm_init();
+    pin_init();
     system_init();
     //systick_init();
-    //pin_init();
     //uart_init();
-    
+    //nvm_init();
 
     //uint8_t character2 = 'E';
  

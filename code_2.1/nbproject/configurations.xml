@@ -55,12 +55,12 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>ICD4Tool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.45</languageToolchainVersion>
+        <languageToolchainVersion>2.40</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
         <pack name="SAMC21_DFP" vendor="Microchip" version="3.8.119"/>
+        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -102,7 +102,7 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="true"/>
-        <property key="optimization-level" value="-O1"/>
+        <property key="optimization-level" value=""/>
         <property key="place-data-into-section" value="true"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -164,7 +164,7 @@
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="heap-size" value="0"/>
+        <property key="heap-size" value="512"/>
         <property key="input-libraries" value=""/>
         <property key="kseg-length" value=""/>
         <property key="kseg-origin" value=""/>
@@ -189,12 +189,12 @@
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
         <property key="check-new" value="false"/>
-        <property key="eh-specs" value="true"/>
+        <property key="eh-specs" value="false"/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
-        <property key="exceptions" value="true"/>
+        <property key="exceptions" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories" value=""/>
         <property key="generate-16-bit-code" value="false"/>
@@ -206,7 +206,7 @@
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros" value=""/>
-        <property key="rtti" value="true"/>
+        <property key="rtti" value="false"/>
         <property key="strict-ansi" value="false"/>
         <property key="toplevel-reordering" value=""/>
         <property key="unaligned-access" value=""/>
@@ -263,8 +263,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/Users/Danfi/OneDrive/Desktop/remote/PSBSD/code_2.1/debug/default/default_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.ledbrightness" value="5"/>
@@ -288,9 +286,8 @@
         <property key="programoptions.smart.program" value="When debugging only"/>
         <property key="programoptions.testmodeentrymethod" value="VDDFirst"/>
         <property key="toolpack.updateoptions"
-                  value="toolpack.updateoptions.uselatestoolpack"/>
-        <property key="toolpack.updateoptions.packversion"
-                  value="Press to select which tool pack to use"/>
+                  value="toolpack.updateoptions.specifictoolpack"/>
+        <property key="toolpack.updateoptions.packversion" value="2.3.1809"/>
         <property key="voltagevalue" value="5.0"/>
         <property key="x.erase.clearprot" value="true"/>
       </ICD4Tool>
@@ -355,9 +352,8 @@
         <property key="programoptions.smart.program" value="When debugging only"/>
         <property key="programoptions.testmodeentrymethod" value="VDDFirst"/>
         <property key="toolpack.updateoptions"
-                  value="toolpack.updateoptions.uselatestoolpack"/>
-        <property key="toolpack.updateoptions.packversion"
-                  value="Press to select which tool pack to use"/>
+                  value="toolpack.updateoptions.specifictoolpack"/>
+        <property key="toolpack.updateoptions.packversion" value="2.3.1809"/>
         <property key="voltagevalue" value="5.0"/>
         <property key="x.erase.clearprot" value="true"/>
       </Tool>

@@ -7,7 +7,7 @@ volatile uint32_t counter = 0;
 void systick_init (void) {
     SysTick->CTRL = 0U; // disable systick before writing to its registers
     
-    SysTick->LOAD = 0xBB7F; // interrupts every 1 ms
+    SysTick->LOAD = 0xBB7F; // interrupts every 1 ms (48,000,000 / 1000)
     SysTick->VAL = 0; // reset the counter current value register
     
     SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk | // set the clk source as the cpu clk

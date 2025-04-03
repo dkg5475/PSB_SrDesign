@@ -39,12 +39,6 @@ void _mon_putc(char c) {
 
 
 void uart_init (void) {
-    /* Disable USART instance before configurations are made*/
-    SERCOM0_REGS->USART_INT.SERCOM_CTRLA &= ~SERCOM_USART_INT_CTRLA_ENABLE_Msk; 
-    /* Software reset of USART settings */
-    SERCOM0_REGS->USART_INT.SERCOM_CTRLA = SERCOM_USART_INT_CTRLA_SWRST_Msk; 
-    /* Wait for the software reset to complete */
-    while (SERCOM0_REGS->USART_INT.SERCOM_SYNCBUSY & SERCOM_USART_INT_SYNCBUSY_SWRST_Msk);
     
     
     /* Set the data size to be 8 bits */
@@ -85,6 +79,9 @@ void uart_init (void) {
     
     /* Enable Receive Complete interrupt */
     SERCOM0_REGS->USART_INT.SERCOM_INTENSET = (uint8_t)SERCOM_USART_INT_INTENSET_RXC_Msk;
+    
+    // Enable TX Complete Interrupt
+    SERCOM0_REGS->USART_INT.SERCOM_INTENSET = (uint8_t)SERCOM_USART_INT_INTENSET_TXC_Msk;
     
 }
 
