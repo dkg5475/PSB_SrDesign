@@ -4,6 +4,19 @@
 #include <stdint.h>
 #include "../Header/timer.h"
 
+cal_temp_constants_t constants = {
+    .SUPPLY_VOLTAGE = 3.3f,
+    .SDADC_VREF = 3.3f,
+    .R18 = 4990.0f,
+    .B_VALUE = 4300.0f,
+    .R_25 = 100000.0f,
+    .T_25 = 298.15f,
+    .kelvinConst = 273.15f
+};
+
+inputs_t inputs;
+float voltage_samples[SAMPLE_COUNT];
+
 // Wrapper function around natural log function from math.h
 // Might replace later
 float myLn (float x) {
@@ -12,7 +25,7 @@ float myLn (float x) {
 
 void raw_to_voltage (void) {
     for (int i = 0; i < SAMPLE_COUNT; i++) {
-        voltage_samples[i] = (float)((sample_buffer[i] * constants.SDADC_VREF) / INT16_MAX); // INT16_MAX is 2^16
+        voltage_samples[i] = (float)((sample_buffer[i] * constants.SDADC_VREF) / 65535); // 32767 is 2^16
     }
     inputs.first_sample = voltage_samples[0];
     inputs.last_sample = voltage_samples[SAMPLE_COUNT - 1];

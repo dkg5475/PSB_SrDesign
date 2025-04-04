@@ -119,8 +119,8 @@ void nvic_init (void) {
     __DMB();
     __enable_irq();
             
-    NVIC_SetPriority(SERCOM0_IRQn, 0);
-    NVIC_EnableIRQ(SERCOM0_IRQn);
+    //NVIC_SetPriority(SERCOM0_IRQn, 0);
+    //NVIC_EnableIRQ(SERCOM0_IRQn);
     
     NVIC_SetPriority(SDADC_IRQn, 1);
     NVIC_EnableIRQ(SDADC_IRQn);

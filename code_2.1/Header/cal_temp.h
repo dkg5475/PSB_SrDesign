@@ -1,5 +1,5 @@
-#ifndef TEMPCAL_H
-#define TEMPCAL_H
+#ifndef CAL_TEMP_H
+#define CAL_TEMP_H
 
 #include "analog.h"
 #include <math.h>

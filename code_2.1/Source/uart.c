@@ -24,17 +24,21 @@ volatile bool commandReady = false;
 bool verboseActiveFlag = false;
 
 // override printf functiont to work with uart
-/* 
+
 int _write(int file, char *ptr, int len) {
     for (int i = 0; i < len; i++) {
-        tx_byte(ptr[i]);  // Send each character via USART
+        tx_byte((uint8_t)ptr[i]);  // Send each character via USART
     }
     return len;  // Return the number of bytes written
 }
- * */
  
-void _mon_putc(char c) {
-    tx_byte((uint8_t)c);
+ 
+void _mon_putc (char c) {
+    return;
+}
+
+void _mon_getc (char c) {
+    return;
 }
 
 
@@ -71,8 +75,8 @@ void uart_init (void) {
             SERCOM_USART_INT_CTRLA_MODE_USART_INT_CLK;
             
     
-    /* Set baud rate to be 14400 for a 48 MHz clock  */
-    SERCOM0_REGS->USART_INT.SERCOM_BAUD = (uint16_t)SERCOM_USART_INT_BAUD_BAUD(16592UL);
+    /* Set baud rate to be 57600 for a 48 MHz clock  */
+    SERCOM0_REGS->USART_INT.SERCOM_BAUD = (uint16_t)SERCOM_USART_INT_BAUD_BAUD(24628UL);
     
     /* Enable the UART after the configurations */
     SERCOM0_REGS->USART_INT.SERCOM_CTRLA |= SERCOM_USART_INT_CTRLA_ENABLE_Msk;
