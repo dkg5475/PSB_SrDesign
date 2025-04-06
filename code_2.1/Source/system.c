@@ -122,7 +122,7 @@ void nvic_init (void) {
     //NVIC_SetPriority(SERCOM0_IRQn, 0);
     //NVIC_EnableIRQ(SERCOM0_IRQn);
     
-    NVIC_SetPriority(SDADC_IRQn, 1);
+    NVIC_SetPriority(SDADC_IRQn, 0);
     NVIC_EnableIRQ(SDADC_IRQn);
 }
 
@@ -137,39 +137,33 @@ void nvic_int_enable (void) {
 }
 
 void supc_init (void) {
-    USER_FUSES_REGS->FUSES_USER_WORD_0 = FUSES_USER_WORD_0_NVMCTRL_BOOTPROT_SIZE_16384BYTES; // protect the first 16KB of flash (startup file size))
-    /* 
-    USER_FUSES_REGS->FUSES_USER_WORD_0 = FUSES_USER_WORD_0_BODVDD_DIS_DISABLED; //disable the BOD on startup before configuration
-    USER_FUSES_REGS->FUSES_USER_WORD_0 = FUSES_USER_WORD_0_BODVDDUSERLEVEL(0x3F); // Fuse setting for BODVDD threshold
-    */
-     
-    SUPC_REGS->SUPC_BODVDD &= ~(SUPC_BODVDD_ENABLE_Msk); // disable the BODVDD during configuration
-    while (!(SUPC_REGS->SUPC_STATUS & SUPC_STATUS_BVDDSRDY_Msk)); // wait for register sync 
+    uint32_t bodEnable = SUPC_REGS->SUPC_BODVDD & SUPC_BODVDD_ENABLE_Msk;
+
+    /* Configure BODVDD. Mask the values loaded from NVM during reset. */
+    SUPC_REGS->SUPC_BODVDD &= ~SUPC_BODVDD_ENABLE_Msk;
+    SUPC_REGS->SUPC_BODVDD = (SUPC_REGS->SUPC_BODVDD & (SUPC_BODVDD_ENABLE_Msk | SUPC_BODVDD_ACTION_Msk | SUPC_BODVDD_HYST_Msk | SUPC_BODVDD_LEVEL_Msk)) | SUPC_BODVDD_PSEL(0x5UL) | SUPC_BODVDD_RUNSTDBY_Msk;
+    if (bodEnable != 0U)
+    {
+        SUPC_REGS->SUPC_BODVDD |= SUPC_BODVDD_ENABLE_Msk;
+
+        /* Wait for BODVDD Synchronization Ready */
+        while((SUPC_REGS->SUPC_STATUS & SUPC_STATUS_BVDDSRDY_Msk) == 0U)
+        {
+        }
+
+        /* If BODVDD in continuous mode then wait for BODVDD Ready */
+        if((SUPC_REGS->SUPC_BODVDD & SUPC_BODVDD_ACTCFG_Msk) == 0U)
+        {
+            while((SUPC_REGS->SUPC_STATUS & SUPC_STATUS_BODVDDRDY_Msk) == 0U)
+            {
+            }
+        }
+    }
+
+    /* Configure VREF */
+    SUPC_REGS->SUPC_VREF = SUPC_VREF_SEL(0x2UL) | SUPC_VREF_RUNSTDBY_Msk | SUPC_VREF_VREFOE_Msk;
+
     
-    SUPC_REGS->SUPC_BODVDD = SUPC_BODVDD_LEVEL(0x15) | // set the threshold for the BODVDD to 2.7V
-                             SUPC_BODVDD_ACTION_NONE | // BODVDD will do nothing for now
-                             SUPC_BODVDD_HYST_Msk | //enable hysteresis to deal with noise
-                             SUPC_BODVDD_ENABLE(0x1);  // enable BODVDD (via SUPC register) 
-    
-    while (!(SUPC_REGS->SUPC_STATUS & SUPC_STATUS_BVDDSRDY_Msk)); // wait for register sync 
-    
-    WDT_REGS->WDT_CTRLA &= ~(WDT_CTRLA_ENABLE_Msk); // Disable during configurations
-    while (!(WDT_REGS->WDT_SYNCBUSY & WDT_SYNCBUSY_ENABLE_Msk)); // Wait for register sync
-    
-    WDT_REGS->WDT_CTRLA =  WDT_CTRLA_ALWAYSON_Msk | //WDT is always on
-            WDT_CTRLA_WEN_Msk | // Enable WDT window
-            WDT_CTRLA_ALWAYSON(0x0); // can be disabled via enable bit
-    
-    while(!(WDT_REGS->WDT_SYNCBUSY & WDT_SYNCBUSY_WEN_Msk)); // Wait for window enable sync 
-    
-    WDT_REGS->WDT_CONFIG = WDT_CONFIG_PER_CYC4096 | // timeout period of 4096 cycles
-            WDT_CONFIG_WINDOW_CYC4096; // watchdog closed window period of 4096
-    
-    WDT_REGS->WDT_EWCTRL = WDT_EWCTRL_EWOFFSET_CYC2048; // cycles after warning is triggered before reset 
-    
-    WDT_REGS->WDT_CTRLA |= WDT_CTRLA_ENABLE_Msk; // enable 
-    
-    while(!(WDT_REGS->WDT_SYNCBUSY & WDT_SYNCBUSY_ENABLE_Msk)); // Wait for enable bit sync 
 }
 
 void chip_erase (void) {

@@ -1,8 +1,8 @@
 #ifndef FIS_H
-#define FIS_H
+#define	FIS_H
 
-#include "definitions.h"
 #include <stdint.h> 
+#include <math.h>
 
 /* Macros */
 #define LUT_SIZE_DEV   256
@@ -95,6 +95,8 @@ void     generate_gaussianLUT_dev   (float *lut, float sigma1, float c1, float s
 void     generate_gaussianLUT_slope (float *lut, float sigma1, float c1, float sigma2, float c2);
 float    interpolate_LUT            (float x, float *lut, int16_t lut_size, float x_min, float x_max);
 float    evaluate_ruleset           (fis_tempMembership_t tempMF, fis_slopeMembership_t slopeMF);
+uint16_t defuzzify                  (float x);
 
-    
-#endif
+
+#endif	/* FIS_H */
+

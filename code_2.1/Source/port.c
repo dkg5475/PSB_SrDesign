@@ -30,10 +30,11 @@
 void pin_init(void) {
     
     /* Enable multiplexing on PA02 and disable digital inputs*/
-    PORT_REGS->GROUP[0].PORT_PINCFG[2] = PORT_PINCFG_PMUXEN_Msk |
-            ~PORT_PINCFG_INEN_Msk; 
+    PORT_REGS->GROUP[0].PORT_PINCFG[2] = PORT_PINCFG_PMUXEN_Msk;
     /* Peripheral function B for PMUX[1] */
     PORT_REGS->GROUP[0].PORT_PMUX[1] = PORT_PMUX_PMUXE_B; 
+    // Set PA02 as an output
+    PORT_REGS->GROUP[0].PORT_DIRSET = (1 << 2);
 
     /* Configure PA04 to be the reference for the SDADC */
     /* Enable peripheral multiplexing for PA04 */
@@ -46,18 +47,18 @@ void pin_init(void) {
     /* Enable peripheral multiplexing for PA05 and PA06 and disable digital input */
     /* The disabling of digital inputs is done by writing to the corresponding PINCFG register 
      and inverted the enable mask */
-    PORT_REGS->GROUP[0].PORT_PINCFG[5] = PORT_PINCFG_PMUXEN_Msk |
-            ~PORT_PINCFG_INEN_Msk;
+    
+    //PORT_REGS->GROUP[0].PORT_PINCFG[5] = PORT_PINCFG_PMUXEN_Msk | PORT_PINCFG_INEN(1); 
     PORT_REGS->GROUP[0].PORT_PINCFG[6] = PORT_PINCFG_PMUXEN_Msk |
-            ~PORT_PINCFG_INEN_Msk; 
+            PORT_PINCFG_INEN(0); 
     
     /* Select PMUX B (Peripheral function B) for PA05 and PA06*/
     /* PMUX[2] PMUXO -> PA05 */
     /* PMUX[3] PMUXE -> PA06*/
-    PORT_REGS->GROUP[0].PORT_PMUX[2] = PORT_PMUX_PMUXO_B |
-            ~PORT_PINCFG_INEN_Msk;  
-    PORT_REGS->GROUP[0].PORT_PMUX[3] = PORT_PMUX_PMUXE_B |
-            ~PORT_PINCFG_INEN_Msk;  
+    
+    //PORT_REGS->GROUP[0].PORT_PMUX[2] = PORT_PMUX_PMUXO_B;
+    PORT_REGS->GROUP[0].PORT_PMUX[3] = PORT_PMUX_PMUXE_B;
+              
     /* Set PA05 as input */
     PORT_REGS->GROUP[0].PORT_DIRCLR = (1 << 5); 
     /* Set pa 06 as input */

@@ -2,19 +2,28 @@
 #include "samc21e18a.h"
 #include "../Header/analog.h"
 #include <stdint.h>
+#include <stdio.h>
 #include "../Header/timer.h"
 
+#define SDADC_RESULT_SIGNED_BIT_MSK     (~(0x01 << 15))
+
 cal_temp_constants_t constants = {
-    .SUPPLY_VOLTAGE = 3.3f,
-    .SDADC_VREF = 3.3f,
-    .R18 = 4990.0f,
-    .B_VALUE = 4300.0f,
-    .R_25 = 100000.0f,
-    .T_25 = 298.15f,
+    .SUPPLY_VOLTAGE = 3.0f,
+    .SDADC_VREF = 3.0f,
+    .R13 = 4250.0f,
+    .SH_A = 0.00087264,
+    .SH_B = 0.00020796,
+    .SH_C = 5.2284e-8f,
     .kelvinConst = 273.15f
 };
 
-inputs_t inputs;
+inputs_t inputs = {
+    .first_sample = 0,
+    .last_sample = 0,
+    .samples_average = 0,
+    .temp_slope = 0
+};
+
 float voltage_samples[SAMPLE_COUNT];
 
 // Wrapper function around natural log function from math.h
@@ -25,15 +34,18 @@ float myLn (float x) {
 
 void raw_to_voltage (void) {
     for (int i = 0; i < SAMPLE_COUNT; i++) {
-        voltage_samples[i] = (float)((sample_buffer[i] * constants.SDADC_VREF) / 65535); // 32767 is 2^16
+        voltage_samples[i] = (float)((sample_buffer[i] * constants.SDADC_VREF) / 32767.0f); // 32767 is 2^16
     }
-    inputs.first_sample = voltage_samples[0];
-    inputs.last_sample = voltage_samples[SAMPLE_COUNT - 1];
+    
+    inputs.first_sample = fabs(voltage_samples[0]);
+    inputs.last_sample = fabs(voltage_samples[SAMPLE_COUNT - 1]);
 }
 
 void find_average (void) {
+    inputs.samples_average = 0;
+    
     for (int i = 0; i < SAMPLE_COUNT; i++) {
-        inputs.samples_average += voltage_samples[i];
+        inputs.samples_average += fabs(voltage_samples[i]);
     }
     inputs.samples_average /= SAMPLE_COUNT;
 }
@@ -47,21 +59,27 @@ void find_average (void) {
 
 float voltage_to_temp (float sample) {
     float voltageOut = sample; 
-    float rTherm = ((voltageOut * constants.R18) / (constants.SUPPLY_VOLTAGE - voltageOut));
+    float rTherm = ((voltageOut * constants.R13) / (constants.SUPPLY_VOLTAGE - voltageOut));
     
     /* Calculates the temperature using the beta equation */
     /* T = B / [ln(R_T / R_25) + (B/T_25)], where temperature is in Kelvin */
-    float tempK = (constants.B_VALUE) / ( ( myLn(rTherm) / constants.R_25 ) + (constants.B_VALUE / constants.T_25) );
-    /* Convert the current data sample to Celsius */
-    float tempC = tempK - constants.kelvinConst;
-    /* Store the final result */
-    float result = tempC;
+    float temp_B = myLn(rTherm) * constants.SH_B;
+    float temp_C = powf((myLn(rTherm)), 3) * constants.SH_C;
     
-    return result;
+    float sum = constants.SH_A + temp_B + temp_C;
+    float result_kelvin = 1 / sum;
+    /* Convert the current data sample to Celsius */
+    float result_celsius = result_kelvin - constants.kelvinConst;
+    
+    return result_celsius;
 }
 
 void get_temp_inputs (void) {
-    voltage_to_temp(inputs.samples_average);
-    voltage_to_temp(inputs.first_sample);
-    voltage_to_temp(inputs.last_sample);
+    inputs.samples_average = voltage_to_temp(inputs.samples_average);
+    inputs.first_sample = voltage_to_temp(inputs.first_sample);
+    inputs.last_sample = voltage_to_temp(inputs.last_sample);
+}
+
+void calc_slope (float t) {
+    inputs.temp_slope = (inputs.last_sample - inputs.first_sample) / t;
 }

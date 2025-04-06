@@ -13,6 +13,7 @@
       <itemPath>Header/dac.h</itemPath>
       <itemPath>Header/flash.h</itemPath>
       <itemPath>Header/systick.h</itemPath>
+      <itemPath>Header/fis.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -39,6 +40,7 @@
       <itemPath>Source/dac.c</itemPath>
       <itemPath>Source/flash.c</itemPath>
       <itemPath>Source/systick.c</itemPath>
+      <itemPath>Source/fis.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>

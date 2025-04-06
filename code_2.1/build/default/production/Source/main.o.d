@@ -3,7 +3,7 @@ build/default/production/Source/main.o: Source/main.c \
  Source/../Header/uart.h Source/../Header/analog.h \
  Source/../Header/flash.h Source/../Header/cal_temp.h \
  Source/../Header/analog.h Source/../Header/timer.h \
- Source/../Header/systick.h
+ Source/../Header/systick.h Source/../Header/dac.h Source/../Header/fis.h
 
 Source/../Header/system.h:
 
@@ -22,3 +22,7 @@ Source/../Header/analog.h:
 Source/../Header/timer.h:
 
 Source/../Header/systick.h:
+
+Source/../Header/dac.h:
+
+Source/../Header/fis.h:
