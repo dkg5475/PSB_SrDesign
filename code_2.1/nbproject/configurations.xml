@@ -14,6 +14,7 @@
       <itemPath>Header/flash.h</itemPath>
       <itemPath>Header/systick.h</itemPath>
       <itemPath>Header/fis.h</itemPath>
+      <itemPath>Header/spi.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -41,6 +42,7 @@
       <itemPath>Source/flash.c</itemPath>
       <itemPath>Source/systick.c</itemPath>
       <itemPath>Source/fis.c</itemPath>
+      <itemPath>Source/spi.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -265,6 +267,8 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/Users/Danfi/OneDrive/Documents/remote/PSBSD/code_2.1/debug/default/default_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.ledbrightness" value="5"/>

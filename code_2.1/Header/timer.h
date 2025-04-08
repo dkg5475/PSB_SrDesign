@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define TIMER_FREQ 3000000U // timer runs at 3 MHz
+#define TIMER_FREQ 3000000.0f // timer runs at 3 MHz
 
 /* Function prototypes*/
 void tc3_init                 (void);

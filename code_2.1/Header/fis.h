@@ -5,44 +5,41 @@
 #include <math.h>
 
 /* Macros */
-#define LUT_SIZE_DEV   256
-#define LUT_SIZE_SLOPE 201
+#define LUT_SIZE_DEV   256U
+#define LUT_SIZE_SLOPE 201U
 
-/* Global structures */
+// Temperature bounds
+#define TEMP_LOWER_LIMIT   -40.0f
+#define TEMP_UPPER_LIMIT    120.0f
 
-/* Constants used repeatedly in calculations */
-typedef struct {
+// Slope bounds
+#define SLOPE_LOWER_LIMIT  -1.0f
+#define SLOPE_UPPER_LIMIT   1.0f
 
-    const float TEMP_DEV_LOWER_LIMIT;
-    const float TEMP_DEV_UPPER_LIMIT;
-    const float MIN_SLOPE_LIMIT;
-    const float MAX_SLOPE_LIMIT;
+// Standard deviation values used repeatedly
+#define STD_DEV_COLD_HOT    2.5f
+#define STD_DEV_OPTIMAL     1.0f
+#define STD_DEV_SLOPE       0.2f
 
-    const float SIGMA_COLD_HOT;
-    const float SIGMA_OPTIMAL;
-    const float SIGMA_SLOPE;
+// Center values used repeatedly
+#define DEC_C2             -0.35f
+#define STABLE_C1          -0.03f
+#define STABLE_C2          -0.03f
+#define INC_C1              0.35f
 
-    const float DEC_CENTER_2;
-    const float STABLE_CENTER_1;
-    const float STABLE_CENTER_2;
-    const float INC_CENTER_1;
-}fis_fuzzyConstants_t;
+// Voltage adjustments used in rule-firing function
+#define LARGE_INCREASE      0.6f
+#define SMALL_INCREASE      1.0f
+#define NO_CHANGE           1.55f
+#define SMALL_DECREASE      2.0f
+#define LARGE_DECREASE      2.5f
 
-extern fis_fuzzyConstants_t fuzzyConstants;
-
-typedef struct {
-    float T_set; 
-    
-    float coldMF_c2;
-    
-    float optimalMF_c1;
-    float optimalMF_c2;
-    
-    float hotMF_c1;
-}fis_fuzzyVars_t;
-
-extern fis_fuzzyVars_t fuzzyVars;
-
+// Some important global values that change 
+extern volatile float T_set;
+extern volatile float COLD_C2;
+extern volatile float OPTIMAL_C1;
+extern volatile float OPTIMAL_C2;
+extern volatile float HOT_C1;
 
 /* Structs to hold the degrees of membership from inputs*/
 typedef struct {
@@ -60,17 +57,6 @@ typedef struct {
 }fis_slopeMembership_t;
 
 extern fis_slopeMembership_t slopeMembership;
-
-typedef struct {
-    const float VERY_LARGE_INCREASE;
-    const float LARGE_INCREASE;
-    const float SMALL_INCREASE;
-    const float NO_CHANGE;
-    const float SMALL_DECREASE;
-    const float LARGE_DECREASE;
-}fis_fuzzyOutputs_t;
-
-extern fis_fuzzyOutputs_t fuzzyOutputs;
 
 typedef struct {
     float coldMF[LUT_SIZE_DEV];

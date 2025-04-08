@@ -1,29 +1,13 @@
 #include "../Header/fis.h"
 
-fis_fuzzyConstants_t fuzzyConstants = {
-    .TEMP_DEV_LOWER_LIMIT  = -40.0f,
-    .TEMP_DEV_UPPER_LIMIT  =  120.0f,
-    .MIN_SLOPE_LIMIT       = -1.0f,
-    .MAX_SLOPE_LIMIT       =  1.0f,
-            
-    .SIGMA_COLD_HOT        =  2.5f,
-    .SIGMA_OPTIMAL         =  1.0f,
-    .SIGMA_SLOPE           =  0.2f,
-            
-    .DEC_CENTER_2          =  -0.35f,
-    .STABLE_CENTER_1       =  -0.03f,
-    .STABLE_CENTER_2       =   0.03f,
-    .INC_CENTER_1          =   0.35f
-};
+// Values that vary based off the current setpoint
+// Actual data gets written to these in the initFuzzyVars function
+volatile float T_set      = 0;
+volatile float COLD_C2    = 0;
+volatile float OPTIMAL_C1 = 0;
+volatile float OPTIMAL_C2 = 0;
+volatile float HOT_C1     = 0;
 
-fis_fuzzyOutputs_t fuzzyOutputs = {
-    .VERY_LARGE_INCREASE = -1.5f,
-    .LARGE_INCREASE      = -0.75f,
-    .SMALL_INCREASE      = -0.5f,
-    .NO_CHANGE           = 0.0f,
-    .SMALL_DECREASE      = 0.75f,
-    .LARGE_DECREASE      = 1.5f
-};
 
 fis_tempMembership_t tempMembership = {
     .cold = 0,
@@ -51,15 +35,13 @@ fis_slopeLUTs_t slopeLUTs = {
     .incMF = {0}
 };
 
-fis_fuzzyVars_t fuzzyVars; // explicit init done in function call 
-
-/* Cannot initialize a struct with non-constant values, so this function will do so*/
-void initFuzzyVars (float T_set) {
-    fuzzyVars.T_set = T_set;
-    fuzzyVars.coldMF_c2 = T_set - 8.0f;
-    fuzzyVars.optimalMF_c1 = T_set - 0.02f;
-    fuzzyVars.optimalMF_c2 = T_set + 0.02f;
-    fuzzyVars.hotMF_c1 = T_set + 8.0f;
+// Initialization of variable values to be used later on 
+void initFuzzyVars (float setpt) {   
+    T_set = setpt;
+    COLD_C2 = T_set - 8.0f;
+    OPTIMAL_C1 = T_set - 0.02f;
+    OPTIMAL_C2 = T_set + 0.02f;
+    HOT_C1 = T_set + 8.0f;
 }
 
 float compute_gaussian_value (float x, float sigma1, float c1, float sigma2, float c2) {
@@ -83,12 +65,12 @@ float compute_gaussian_value (float x, float sigma1, float c1, float sigma2, flo
     }
     
     if (x <= c2) {
+        gauss2_value = 1;
+    }
+    else {
         diff2 = x - c2;
         exp2 = -(diff2 * diff2) / (2.0f * (sigma2 * sigma2));
         gauss2_value = expf(exp2);
-    }
-    else {
-        gauss2_value = 1;
     }
     
     result = (gauss1_value * gauss2_value);
@@ -100,10 +82,10 @@ void generate_gaussianLUT_dev (float *lut, float sigma1, float c1, float sigma2,
     float step_size = 0;
     float x = 0;
     
-    step_size = (fuzzyConstants.TEMP_DEV_UPPER_LIMIT - fuzzyConstants.TEMP_DEV_LOWER_LIMIT) / (LUT_SIZE_DEV - 1);
+    step_size = (TEMP_UPPER_LIMIT - TEMP_LOWER_LIMIT) / (LUT_SIZE_DEV - 1);
     
     for (int i = 0; i < LUT_SIZE_DEV; i++) {
-        x = fuzzyConstants.TEMP_DEV_LOWER_LIMIT + (i * step_size);
+        x = TEMP_LOWER_LIMIT + (i * step_size);
         lut[i] = compute_gaussian_value(x, sigma1, c1, sigma2, c2);
     }
 }
@@ -112,10 +94,10 @@ void generate_gaussianLUT_slope (float *lut, float sigma1, float c1, float sigma
     float step_size = 0;
     float x = 0;
     
-    step_size = (fuzzyConstants.MAX_SLOPE_LIMIT - fuzzyConstants.MIN_SLOPE_LIMIT) / (LUT_SIZE_SLOPE - 1);
+    step_size = (SLOPE_UPPER_LIMIT - SLOPE_LOWER_LIMIT) / (LUT_SIZE_SLOPE - 1);
     
     for (int i = 0; i < LUT_SIZE_SLOPE; i++) {
-        x = fuzzyConstants.MIN_SLOPE_LIMIT + (i * step_size);
+        x = SLOPE_LOWER_LIMIT + (i * step_size);
         lut[i] = compute_gaussian_value(x, sigma1, c1, sigma2, c2);
     }
 }
@@ -166,25 +148,25 @@ float evaluate_ruleset (fis_tempMembership_t tempMF, fis_slopeMembership_t slope
     
     
     rule_strengths[0] = fmin(tempMF.cold, slopeMF.dec);
-    rule_outputs[0] = fuzzyOutputs.VERY_LARGE_INCREASE;
+    rule_outputs[0] = LARGE_INCREASE;
     
     rule_strengths[1] = fmin(tempMF.cold, slopeMF.stable);
-    rule_outputs[1] = fuzzyOutputs.LARGE_DECREASE;
+    rule_outputs[1] = SMALL_INCREASE;
     
     rule_strengths[2] = fmin(tempMF.cold, slopeMF.inc);
-    rule_outputs[2] = fuzzyOutputs.SMALL_INCREASE;
+    rule_outputs[2] = NO_CHANGE;
     
     rule_strengths[3] = tempMF.optimal;
-    rule_outputs[3] = fuzzyOutputs.NO_CHANGE;
+    rule_outputs[3] = NO_CHANGE;
     
     rule_strengths[4] = fmin(tempMF.hot, slopeMF.dec);
-    rule_outputs[4] = fuzzyOutputs.NO_CHANGE;
+    rule_outputs[4] = NO_CHANGE;
     
     rule_strengths[5] = fmin(tempMF.hot, slopeMF.stable);
-    rule_outputs[5] = fuzzyOutputs.SMALL_DECREASE;
+    rule_outputs[5] = SMALL_DECREASE;
     
     rule_strengths[6] = fmin(tempMF.hot, slopeMF.inc);
-    rule_outputs[6] = fuzzyOutputs.LARGE_DECREASE;
+    rule_outputs[6] = LARGE_DECREASE;
     
     // Sugeno Weighted Sum
     for (int i = 0; i < 7; i++) {
@@ -199,21 +181,23 @@ float evaluate_ruleset (fis_tempMembership_t tempMF, fis_slopeMembership_t slope
     return (numerator / denominator);
 }
 
-uint16_t defuzzify (float x) {
-    float Vout = 0;
-    float DAC_val = 0;
-    
-    // Ensure x is within expected range (-1.5 to 1.5)
-    if (x > 1.5) {
-        x = 1.5;
-    }
-    if (x < -1.5) {
-        x = -1.5;
-    }
-    
-    Vout = 1.0 - (x / 1.5);
+uint16_t defuzzify(float x) {
+    float Vout = 0.0f;
+    uint16_t DAC_val = 0;
 
-    DAC_val = (uint16_t)((Vout / 2.5) * 1023);
+    // Clamp x to [0.6, 2.5]
+    if (x > 2.5f) {
+        x = 2.5f;
+    }
+    
+    if (x < 0.6f) {
+        x = 0.6f;
+    }
+    
+    Vout = (x / 2.5f) * 1023; // scale to a value between 0 and 1023
+    
+    DAC_val = (uint16_t)roundf(Vout); //round for better accuracy before returning
     
     return DAC_val;
 }
+

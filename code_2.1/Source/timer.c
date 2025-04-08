@@ -57,11 +57,12 @@ float calc_elapsed (uint16_t start, uint16_t end){
         elapsedTime = end - start;
     }
     else { // To handle overflow 
-        elapsedTime = (float)((65535 - start) + end + 1 );
+        elapsedTime = (uint16_t)((65535 - start) + end + 1 );
     }
     
-    float elapsedSeconds = (float)(elapsedTime) / (float)(TIMER_FREQ);
+    float elapsedSeconds = (float)(elapsedTime) / (float)(TIMER_FREQ);\
+    float elapsedMs = elapsedSeconds * 1000;
     
-    return elapsedSeconds;
+    return elapsedMs;
 
 }

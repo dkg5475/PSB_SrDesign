@@ -46,14 +46,14 @@ int main (void) {
     initFuzzyVars(97.00f);
     
     // LUTs for slope
-    generate_gaussianLUT_slope(slopeLUTs.decMF, fuzzyConstants.SIGMA_SLOPE, fuzzyConstants.MIN_SLOPE_LIMIT, fuzzyConstants.SIGMA_SLOPE, fuzzyConstants.DEC_CENTER_2);
-    generate_gaussianLUT_slope(slopeLUTs.stableMF, fuzzyConstants.SIGMA_SLOPE, fuzzyConstants.STABLE_CENTER_1, fuzzyConstants.SIGMA_SLOPE, fuzzyConstants.STABLE_CENTER_2);
-    generate_gaussianLUT_slope(slopeLUTs.incMF, fuzzyConstants.SIGMA_SLOPE, fuzzyConstants.INC_CENTER_1, fuzzyConstants.SIGMA_SLOPE, fuzzyConstants.MAX_SLOPE_LIMIT);
+    generate_gaussianLUT_slope(slopeLUTs.decMF, STD_DEV_SLOPE, SLOPE_LOWER_LIMIT, STD_DEV_SLOPE, DEC_C2);
+    generate_gaussianLUT_slope(slopeLUTs.stableMF, STD_DEV_SLOPE, STABLE_C1, STD_DEV_SLOPE, STABLE_C2);
+    generate_gaussianLUT_slope(slopeLUTs.incMF, STD_DEV_SLOPE, INC_C1, STD_DEV_SLOPE, SLOPE_UPPER_LIMIT);
     
     // LUTs for temperature deviation 
-    generate_gaussianLUT_dev(devLUTs.coldMF, fuzzyConstants.SIGMA_COLD_HOT, fuzzyConstants.TEMP_DEV_LOWER_LIMIT, fuzzyConstants.SIGMA_COLD_HOT, fuzzyVars.coldMF_c2);
-    generate_gaussianLUT_dev(devLUTs.optimalMF, fuzzyConstants.SIGMA_OPTIMAL, fuzzyVars.optimalMF_c1, fuzzyConstants.SIGMA_OPTIMAL, fuzzyVars.optimalMF_c2);
-    generate_gaussianLUT_dev(devLUTs.hotMF, fuzzyConstants.SIGMA_COLD_HOT, fuzzyVars.hotMF_c1, fuzzyConstants.SIGMA_COLD_HOT, fuzzyConstants.TEMP_DEV_UPPER_LIMIT);
+    generate_gaussianLUT_dev(devLUTs.coldMF, STD_DEV_COLD_HOT, TEMP_LOWER_LIMIT, STD_DEV_COLD_HOT, COLD_C2);
+    generate_gaussianLUT_dev(devLUTs.optimalMF, STD_DEV_OPTIMAL, OPTIMAL_C1, STD_DEV_OPTIMAL, OPTIMAL_C2);
+    generate_gaussianLUT_dev(devLUTs.hotMF, STD_DEV_COLD_HOT, HOT_C1, STD_DEV_COLD_HOT, TEMP_UPPER_LIMIT);
     
     const char* msg = "Reached the while loop\n\n\n\r";
     printf("%s", msg);
@@ -62,62 +62,65 @@ int main (void) {
     uint16_t end = 0;
     float elapsed = 0;
     int counter = 1;
-    //float output = 0;
-    //uint16_t dac_out = 0;
+    float output = 0;
+    uint16_t dac_out = 0;
     
-    // dac_write((uint16_t)0x0); // heat the crystal to its max to begin
+    dac_write((uint16_t)0x246); // heat the crystal to its max to begin (~0.6V)
     
     while(1) {
-        printf("Counter iteration %d:\n\n\r", counter);
+        //printf("Counter iteration %d:\n\n\r", counter);
         start = 0;
         end = 0;
-        
         tc3_start(); // start the timer
         start = tc3_counter_get(); // get timer value after start
-        printf("Beginning sampling\n\n\r");
         sdadc_start();
-        while (!bufferFullFlag) {
-            
-        }
-        printf("Buffer full\n\n\r");
+        while (!bufferFullFlag);
         sdadc_stop(); // end sampling
         end = tc3_counter_get(); // get the timer value before end
         tc3_end(); // end timer
         elapsed = calc_elapsed(start, end); // calculate the time that has elapsed
-        printf("Elapsed sampling time is %.8f \n\n\r", elapsed);
-        
         
         raw_to_voltage(); // convert to voltage
-        printf("Voltage sample 1 is %.8f\n\n\r", inputs.first_sample);
-        printf("Voltage sample 63 is %.8f\n\n\r", inputs.last_sample);
         find_average(); // find the average of the samples
-        printf("Average of voltage samples is %.8f\n\n\r", inputs.samples_average);
         get_temp_inputs(); // convert the first, last, and average of the samples to temp
         calc_slope(elapsed); // calculate the slope
+
+        printf("Average of the samples is %.8f\n\n\r", inputs.samples_average);
+        printf("First temperature sample: %.8f\n\n\r", inputs.first_sample);
+        printf("Last temperature sample: %.8f\n\n\r", inputs.last_sample);
+        printf("Elapsed time is %.8f \n\n\r", elapsed);
+        printf("Slope value is %.8f\n\n\r", inputs.temp_slope);
         
-        printf("Average of temp samples is %.8f\n\n\r", inputs.samples_average);
-        //printf("Slope of temperature is %.8f\n\n\r", inputs.temp_slope);
-        
-        systick_delay_ms(5000);
-        counter++;
-        /* 
-        tempMembership.cold = interpolate_LUT(inputs.samples_average, devLUTs.coldMF, LUT_SIZE_DEV, fuzzyConstants.TEMP_DEV_LOWER_LIMIT, fuzzyConstants.TEMP_DEV_UPPER_LIMIT);
-        tempMembership.optimal = interpolate_LUT(inputs.samples_average, devLUTs.optimalMF, LUT_SIZE_DEV, fuzzyConstants.TEMP_DEV_LOWER_LIMIT, fuzzyConstants.TEMP_DEV_UPPER_LIMIT);
-        tempMembership.hot = interpolate_LUT(inputs.samples_average, devLUTs.hotMF, LUT_SIZE_DEV, fuzzyConstants.TEMP_DEV_LOWER_LIMIT, fuzzyConstants.TEMP_DEV_UPPER_LIMIT);
+        tempMembership.cold = interpolate_LUT(inputs.samples_average, devLUTs.coldMF, LUT_SIZE_DEV, TEMP_LOWER_LIMIT, TEMP_UPPER_LIMIT);
+        tempMembership.optimal = interpolate_LUT(inputs.samples_average, devLUTs.optimalMF, LUT_SIZE_DEV, TEMP_LOWER_LIMIT, TEMP_UPPER_LIMIT);
+        tempMembership.hot = interpolate_LUT(inputs.samples_average, devLUTs.hotMF, LUT_SIZE_DEV, TEMP_LOWER_LIMIT, TEMP_UPPER_LIMIT);
         
         // Find the degree of membership for each membership functions for the slope
-        slopeMembership.dec = interpolate_LUT(inputs.temp_slope, slopeLUTs.decMF, LUT_SIZE_SLOPE, fuzzyConstants.MIN_SLOPE_LIMIT, fuzzyConstants.MAX_SLOPE_LIMIT);
-        slopeMembership.stable = interpolate_LUT(inputs.temp_slope, slopeLUTs.stableMF, LUT_SIZE_SLOPE, fuzzyConstants.MIN_SLOPE_LIMIT, fuzzyConstants.MAX_SLOPE_LIMIT);
-        slopeMembership.inc = interpolate_LUT(inputs.temp_slope, slopeLUTs.incMF, LUT_SIZE_SLOPE, fuzzyConstants.MIN_SLOPE_LIMIT, fuzzyConstants.MAX_SLOPE_LIMIT);
+        slopeMembership.dec = interpolate_LUT(inputs.temp_slope, slopeLUTs.decMF, LUT_SIZE_SLOPE, SLOPE_LOWER_LIMIT, SLOPE_UPPER_LIMIT);
+        slopeMembership.stable = interpolate_LUT(inputs.temp_slope, slopeLUTs.stableMF, LUT_SIZE_SLOPE, SLOPE_LOWER_LIMIT, SLOPE_UPPER_LIMIT);
+        slopeMembership.inc = interpolate_LUT(inputs.temp_slope, slopeLUTs.incMF, LUT_SIZE_SLOPE, SLOPE_LOWER_LIMIT, SLOPE_UPPER_LIMIT);
         
         // Evaluate the output of the controller
         output = evaluate_ruleset(tempMembership, slopeMembership);
+        
+        printf("The degree of membership of cold is %.8f\n\n\r", tempMembership.cold);
+        printf("The degree of membership of optimal is %.8f\n\n\r", tempMembership.optimal);
+        printf("The degree of membership of hot is %.8f\n\n\r", tempMembership.hot);
+        
+        printf("The degree of membership of decreasing is %.8f\n\n\r", slopeMembership.dec);
+        printf("The degree of membership of stable is %.8f\n\n\r", slopeMembership.stable);
+        printf("The degree of membership of increasing is %.8f\n\n\r", slopeMembership.inc);
+        
+        printf("Evaluated rule-set output is %.8f\n\n\r\r", output);
         
         // Defuzzify the output
         dac_out = defuzzify(output);
         
         dac_write(dac_out);
-        */
+        // dac_write((uint16_t)246); // for testing
+        
+        //systick_delay_ms(5000);
+        counter++;
     }
     
     
