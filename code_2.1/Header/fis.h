@@ -5,8 +5,8 @@
 #include <math.h>
 
 /* Macros */
-#define LUT_SIZE_DEV   256U
-#define LUT_SIZE_SLOPE 201U
+#define LUT_SIZE_DEV   512U
+#define LUT_SIZE_SLOPE 512U
 
 // Temperature bounds
 #define TEMP_LOWER_LIMIT   -40.0f
@@ -28,11 +28,11 @@
 #define INC_C1              0.35f
 
 // Voltage adjustments used in rule-firing function
-#define LARGE_INCREASE      0.6f
-#define SMALL_INCREASE      1.0f
-#define NO_CHANGE           1.55f
-#define SMALL_DECREASE      2.0f
-#define LARGE_DECREASE      2.5f
+#define LARGE_INCREASE       0.475f
+#define SMALL_INCREASE       0.2375f
+#define NO_CHANGE            0.000f
+#define SMALL_DECREASE      -0.2375f
+#define LARGE_DECREASE      -0.475f
 
 // Some important global values that change 
 extern volatile float T_set;
@@ -82,6 +82,7 @@ void     generate_gaussianLUT_slope (float *lut, float sigma1, float c1, float s
 float    interpolate_LUT            (float x, float *lut, int16_t lut_size, float x_min, float x_max);
 float    evaluate_ruleset           (fis_tempMembership_t tempMF, fis_slopeMembership_t slopeMF);
 uint16_t defuzzify                  (float x);
+uint16_t defuzzify_16               (float x);
 
 
 #endif	/* FIS_H */

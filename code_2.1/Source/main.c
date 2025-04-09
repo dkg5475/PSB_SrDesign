@@ -49,28 +49,36 @@ int main (void) {
     generate_gaussianLUT_slope(slopeLUTs.decMF, STD_DEV_SLOPE, SLOPE_LOWER_LIMIT, STD_DEV_SLOPE, DEC_C2);
     generate_gaussianLUT_slope(slopeLUTs.stableMF, STD_DEV_SLOPE, STABLE_C1, STD_DEV_SLOPE, STABLE_C2);
     generate_gaussianLUT_slope(slopeLUTs.incMF, STD_DEV_SLOPE, INC_C1, STD_DEV_SLOPE, SLOPE_UPPER_LIMIT);
-    
+
     // LUTs for temperature deviation 
     generate_gaussianLUT_dev(devLUTs.coldMF, STD_DEV_COLD_HOT, TEMP_LOWER_LIMIT, STD_DEV_COLD_HOT, COLD_C2);
     generate_gaussianLUT_dev(devLUTs.optimalMF, STD_DEV_OPTIMAL, OPTIMAL_C1, STD_DEV_OPTIMAL, OPTIMAL_C2);
     generate_gaussianLUT_dev(devLUTs.hotMF, STD_DEV_COLD_HOT, HOT_C1, STD_DEV_COLD_HOT, TEMP_UPPER_LIMIT);
-    
-    const char* msg = "Reached the while loop\n\n\n\r";
-    printf("%s", msg);
+  
     
     uint16_t start = 0;
     uint16_t end = 0;
     float elapsed = 0;
-    int counter = 1;
-    float output = 0;
-    uint16_t dac_out = 0;
     
-    dac_write((uint16_t)0x246); // heat the crystal to its max to begin (~0.6V)
+    int counter = 1;
+    
+    float prev_state = 0;
+    float current_state = 0;
+    float next_state = 0;
+    
+    uint16_t dac_out = 246;
+    prev_state = 0.601173f;
+    
+    //float voltage_dac = 0;
+    
+    dac_write(dac_out);
     
     while(1) {
-        //printf("Counter iteration %d:\n\n\r", counter);
+        printf("Counter iteration %d:\n\n\r", counter);
+        
         start = 0;
         end = 0;
+        
         tc3_start(); // start the timer
         start = tc3_counter_get(); // get timer value after start
         sdadc_start();
@@ -82,27 +90,31 @@ int main (void) {
         
         raw_to_voltage(); // convert to voltage
         find_average(); // find the average of the samples
+        printf("Thermistor Voltage (V) = %.8f\n\n\r", inputs.samples_average);
         get_temp_inputs(); // convert the first, last, and average of the samples to temp
         calc_slope(elapsed); // calculate the slope
 
-        printf("Average of the samples is %.8f\n\n\r", inputs.samples_average);
-        printf("First temperature sample: %.8f\n\n\r", inputs.first_sample);
-        printf("Last temperature sample: %.8f\n\n\r", inputs.last_sample);
-        printf("Elapsed time is %.8f \n\n\r", elapsed);
-        printf("Slope value is %.8f\n\n\r", inputs.temp_slope);
+        
+        printf("Temperature (C) = %.8f\n\n\r", inputs.samples_average);
+        //printf("First temperature sample: %.8f\n\n\r", inputs.first_sample);
+        //printf("Last temperature sample: %.8f\n\n\r", inputs.last_sample);
+        //printf("Elapsed time is %.8f \n\n\r", elapsed);
+        printf("Slope (C/ms) = %.8f\n\n\r", inputs.temp_slope);
+        
         
         tempMembership.cold = interpolate_LUT(inputs.samples_average, devLUTs.coldMF, LUT_SIZE_DEV, TEMP_LOWER_LIMIT, TEMP_UPPER_LIMIT);
         tempMembership.optimal = interpolate_LUT(inputs.samples_average, devLUTs.optimalMF, LUT_SIZE_DEV, TEMP_LOWER_LIMIT, TEMP_UPPER_LIMIT);
         tempMembership.hot = interpolate_LUT(inputs.samples_average, devLUTs.hotMF, LUT_SIZE_DEV, TEMP_LOWER_LIMIT, TEMP_UPPER_LIMIT);
-        
+
         // Find the degree of membership for each membership functions for the slope
         slopeMembership.dec = interpolate_LUT(inputs.temp_slope, slopeLUTs.decMF, LUT_SIZE_SLOPE, SLOPE_LOWER_LIMIT, SLOPE_UPPER_LIMIT);
         slopeMembership.stable = interpolate_LUT(inputs.temp_slope, slopeLUTs.stableMF, LUT_SIZE_SLOPE, SLOPE_LOWER_LIMIT, SLOPE_UPPER_LIMIT);
         slopeMembership.inc = interpolate_LUT(inputs.temp_slope, slopeLUTs.incMF, LUT_SIZE_SLOPE, SLOPE_LOWER_LIMIT, SLOPE_UPPER_LIMIT);
         
         // Evaluate the output of the controller
-        output = evaluate_ruleset(tempMembership, slopeMembership);
-        
+        current_state = evaluate_ruleset(tempMembership, slopeMembership);
+
+        printf("\n\r\r");
         printf("The degree of membership of cold is %.8f\n\n\r", tempMembership.cold);
         printf("The degree of membership of optimal is %.8f\n\n\r", tempMembership.optimal);
         printf("The degree of membership of hot is %.8f\n\n\r", tempMembership.hot);
@@ -110,17 +122,38 @@ int main (void) {
         printf("The degree of membership of decreasing is %.8f\n\n\r", slopeMembership.dec);
         printf("The degree of membership of stable is %.8f\n\n\r", slopeMembership.stable);
         printf("The degree of membership of increasing is %.8f\n\n\r", slopeMembership.inc);
+       
+        printf("\n\r\r");
+
+        next_state = prev_state - current_state;
         
-        printf("Evaluated rule-set output is %.8f\n\n\r\r", output);
+        if (next_state < 0.6) {
+            next_state = 0.6;
+        }
         
+        if (next_state > 2.5) {
+            next_state = 2.5;
+        }
+        
+        //printf("Prev  %.8f\n\n\r\r", prev_state);
+        printf("Computed Voltage Adjustment = %.8f\n\n\r", current_state);
+        printf("DAC Output Voltage = %.8f\n\n\r", next_state);
+
         // Defuzzify the output
-        dac_out = defuzzify(output);
+        dac_out = defuzzify(next_state);
         
+        // write to dac
         dac_write(dac_out);
-        // dac_write((uint16_t)246); // for testing
+        printf("DAC Output = %u\n\r\r", dac_out);
         
-        //systick_delay_ms(5000);
+        prev_state = next_state;
+        
+        
+        systick_delay_ms(100);
         counter++;
+        printf("--------------------------------------------------------------");
+        printf("--------------------------------------------------------------");
+        printf("\n\r\r\r");
     }
     
     

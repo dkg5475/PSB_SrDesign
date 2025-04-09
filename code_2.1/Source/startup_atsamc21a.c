@@ -28,6 +28,8 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdio.h>
+#include "../Header/uart.h"
 
 #if __XC32_VERSION__ >= 2300
 #pragma nocodecov
@@ -301,5 +303,7 @@ Dummy_Handler(void)
 #if (defined(__DEBUG) || defined(__DEBUG_D))
     __builtin_software_breakpoint();
 #endif
-    while (1) {}
+    while (1) {
+        printf("Dummy handling \n\r\r");
+    }
 }

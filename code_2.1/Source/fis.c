@@ -182,22 +182,29 @@ float evaluate_ruleset (fis_tempMembership_t tempMF, fis_slopeMembership_t slope
 }
 
 uint16_t defuzzify(float x) {
-    float Vout = 0.0f;
-    uint16_t DAC_val = 0;
+    // Clamp x to [-0.95, 0.95]
+    if (x > 2.5) {
+        x = 2.5;
+    } 
+    
+    if (x < 0.6) {
+        x = 0.6;
+    }
+    
+    // Normalize x to [0.0, 1.0] from [-0.95, 0.95]
+    //float normalized = (x - LARGE_DECREASE) / (LARGE_INCREASE - LARGE_DECREASE);  // (x + 0.95) / 1.9
 
-    // Clamp x to [0.6, 2.5]
-    if (x > 2.5f) {
-        x = 2.5f;
+    // Scale to 10-bit DAC value [0, 1023]
+    uint16_t dac_val = (uint16_t)(roundf((x * 1023.0f) / 2.5f));
+    
+    if (dac_val < 246) {
+        dac_val = 246;
     }
     
-    if (x < 0.6f) {
-        x = 0.6f;
+    if (dac_val > 1023) {
+        dac_val = 1023;
     }
-    
-    Vout = (x / 2.5f) * 1023; // scale to a value between 0 and 1023
-    
-    DAC_val = (uint16_t)roundf(Vout); //round for better accuracy before returning
-    
-    return DAC_val;
+
+    return dac_val;
 }
 
