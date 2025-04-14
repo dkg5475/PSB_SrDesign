@@ -17,9 +17,10 @@
 #define SLOPE_UPPER_LIMIT   1.0f
 
 // Standard deviation values used repeatedly
-#define STD_DEV_COLD_HOT    2.5f
-#define STD_DEV_OPTIMAL     1.0f
-#define STD_DEV_SLOPE       0.2f
+#define STD_DEV_COLD_HOT               2.5f
+#define STD_DEV_OPTIMAL                1.0f
+#define STD_DEV_SLOPE_COLD_HOT         0.1f
+#define STD_DEV_SLOPE_STABLE           0.2f
 
 // Center values used repeatedly
 #define DEC_C2             -0.35f

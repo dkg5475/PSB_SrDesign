@@ -1,0 +1,1 @@
+ $(MP_EXTRA_CC_PRE) -mcpu=cortex-m0plus  -x c -c -D__$(MP_PROCESSOR_OPTION)__  -mthumb ${PACK_COMMON_OPTIONS}  -ffunction-sections -mlong-calls -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) C:\Users\Danfi\MPLABXProjects\code_3.1.X\systick.c

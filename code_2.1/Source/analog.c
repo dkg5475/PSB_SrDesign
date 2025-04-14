@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#define SAMPLE_COUNT 64
+#define SAMPLE_COUNT 128
 
 
 volatile int16_t sample_buffer[SAMPLE_COUNT] = {0};  // Buffer to store samples
