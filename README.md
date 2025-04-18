@@ -1,1 +1,1 @@
-Initialization code based off the pinout from the schematic on Altium
+Repo for holding software to be used for the Embedded OCXO capstone project (1692)
